@@ -39,9 +39,9 @@ echo "suggestion_id;time;exit_code;" >> measurements.txt
     cd $PROJECT_PATH
     make clean 
     # compile program
-    make -f Makefile.gnu.serial 1> $HOME_DIR/logs/baseline/log.txt 2> $HOME_DIR/logs/baseline/log.txt
+    make -f Makefile.gnu.serial 1>> $HOME_DIR/logs/baseline/log.txt 2>> $HOME_DIR/logs/baseline/log.txt
     # execute program
-    COMMAND="./miniFE.x --nx 40 --ny 40 --nz 40"
+    COMMAND="./miniFE.x --nx 40 --ny 40 --nz 40 verify_solution=1"
     /usr/bin/time --format="baseline;%e;%x;" --append --output=$HOME_DIR/measurements.txt $COMMAND 1>> $HOME_DIR/logs/baseline/stdout.txt 2>> $HOME_DIR/logs/baseline/stderr.txt
 
 
@@ -63,7 +63,7 @@ for d in * ; do
 
     # compile program
     cd $PROJECT_PATH
-    make -f Makefile.discopop.openmp 1> $HOME_DIR/logs/$d/log.txt 2> $HOME_DIR/logs/$d/log.txt
+    make -f Makefile.discopop.openmp 1>> $HOME_DIR/logs/$d/log.txt 2>> $HOME_DIR/logs/$d/log.txt
 
     # execute program
     /usr/bin/time --format="${d};%e;%x;" --append --output=$HOME_DIR/measurements.txt $COMMAND 1>> $HOME_DIR/logs/$d/stdout.txt 2>>$HOME_DIR/logs/$d/stderr.txt

@@ -1,8 +1,8 @@
  HOME_DIR=$(pwd)
 ### SETTINGS ###
-DISCOPOP_PATH=/home/lukas/git/discopop
+DISCOPOP_PATH=/home/lukasrothenberger/git/discopop
 DISCOPOP_BUILD=$DISCOPOP_PATH/build
-PROJECT_PATH=/home/lukas/Schreibtisch/Example_Code/daxpy
+PROJECT_PATH=/home/lukasrothenberger/code/discopop_test/daxpy
 PROJECT_BUILD_PATH=$PROJECT_PATH/build
 ################
 
@@ -50,10 +50,10 @@ echo "suggestion_id;time;exit_code;" >> measurements.csv
     # compile program
     mkdir $PROJECT_BUILD_PATH
     cd $PROJECT_BUILD_PATH
-    cmake ..
+    cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .. 
     make -j15 1>> $HOME_DIR/logs/baseline/log.txt 2>> $HOME_DIR/logs/baseline/log.txt
     # execute program
-    COMMAND="./prog"
+    COMMAND="timeout 60 ./prog"
     /usr/bin/time --format="baseline;%e;%x;" --append --output=$HOME_DIR/measurements.csv $COMMAND 1>> $HOME_DIR/logs/baseline/stdout.txt 2>> $HOME_DIR/logs/baseline/stderr.txt
 
     # restore original state
@@ -80,7 +80,7 @@ for d in * ; do
     # compile program
     mkdir $PROJECT_BUILD_PATH
     cd $PROJECT_BUILD_PATH
-    cmake .. -DCMAKE_C_FLAGS="-fopenmp" -DCMAKE_CXX_FLAGS="-fopenmp"
+    cmake .. -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_FLAGS="-fopenmp -fopenmp-targets=nvptx64" -DCMAKE_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
     make -j 15 1>> $HOME_DIR/logs/$d/log.txt 2>> $HOME_DIR/logs/$d/log.txt
 
     # execute program

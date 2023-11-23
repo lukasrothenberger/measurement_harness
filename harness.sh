@@ -30,6 +30,9 @@ fi
 # create code copy 
 cp -r $PROJECT_PATH $HOME_DIR/code_copy
 
+# for easier browsing of the results, copy the identified patches
+cp -r $PATCH_GENERATOR_FOLDER $HOME_DIR/patch_generator_output
+
 
 # clean environment
 rm -rf logs

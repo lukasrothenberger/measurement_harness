@@ -22,7 +22,15 @@ cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
 
 # create discopop suggestions and save suggestions to buffer
 cd $WORKING_COPY_DIR
-make -f Makefile.discopop
+mkdir build
+cd build
+discopop_cmake -DWITH_OPENMP=Off -DWITH_MPI=Off ..
+make
+./lulesh2.0 -s 5
+cd .discopop
+discopop_explorer
+discopop_patch_generator
+cd ..
 cp -r .discopop $BUFFER_DIR
 cd $BENCHMARK_DIR
 
@@ -39,10 +47,12 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
     cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
     cd $WORKING_COPY_DIR
     # build
-    cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .
+    mkdir build
+    cd build
+    cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DWITH_OPENMP=Off -DWITH_MPI=Off ..
     make -j15 1>> $LOGS_DIR/baseline/log.txt 2>> $LOGS_DIR/baseline/log.txt
     # execute
-    COMMAND="timeout 60 ./prog"
+    COMMAND="timeout 60 ./lulesh2.0 -s 5"
     /usr/bin/time --format="baseline;%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/baseline/stdout.txt 2>> $LOGS_DIR/baseline/stderr.txt
     # clean environment
     cd $BENCHMARK_DIR
@@ -75,7 +85,9 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
 
         # compile program
         cd $WORKING_COPY_DIR
-        cmake . -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_FLAGS="-fopenmp -fopenmp-targets=nvptx64" -DCMAKE_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
+        mkdir build
+        cd build 
+        cmake .. -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DWITH_OPENMP=Off -DWITH_MPI=Off -DCMAKE_C_FLAGS="-fopenmp -fopenmp-targets=nvptx64" -DCMAKE_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
         make -j 15 1>> $LOGS_DIR/$d/log.txt 2>> $LOGS_DIR/$d/log.txt
 
         # execute program

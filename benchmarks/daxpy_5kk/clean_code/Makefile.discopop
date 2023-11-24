@@ -1,0 +1,30 @@
+CC=discopop_cc
+CXX=discopop_cxx
+
+all: clean prog patterns
+
+prog: daxpy.o
+	$(CXX) -o prog daxpy.o $(CXXFLAGS)
+
+daxpy.o: 
+	$(CXX) -c -o daxpy.o daxpy.cpp $(CXXFLAGS)
+
+patterns:
+	./prog
+	cd .discopop && discopop_explorer && discopop_patch_generator
+
+clean: 
+	rm -f prog
+	rm -f daxpy.o
+	rm -rf vsc_build
+	rm -rf vsc_build_hotspotDetection
+	rm -f *.orig
+	rm -f *.rej
+	rm -f CMakeCache.txt
+	rm -f cmake_install.cmake
+	rm -fr CMakeFiles
+	rm -f Makefile
+
+veryclean: clean
+	rm -rf .discopop
+

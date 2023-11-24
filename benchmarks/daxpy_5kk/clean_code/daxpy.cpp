@@ -13,7 +13,7 @@ void foo(){
 }
 
 int main(int argc, const char* argv[]) {
-    static int n = 50000; static double a = 2.0; //n = 100000000;
+    static int n = 5000000; static double a = 2.0; //n = 100000000;
     double *x = (double *) malloc(n * sizeof(double));
     double *y = (double *) malloc(n * sizeof(double));
     // Initialize x, y 

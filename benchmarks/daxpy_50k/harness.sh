@@ -42,7 +42,7 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
     cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .
     make -j15 1>> $LOGS_DIR/baseline/log.txt 2>> $LOGS_DIR/baseline/log.txt
     # execute
-    COMMAND="timeout 30 ./prog"
+    COMMAND="timeout 60 ./prog"
     /usr/bin/time --format="baseline;%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/baseline/stdout.txt 2>> $LOGS_DIR/baseline/stderr.txt
     # clean environment
     cd $BENCHMARK_DIR

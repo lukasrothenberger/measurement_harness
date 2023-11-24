@@ -1,0 +1,12 @@
+suggestion_id;time;exit_code;
+baseline;30.17;0;
+0;30.94;0;
+Command exited with non-zero status 124
+1;120.05;124;
+10;28.61;0;
+11;25.19;0;
+2;27.81;0;
+3;3.30;0;
+8;30.85;0;
+Command exited with non-zero status 124
+9;120.73;124;

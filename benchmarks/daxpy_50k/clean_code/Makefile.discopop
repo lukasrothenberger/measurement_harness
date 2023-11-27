@@ -2,6 +2,7 @@ CC=discopop_cc
 CXX=discopop_cxx
 
 all: clean prog patterns
+all_cpu: clean prog patterns_cpu
 
 prog: daxpy.o
 	$(CXX) -o prog daxpy.o $(CXXFLAGS)
@@ -12,6 +13,10 @@ daxpy.o:
 patterns:
 	./prog
 	cd .discopop && discopop_explorer && discopop_patch_generator
+
+patterns_cpu:
+	./prog
+	cd .discopop && discopop_explorer --enable-patterns=reduction,doall,pipeline,geodec && discopop_patch_generator
 
 clean: 
 	rm -f prog

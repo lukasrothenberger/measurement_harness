@@ -1,0 +1,15 @@
+all: clean 3mm_base
+
+3mm_base:
+	$(CC) $(CFLAGS) -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c  -o 3mm_base -DSMALL_DATASET
+
+get_suggestions:
+	./3mm_base
+	cd .discopop && discopop_explorer && discopop_patch_generator
+
+exec:
+	./3mm_base
+
+clean:
+	rm -f 3mm_base
+

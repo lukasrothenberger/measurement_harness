@@ -11,6 +11,8 @@
  echo "  WORKING_COPY: $WORKING_COPY_DIR"
  echo "  BUFFER: $BUFFER_DIR"
 
+exit 0
+
 # cleanup environment
 echo "cleanup..."
 rm -rf $WORKING_COPY_DIR

@@ -30,7 +30,6 @@ cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
 if true; then  # reset discopop suggestions
     rm -rf $CLEAN_BUFFER_DIR
     cd $WORKING_COPY_DIR
-    CC=discopop_cc make -f Makefile.discopop
     CC=discopop_cc make -f Makefile.discopop get_cpu_suggestions
     cp -r .discopop $CLEAN_BUFFER_DIR
     cd $BENCHMARK_DIR
@@ -48,10 +47,10 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
     rm -rf $WORKING_COPY_DIR
     cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
     cd $WORKING_COPY_DIR
-    # build
-    make -f Makefile.discopop -j151>> $LOGS_DIR/baseline/log.txt 2>> $LOGS_DIR/baseline/log.txt
+#    # build
+#    make -f Makefile.discopop -j151>> $LOGS_DIR/baseline/log.txt 2>> $LOGS_DIR/baseline/log.txt
     # execute
-    COMMAND="timeout 60 make -f Makefile.discopop exec"
+    COMMAND="timeout 120 make -f Makefile.discopop exec_cpu"
     /usr/bin/time --format="baseline;%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/baseline/stdout.txt 2>> $LOGS_DIR/baseline/stderr.txt
     # clean environment
     cd $BENCHMARK_DIR
@@ -86,9 +85,10 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
 
         # compile program
         cd $WORKING_COPY_DIR
+#        CC=clang CFLAGS="${CONFIG_CFLAGS}" make -f Makefile.discopop -j15 1>> $LOGS_DIR/baseline/log.txt 2>> $LOGS_DIR/baseline/log.txt
 
-        CC=clang CFLAGS="${CONFIG_CFLAGS}" make -f Makefile.discopop -j15 1>> $LOGS_DIR/baseline/log.txt 2>> $LOGS_DIR/baseline/log.txt
         # execute program
+        COMMAND="timeout 120 make -f Makefile.discopop exec_cpu"
         /usr/bin/time --format="${d};%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/$d/stdout.txt 2>>$LOGS_DIR/$d/stderr.txt
 
         # rollback suggestions

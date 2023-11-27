@@ -1,6 +1,7 @@
  BENCHMARK_DIR=$(pwd)
  CLEAN_CODE_DIR=$BENCHMARK_DIR/clean_code
  WORKING_COPY_DIR=$BENCHMARK_DIR/working_copy
+ CLEAN_BUFFER_DIR=$BENCHMARK_DIR/clean_buffer
  BUFFER_DIR=$BENCHMARK_DIR/buffer
  PATCH_GENERATOR_FOLDER=$BUFFER_DIR/patch_generator
  LOGS_DIR=$BENCHMARK_DIR/logs
@@ -9,6 +10,7 @@
  echo "BENCHMARK: $BENCHMARK_DIR"
  echo "  CLEAN_CODE: $CLEAN_CODE_DIR"
  echo "  WORKING_COPY: $WORKING_COPY_DIR"
+ echo "  CLEAN_BUFFER: $CLEAN_BUFFER_DIR"
  echo "  BUFFER: $BUFFER_DIR"
 
 # cleanup environment
@@ -23,7 +25,7 @@ cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
 # create discopop suggestions and save suggestions to buffer
 cd $WORKING_COPY_DIR
 make -f Makefile.discopop
-cp -r .discopop $BUFFER_DIR
+cp -r .discopop $CLEAN_BUFFER_DIR
 cd $BENCHMARK_DIR
 
 # prepare logging environment
@@ -51,15 +53,15 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
 # get measurements for all identified suggestions
     # check prerequisites
     # check if .discopop/patch_generator folder exists
-    if [ -d $PATCH_GENERATOR_FOLDER ]; then
+    if [ -d $CLEAN_BUFFER_DIR/patch_generator ]; then
         echo "Directory exists."
     else
-        echo "Directory not found: ${PATCH_GENERATOR_FOLDER}"
+        echo "Directory not found: ${CLEAN_BUFFER_DIR}/patch_generator"
         exit 1
     fi
 
     # iterate over suggestions
-    cd $PATCH_GENERATOR_FOLDER
+    cd $CLEAN_BUFFER_DIR/patch_generator
     for d in * ; do
         echo "CURRENT SUGGESTION: ${d}"
         # prepare output
@@ -67,7 +69,9 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
 
         # prepare a clean environment
         rm -rf $WORKING_COPY_DIR
+        rm -rf $BUFFER_DIR
         cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
+        cp -r $CLEAN_BUFFER_DIR $BUFFER_DIR
 
         # apply suggestion
         cd $BUFFER_DIR
@@ -88,6 +92,7 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
         # clean environment
         cd $BENCHMARK_DIR
         rm -rf $WORKING_COPY_DIR
+        rm -rf $BUFFER_DIR
     done
 
 exit 0

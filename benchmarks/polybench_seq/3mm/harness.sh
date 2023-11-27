@@ -20,7 +20,6 @@
 # cleanup environment
 echo "cleanup..."
 rm -rf $WORKING_COPY_DIR
-rm -rf $CLEAN_BUFFER_DIR
 rm -rf $BUFFER_DIR
 echo "  done."
 
@@ -28,11 +27,14 @@ echo "  done."
 cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
 
 # create discopop suggestions and save suggestions to buffer
-cd $WORKING_COPY_DIR
-CC=discopop_cc make -f Makefile.discopop
-CC=discopop_cc make -f Makefile.discopop get_suggestions
-cp -r .discopop $CLEAN_BUFFER_DIR
-cd $BENCHMARK_DIR
+if true; then  # reset discopop suggestions
+    rm -rf $CLEAN_BUFFER_DIR
+    cd $WORKING_COPY_DIR
+    CC=discopop_cc make -f Makefile.discopop
+    CC=discopop_cc make -f Makefile.discopop get_suggestions
+    cp -r .discopop $CLEAN_BUFFER_DIR
+    cd $BENCHMARK_DIR
+fi
 
 # prepare logging environment
 rm -rf $LOGS_DIR

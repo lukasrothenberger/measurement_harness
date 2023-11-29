@@ -66,6 +66,32 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
     cd $BENCHMARK_DIR
     rm -rf $WORKING_COPY_DIR
 
+# get best option measurement
+    # prepare a clean environment
+    mkdir -p $LOGS_DIR/optimum
+    rm -rf $WORKING_COPY_DIR
+    rm -rf $BUFFER_DIR
+    cp -r $CLEAN_CODE_DIR $WORKING_COPY_DIR
+    cp -r $CLEAN_BUFFER_DIR $BUFFER_DIR
+
+    # apply modifications
+    cd $BUFFER_DIR
+    discopop_patch_applicator -v -a $(cat optimizer/evolutionary_optimum.txt)
+
+    cd $WORKING_COPY_DIR
+    # build
+    cd $WORKING_COPY_DIR
+    mkdir build
+    cd build 
+    cmake .. -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DWITH_OPENMP=Off -DWITH_MPI=Off -DCMAKE_C_FLAGS="-fopenmp -fopenmp-targets=nvptx64" -DCMAKE_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
+    make -j 15 1>> $LOGS_DIR/optimum/log.txt 2>> $LOGS_DIR/optimum/log.txt
+    # execute
+    /usr/bin/time --format="optimum;%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/optimum/stdout.txt 2>>$LOGS_DIR/optimum/stderr.txt
+
+    # clean environment
+    cd $BENCHMARK_DIR
+    rm -rf $WORKING_COPY_DIR
+
 # get measurements for all identified suggestions
     # check prerequisites
     # check if .discopop/patch_generator folder exists

@@ -36,6 +36,7 @@ if false; then  # reset discopop suggestions
     cd .discopop
     discopop_explorer
     discopop_patch_generator
+    discopop_optimizer
     cd ..
     cp -r .discopop $CLEAN_BUFFER_DIR
     cd $BENCHMARK_DIR

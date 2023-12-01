@@ -46,6 +46,9 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
     # execute
     COMMAND="timeout 60 ./prog"
     /usr/bin/time --format="baseline;%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/baseline/stdout.txt 2>> $LOGS_DIR/baseline/stderr.txt
+    # get data movement stats
+    nsys profile -t cuda,openmp $COMMAND
+    nsys stats report1.nsys-rep -r gpumemsizesum --format csv --output $LOGS_DIR/baseline/
     # clean environment
     cd $BENCHMARK_DIR
     rm -rf $WORKING_COPY_DIR
@@ -71,6 +74,9 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
     # execute
     COMMAND="timeout 60 ./prog"
     /usr/bin/time --format="optimum;%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/optimum/stdout.txt 2>> $LOGS_DIR/optimum/stderr.txt
+    # get data movement stats
+    nsys profile -t cuda,openmp $COMMAND
+    nsys stats report1.nsys-rep -r gpumemsizesum --format csv --output $LOGS_DIR/optimum/
     # clean environment
     cd $BENCHMARK_DIR
     rm -rf $WORKING_COPY_DIR
@@ -109,6 +115,10 @@ echo "suggestion_id;time;exit_code;" >> $BENCHMARK_DIR/measurements.csv
 
         # execute program
         /usr/bin/time --format="${d};%e;%x;" --append --output=$BENCHMARK_DIR/measurements.csv $COMMAND 1>> $LOGS_DIR/$d/stdout.txt 2>>$LOGS_DIR/$d/stderr.txt
+
+        # get data movement stats
+        nsys profile -t cuda,openmp $COMMAND
+        nsys stats report1.nsys-rep -r gpumemsizesum --format csv --output $LOGS_DIR/$d/
 
         # rollback suggestions
         cd $BUFFER_DIR

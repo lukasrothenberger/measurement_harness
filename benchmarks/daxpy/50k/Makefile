@@ -119,9 +119,9 @@ prepare_gpu_exhaustive_optimum: cleanup_gpu_exhaustive_optimum get_discopop_patt
 	mv code code_gpu_exhaustive_optimum
 	mkdir -p logs/gpu_exhaustive
 compile_gpu_exhaustive_optimum:
-	cd code_gpu_exhaustive_optimum && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make
+	-cd code_gpu_exhaustive_optimum && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make
 measure_gpu_exhaustive_optimum:
-	/usr/bin/time --format="gpu_exhaustive;%e;%x;" --append --output=measurements.csv code_gpu_exhaustive_optimum/prog 1>> logs/gpu_exhaustive/stdout.txt 2>> logs/gpu_exhaustive/stderr.txt
+	-/usr/bin/time --format="gpu_exhaustive;%e;%x;" --append --output=measurements.csv code_gpu_exhaustive_optimum/prog 1>> logs/gpu_exhaustive/stdout.txt 2>> logs/gpu_exhaustive/stderr.txt
 
 ##### GPU EVOLUTIONARY
 cleanup_gpu_evolutionary_optimum:
@@ -134,9 +134,9 @@ prepare_gpu_evolutionary_optimum: cleanup_gpu_evolutionary_optimum get_discopop_
 	mv code code_gpu_evolutionary_optimum
 	mkdir -p logs/gpu_evolutionary
 compile_gpu_evolutionary_optimum:
-	cd code_gpu_evolutionary_optimum && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make
+	-cd code_gpu_evolutionary_optimum && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make
 measure_gpu_evolutionary_optimum:
-	/usr/bin/time --format="gpu_evolutionary;%e;%x;" --append --output=measurements.csv code_gpu_evolutionary_optimum/prog 1>> logs/gpu_evolutionary/stdout.txt 2>> logs/gpu_evolutionary/stderr.txt
+	-/usr/bin/time --format="gpu_evolutionary;%e;%x;" --append --output=measurements.csv code_gpu_evolutionary_optimum/prog 1>> logs/gpu_evolutionary/stdout.txt 2>> logs/gpu_evolutionary/stderr.txt
 
 #####
 

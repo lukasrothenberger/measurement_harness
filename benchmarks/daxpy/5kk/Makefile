@@ -147,7 +147,7 @@ setup_env:
 reset_env:
 	echo "RESET ENV"
 	rm -rvf code
-	cp -r ../../../clean_code/daxpy/50k code
+	cp -r ../../../clean_code/daxpy/5kk code
 	rm -rvf dp_folder
 	mkdir -p clean_dp_folder
 	cp -r clean_dp_folder dp_folder

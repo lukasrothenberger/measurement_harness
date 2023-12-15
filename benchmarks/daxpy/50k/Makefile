@@ -36,9 +36,9 @@ cpu_measure_exhaustive_optimum:
 	cd dp_folder && pwd && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
 	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
-	mkdir -p logs/exhaustive
+	mkdir -p logs/cpu_exhaustive
 	cd code && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
-	/usr/bin/time --format="exhaustive;%e;%x;" --append --output=measurements.csv code/prog 1>> logs/exhaustive/stdout.txt 2>> logs/exhaustive/stderr.txt
+	/usr/bin/time --format="cpu_exhaustive;%e;%x;" --append --output=measurements.csv code/prog 1>> logs/cpu_exhaustive/stdout.txt 2>> logs/cpu_exhaustive/stderr.txt
 
 cpu_measure_evolutionary_optimum:
 	make reset_env
@@ -47,7 +47,7 @@ cpu_measure_evolutionary_optimum:
 	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
 	mkdir -p logs/evolutionary
 	cd code && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
-	/usr/bin/time --format="evolutionary;%e;%x;" --append --output=measurements.csv code/prog 1>> logs/evolutionary/stdout.txt 2>> logs/evolutionary/stderr.txt
+	/usr/bin/time --format="cpu_evolutionary;%e;%x;" --append --output=measurements.csv code/prog 1>> logs/cpu_evolutionary/stdout.txt 2>> logs/cpu_evolutionary/stderr.txt
 
 cpu_measure_optima: cpu_measure_exhaustive_optimum cpu_measure_evolutionary_optimum
 

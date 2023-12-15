@@ -1,3 +1,6 @@
+all:
+	cd daxpy && make all
+
 cpu:
 	cd daxpy && make cpu
 

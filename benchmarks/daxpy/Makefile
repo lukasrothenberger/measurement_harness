@@ -1,3 +1,7 @@
+all:
+	cd 50k && make all
+	cd 5kk && make all
+
 cpu:
 	cd 50k && make cpu
 	cd 5kk && make cpu

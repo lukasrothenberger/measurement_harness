@@ -1,3 +1,6 @@
+all:
+	cd benchmarks && make all
+
 cpu:
 	cd benchmarks && make cpu
 

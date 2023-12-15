@@ -4,7 +4,7 @@ CPU_CC_FLAGS="-fopenmp"
 CPU_CXX_FLAGS="-fopenmp"
 GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
-DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json --system-configuration ../../../../configuration/system_configuration.json
+DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
 
 cpu: clean setup_env cpu_measure_sequential cpu_get_discopop_patterns cpu_measure_optima 
 
@@ -33,7 +33,7 @@ cpu_measure_sequential:
 
 cpu_measure_exhaustive_optimum:
 	make reset_env
-	cd dp_folder && pwd && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS}
+	cd dp_folder && pwd && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
 	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
 	mkdir -p logs/exhaustive

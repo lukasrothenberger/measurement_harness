@@ -1,0 +1,15 @@
+{
+  "devices": [
+    {
+      "compute_init_delays": {
+        "doall": 9.6e-05
+      },
+      "device_id": 4,
+      "device_type": 0,
+      "frequency": 3000000000,
+      "processors": 96,
+      "threads": 96
+    }
+  ],
+  "host_device": 4
+}

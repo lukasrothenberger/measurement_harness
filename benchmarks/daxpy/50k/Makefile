@@ -6,9 +6,11 @@ GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
 
-cpu: clean setup_env cpu_measure_sequential cpu_get_discopop_patterns cpu_measure_optima 
+cpu: clean setup_env measure_sequential get_discopop_patterns cpu_measure_optima 
 
-cpu_get_discopop_patterns:
+gpu: clean setup_env measure_sequential get_discopop_patterns gpu_measure_optima 
+
+get_discopop_patterns:
 	make reset_env
 	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx . && make
 	cd code && ./prog
@@ -17,15 +19,7 @@ cpu_get_discopop_patterns:
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
 
-gpu_get_discopop_patterns:
-	make reset_env
-	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx . && make
-	cd code && ./prog
-	rm -rvf clean_dp_folder
-	cp -r code/.discopop clean_dp_folder
-	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall,simplegpu
-
-cpu_measure_sequential:
+measure_sequential:
 	make reset_env
 	mkdir -p logs/sequential
 	cd code && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
@@ -45,11 +39,31 @@ cpu_measure_evolutionary_optimum:
 	cd dp_folder && pwd && discopop_optimizer -v ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
 	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
-	mkdir -p logs/evolutionary
+	mkdir -p logs/cpu_evolutionary
 	cd code && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
 	/usr/bin/time --format="cpu_evolutionary;%e;%x;" --append --output=measurements.csv code/prog 1>> logs/cpu_evolutionary/stdout.txt 2>> logs/cpu_evolutionary/stderr.txt
 
 cpu_measure_optima: cpu_measure_exhaustive_optimum cpu_measure_evolutionary_optimum
+
+gpu_measure_exhaustive_optimum:
+	make reset_env
+	cd dp_folder && pwd && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
+	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
+	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
+	mkdir -p logs/gpu_exhaustive
+	cd code && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make
+	/usr/bin/time --format="gpu_exhaustive;%e;%x;" --append --output=measurements.csv code/prog 1>> logs/gpu_exhaustive/stdout.txt 2>> logs/gpu_exhaustive/stderr.txt
+
+gpu_measure_evolutionary_optimum:
+	make reset_env
+	cd dp_folder && pwd && discopop_optimizer -v ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
+	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
+	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
+	mkdir -p logs/gpu_evolutionary
+	cd code && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make
+	/usr/bin/time --format="gpu_evolutionary;%e;%x;" --append --output=measurements.csv code/prog 1>> logs/gpu_evolutionary/stdout.txt 2>> logs/gpu_evolutionary/stderr.txt
+
+gpu_measure_optima: gpu_measure_exhaustive_optimum gpu_measure_evolutionary_optimum
 
 setup_env:
 	echo "ID; time; return_code;" > measurements.csv

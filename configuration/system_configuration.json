@@ -1,0 +1,99 @@
+{
+  "devices": [
+    {
+      "compute_init_delays": {
+        "doall": 9.6e-05
+      },
+      "device_id": 4,
+      "device_type": 0,
+      "frequency": 3000000000,
+      "processors": 96,
+      "threads": 96
+    },
+    {
+      "compute_init_delays": {
+        "target_teams_distribute_parallel_for": 0.005494
+      },
+      "device_id": 0,
+      "device_type": 1,
+      "frequency": 512000000,
+      "processors": 128,
+      "teams": 3200,
+      "threads": 3200,
+      "transfer_init_delays": {
+        "average": 4.933333333333333e-05,
+        "target_data_update": 5.4999999999999995e-05,
+        "target_enter_data": 8.999999999999999e-05,
+        "target_exit_data": 3e-06
+      },
+      "transfer_speeds": {
+        "D2H_MB/s": 1828.614897359846,
+        "H2D_MB/s": 3652.0475204423365
+      }
+    },
+    {
+      "compute_init_delays": {
+        "target_teams_distribute_parallel_for": 0.004769
+      },
+      "device_id": 1,
+      "device_type": 1,
+      "frequency": 512000000,
+      "processors": 128,
+      "teams": 3200,
+      "threads": 3200,
+      "transfer_init_delays": {
+        "average": 4.266666666666666e-05,
+        "target_data_update": 3.9e-05,
+        "target_enter_data": 8.499999999999999e-05,
+        "target_exit_data": 4e-06
+      },
+      "transfer_speeds": {
+        "D2H_MB/s": 1849.0611392065682,
+        "H2D_MB/s": 4277.123377900959
+      }
+    },
+    {
+      "compute_init_delays": {
+        "target_teams_distribute_parallel_for": 0.005848
+      },
+      "device_id": 2,
+      "device_type": 1,
+      "frequency": 512000000,
+      "processors": 128,
+      "teams": 3200,
+      "threads": 3200,
+      "transfer_init_delays": {
+        "average": 8.666666666666665e-05,
+        "target_data_update": 6.9e-05,
+        "target_enter_data": 0.000187,
+        "target_exit_data": 4e-06
+      },
+      "transfer_speeds": {
+        "D2H_MB/s": 1888.0570948465486,
+        "H2D_MB/s": 4206.806613099996
+      }
+    },
+    {
+      "compute_init_delays": {
+        "target_teams_distribute_parallel_for": 0.005461
+      },
+      "device_id": 3,
+      "device_type": 1,
+      "frequency": 512000000,
+      "processors": 128,
+      "teams": 3200,
+      "threads": 3200,
+      "transfer_init_delays": {
+        "average": 8.866666666666665e-05,
+        "target_data_update": 7.099999999999999e-05,
+        "target_enter_data": 0.00019099999999999998,
+        "target_exit_data": 4e-06
+      },
+      "transfer_speeds": {
+        "D2H_MB/s": 1873.9857052370407,
+        "H2D_MB/s": 4266.9397508107195
+      }
+    }
+  ],
+  "host_device": 4
+}

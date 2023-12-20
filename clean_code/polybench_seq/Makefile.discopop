@@ -1,0 +1,5 @@
+compile_atax:
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base
+
+instrument_atax:
+	discopop_cc -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base

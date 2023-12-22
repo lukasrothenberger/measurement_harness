@@ -14,7 +14,7 @@ cpu: clean setup_env cpu_prepare_code cpu_compile cpu_measure
 
 cpu_prepare_code: 
 	make prepare_sequential
-	make get_discopop_patterns
+	make cpu_get_discopop_patterns
 	make prepare_single_suggestions
 
 cpu_compile:
@@ -30,7 +30,7 @@ cpu_cleanup:
 
 
 ##### DISCOPOP 
-get_discopop_patterns:
+cpu_get_discopop_patterns:
 	make reset_env
 	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx . && make
 	cd code && ./prog
@@ -38,7 +38,7 @@ get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -x 
+	cd clean_dp_folder && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
 
 ##### SEQUENTIAL

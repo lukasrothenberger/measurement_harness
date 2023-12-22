@@ -16,4 +16,4 @@ gpu:
 clean:
 	cd daxpy && make clean
 	cd daxpy_modified && make clean
-	cd daxypy_collapsable && make clean
+	cd daxpy_collapsable && make clean

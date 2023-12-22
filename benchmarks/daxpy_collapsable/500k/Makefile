@@ -15,17 +15,37 @@ cpu: clean setup_env cpu_prepare_code cpu_compile cpu_measure
 cpu_prepare_code: 
 	make prepare_sequential
 	make cpu_get_discopop_patterns
-	make prepare_single_suggestions
+	make cpu_prepare_single_suggestions
 
 cpu_compile:
 	make compile_sequential
-	make compile_single_suggestions
+	make cpu_compile_single_suggestions
 
 cpu_measure:
 	make measure_sequential
-	make measure_single_suggestions
+	make cpu_measure_single_suggestions
 
 cpu_cleanup:
+	rm -rvf code_*
+
+####### GPU
+
+gpu: clean setup_env gpu_prepare_code gpu_compile gpu_measure
+
+gpu_prepare_code: 
+	make prepare_sequential
+	make gpu_get_discopop_patterns
+	make gpu_prepare_single_suggestions
+
+gpu_compile:
+	make compile_sequential
+	make gpu_compile_single_suggestions
+
+gpu_measure:
+	make measure_sequential
+	make gpu_measure_single_suggestions
+
+gpu_cleanup:
 	rm -rvf code_*
 
 
@@ -39,6 +59,17 @@ cpu_get_discopop_patterns:
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
 	cd clean_dp_folder && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
+
+gpu_get_discopop_patterns:
+	make reset_env
+	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx . && make
+	cd code && ./prog
+	ls code/.discopop
+	cp -r code/.discopop/* clean_dp_folder
+	ls -a clean_dp_folder
+	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
+	cd clean_dp_folder && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
 
 ##### SEQUENTIAL
@@ -55,7 +86,7 @@ measure_sequential:
 
 ##### SINGLE SUGGESTIONS
 SUGGESTIONS_DIR=./clean_dp_folder/patch_generator
-prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
+cpu_prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
 		basename $${f}; \
 		rm -rvf code_$$(basename $${f}); \
@@ -67,12 +98,34 @@ prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
 		mv code code_$$(basename $${f}); \
 		mkdir -p logs/$$(basename $${f}); \
 	done
-compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+cpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
 		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make ; \
 		cd .. ; \
 	done
-measure_single_suggestions: $(SUGGESTIONS_DIR)/*
+cpu_measure_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv code_$$(basename $${f})/prog 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+	done
+
+gpu_prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		basename $${f}; \
+		rm -rvf code_$$(basename $${f}); \
+		make reset_env; \
+		ls; \
+		pwd; \
+		cd dp_folder && discopop_patch_applicator -v -a $$(basename $${f}); \
+		cd .. ;\
+		mv code code_$$(basename $${f}); \
+		mkdir -p logs/$$(basename $${f}); \
+	done
+gpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make ; \
+		cd .. ; \
+	done
+gpu_measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
 		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv code_$$(basename $${f})/prog 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
 	done
@@ -115,5 +168,6 @@ clean:
 	rm -rvf measurements.csv
 	rm -rvf logs
 	make cpu_cleanup
+	make gpu_cleanup
 
 

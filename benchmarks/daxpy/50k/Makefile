@@ -25,7 +25,6 @@ cpu_measure:
 	make measure_sequential
 	make measure_single_suggestions
 
-
 cpu_cleanup:
 	rm -rvf code_*
 
@@ -43,7 +42,7 @@ get_discopop_patterns:
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
 
 ##### SEQUENTIAL
-prepare_sequential: cpu_cle
+prepare_sequential:
 	make reset_env
 	mv code code_sequential
 	mkdir -p logs/sequential

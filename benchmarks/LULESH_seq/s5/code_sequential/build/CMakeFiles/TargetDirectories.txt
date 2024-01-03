@@ -1,3 +1,0 @@
-/home/lukas/git/benchmark_harness/benchmarks/LULESH_seq/s5/code_sequential/build/CMakeFiles/lulesh2.0.dir
-/home/lukas/git/benchmark_harness/benchmarks/LULESH_seq/s5/code_sequential/build/CMakeFiles/edit_cache.dir
-/home/lukas/git/benchmark_harness/benchmarks/LULESH_seq/s5/code_sequential/build/CMakeFiles/rebuild_cache.dir

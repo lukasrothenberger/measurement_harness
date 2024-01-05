@@ -7,7 +7,7 @@ GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
 
 ########## CPU + GPU
-all: clean setup_env cpu_prepare_code gpu_prepare_code cpu_compile gpu_compile cpu_measure gpu_measure
+all: clean setup_env cpu_prepare_code cpu_compile cpu_measure
 
 ########## CPU
 cpu: clean setup_env cpu_prepare_code cpu_compile cpu_measure

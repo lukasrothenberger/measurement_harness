@@ -17,5 +17,4 @@ clean:
 	cd daxpy && make clean
 	cd daxpy_modified && make clean
 	cd daxpy_collapsable && make clean
-	cd LULESH_seq && make clean
 	cd polybench_seq && make clean

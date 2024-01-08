@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/benchmarks/polybench_seq/3mm/code/linear-algebra/kernels/3mm/3mm.c	2024-01-05 16:33:04.571279588 +0100
++++ /home/lukas/git/benchmark_harness/benchmarks/polybench_seq/3mm/code/linear-algebra/kernels/3mm/3mm.c.discopop_patch_generator.temp	2024-01-05 16:35:02.295943389 +0100
+@@ -76,6 +76,7 @@
+ 
+   /* E := A*B */
+   for (i = 0; i < _PB_NI; i++)
++    #pragma omp parallel for private(j,k) shared(A,B,E,i,nj,nk) 
+     for (j = 0; j < _PB_NJ; j++)
+       {
+ 	E[i][j] = 0;

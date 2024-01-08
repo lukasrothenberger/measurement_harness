@@ -1,0 +1,2 @@
+1	/home/lukas/git/benchmark_harness/benchmarks/polybench_seq/3mm/code/utilities/polybench.c
+2	/home/lukas/git/benchmark_harness/benchmarks/polybench_seq/3mm/code/linear-algebra/kernels/3mm/3mm.c

@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/benchmarks/polybench_seq/3mm/code/linear-algebra/kernels/3mm/3mm.c	2024-01-05 16:33:04.571279588 +0100
++++ /home/lukas/git/benchmark_harness/benchmarks/polybench_seq/3mm/code/linear-algebra/kernels/3mm/3mm.c.discopop_patch_generator.temp	2024-01-05 16:35:02.299943412 +0100
+@@ -37,6 +37,7 @@
+   for (i = 0; i < nj; i++)
+     for (j = 0; j < nm; j++)
+       C[i][j] = ((DATA_TYPE) i*(j+3)) / nl;
++  #pragma omp parallel for private(i,j) shared(D,nk,nl,nm) 
+   for (i = 0; i < nm; i++)
+     for (j = 0; j < nl; j++)
+       D[i][j] = ((DATA_TYPE) i*(j+2)) / nk;

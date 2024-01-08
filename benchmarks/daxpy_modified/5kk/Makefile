@@ -78,35 +78,6 @@ measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	done
 
 
-	
-
-
-##### CPU EXHAUSTIVE
-cleanup_cpu_exhaustive_optimum:
-	rm -rvf code_cpu_exhaustive_optimum
-prepare_cpu_exhaustive_optimum: cleanup_cpu_exhaustive_optimum get_discopop_patterns
-	make reset_env
-	cd dp_folder && pwd && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
-	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
-	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
-	mv cod##### SEQUENTIAL
-prepare_sequential:
-	make reset_env
-	mv code code_sequential
-	mkdir -p logs/sequential
-compile_sequential:
-	 bash -c "cd code_sequential; mkdir build; cd build; pwd; cmake .. -DWITH_MPI=Off -DWITH_OPENMP=Off -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS}; make; ./lulesh2.0 -s 4;"
-#	-cd code_sequential/build; make
-measure_sequential:
-	cd code_sequential && echo "cd code_sequential/build" > execute.sh && echo "./lulesh2.0 -s 4" >> execute.sh && chmod +x execute.sh
-	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/execute.sh 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
-	code_cpu_exhaustive_optimum
-	mkdir -p logs/cpu_exhaustive
-compile_cpu_exhaustive_optimum:
-	-cd code_cpu_exhaustive_optimum && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
-measure_cpu_exhaustive_optimum:
-	-/usr/bin/time --format="cpu_exhaustive;%e;%x;" --append --output=measurements.csv code_cpu_exhaustive_optimum/prog 1>> logs/cpu_exhaustive/stdout.txt 2>> logs/cpu_exhaustive/stderr.txt
-
 setup_env:
 	echo "ID; time; return_code;" > measurements.csv
 	mkdir clean_dp_folder

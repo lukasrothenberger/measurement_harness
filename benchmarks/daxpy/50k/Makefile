@@ -78,23 +78,6 @@ measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	done
 
 
-	
-
-
-##### CPU EXHAUSTIVE
-cleanup_cpu_exhaustive_optimum:
-	rm -rvf code_cpu_exhaustive_optimum
-prepare_cpu_exhaustive_optimum: cleanup_cpu_exhaustive_optimum get_discopop_patterns
-	make reset_env
-	cd dp_folder && pwd && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
-	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
-	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
-	mv code code_cpu_exhaustive_optimum
-	mkdir -p logs/cpu_exhaustive
-compile_cpu_exhaustive_optimum:
-	-cd code_cpu_exhaustive_optimum && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
-measure_cpu_exhaustive_optimum:
-	-/usr/bin/time --format="cpu_exhaustive;%e;%x;" --append --output=measurements.csv code_cpu_exhaustive_optimum/prog 1>> logs/cpu_exhaustive/stdout.txt 2>> logs/cpu_exhaustive/stderr.txt
 
 setup_env:
 	echo "ID; time; return_code;" > measurements.csv

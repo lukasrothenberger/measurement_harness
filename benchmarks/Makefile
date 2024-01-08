@@ -1,20 +1,22 @@
+DIRS=$$(find . -maxdepth 1 -type d -not -name .)
+
 all:
-	cd daxpy && make all
-	cd daxpy_modified && make all
-	cd daxpy_collapsable && make all
+	for f in ${DIRS}; do \
+		cd $$f && make all && cd .. ;\
+	done
 
 cpu:
-	cd daxpy && make cpu
-	cd daxpy_modified && make cpu
-	cd daxpy_collapsable && make cpu
+	for f in ${DIRS}; do \
+		cd $$f && make cpu && cd .. ;\
+	done
 
 gpu:
-	cd daxpy && make gpu
-	cd daxpy_modified && make gpu
-	cd daxpy_collapsable && make gpu
+	for f in ${DIRS}; do \
+		cd $$f && make gpu && cd .. ;\
+	done
 
 clean:
-	cd daxpy && make clean
-	cd daxpy_modified && make clean
-	cd daxpy_collapsable && make clean
-	cd polybench_seq && make clean
+	for f in ${DIRS}; do \
+		cd $$f && make clean && cd .. ;\
+	done
+	

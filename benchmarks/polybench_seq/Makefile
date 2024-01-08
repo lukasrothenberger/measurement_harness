@@ -1,11 +1,22 @@
+DIRS=$$(find . -maxdepth 1 -type d -not -name .)
+
 all:
-	cd atax && make all
+	for f in ${DIRS}; do \
+		cd $$f && make all && cd .. ;\
+	done
 
 cpu:
-	cd atax && make cpu
+	for f in ${DIRS}; do \
+		cd $$f && make cpu && cd .. ;\
+	done
 
 gpu:
-	cd atax && make gpu
+	for f in ${DIRS}; do \
+		cd $$f && make gpu && cd .. ;\
+	done
 
 clean:
-	cd atax && make clean
+	for f in ${DIRS}; do \
+		cd $$f && make clean && cd .. ;\
+	done
+	

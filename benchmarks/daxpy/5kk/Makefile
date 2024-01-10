@@ -29,6 +29,26 @@ cpu_cleanup:
 	rm -rvf code_*
 
 
+########## GPU
+gpu: clean setup_env gpu_prepare_code gpu_compile gpu_measure
+
+gpu_prepare_code: 
+	make prepare_sequential
+	make gpu_get_discopop_patterns
+	make prepare_single_suggestions
+
+gpu_compile:
+	make compile_sequential
+	make compile_single_suggestions
+
+gpu_measure:
+	make measure_sequential
+	make measure_single_suggestions
+
+gpu_cleanup:
+	rm -rvf code_*
+
+
 ##### DISCOPOP 
 cpu_get_discopop_patterns:
 	make reset_env
@@ -39,6 +59,17 @@ cpu_get_discopop_patterns:
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
 	cd clean_dp_folder && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
+
+gpu_get_discopop_patterns:
+	make reset_env
+	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx . && make
+	cd code && ./prog
+	ls code/.discopop
+	cp -r code/.discopop/* clean_dp_folder
+	ls -a clean_dp_folder
+	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
+	cd clean_dp_folder && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
 
 ##### SEQUENTIAL
@@ -98,5 +129,6 @@ clean:
 	rm -rvf measurements.csv
 	rm -rvf logs
 	make cpu_cleanup
+	make gpu_cleanup
 
 

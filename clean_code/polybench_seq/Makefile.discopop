@@ -87,3 +87,34 @@ compile_trmm:
 
 instrument_trmm:
 	discopop_cc -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base -DSMALL_DATASET
+
+
+compile_durbin:
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/durbin utilities/polybench.c linear-algebra/solvers/durbin/durbin.c -o durbin_base
+
+instrument_durbin:
+	discopop_cc -I utilities -I linear-algebra/solvers/durbin utilities/polybench.c linear-algebra/solvers/durbin/durbin.c -o durbin_base -DSMALL_DATASET
+
+compile_dynprog:
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base
+
+instrument_dynprog:
+	discopop_cc -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base -DSMALL_DATASET
+
+compile_gramschmidt:
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base
+
+instrument_gramschmidt:
+	discopop_cc -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base -DSMALL_DATASET
+
+compile_lu:
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base
+
+instrument_lu:
+	discopop_cc -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base -DSMALL_DATASET
+
+compile_ludcmp:
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base
+
+instrument_ludcmp:
+	discopop_cc -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base -DSMALL_DATASET

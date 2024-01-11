@@ -19,7 +19,7 @@ cpu_prepare_code:
 
 cpu_compile:
 	make compile_sequential
-	make compile_single_suggestions
+	make cpu_compile_single_suggestions
 
 cpu_measure:
 	make measure_sequential
@@ -39,7 +39,7 @@ gpu_prepare_code:
 
 gpu_compile:
 	make compile_sequential
-	make compile_single_suggestions
+	make gpu_compile_single_suggestions
 
 gpu_measure:
 	make measure_sequential
@@ -98,9 +98,14 @@ prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
 		mv code code_$$(basename $${f}); \
 		mkdir -p logs/$$(basename $${f}); \
 	done
-compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+cpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
 		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make ; \
+		cd .. ; \
+	done
+gpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make ; \
 		cd .. ; \
 	done
 measure_single_suggestions: $(SUGGESTIONS_DIR)/*

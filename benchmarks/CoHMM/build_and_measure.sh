@@ -12,7 +12,7 @@ else
     ./cohmm 1
     cd .discopop
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -o --doall-microbench-file /home/lukas/Schreibtisch/gpu_server_data/doall_1.json --system-configuration /home/lukas/git/benchmark_harness/configuration/cpu_only_system_configuration.json
+    discopop_optimizer -v -o --doall-microbench-file ../../configuration/doall_1.json --system-configuration ../../configuration/cpu_only_system_configuration.json
     discopop_patch_generator -a optimizer/patterns.json
     cd $BASEDIR
     mv code original_build

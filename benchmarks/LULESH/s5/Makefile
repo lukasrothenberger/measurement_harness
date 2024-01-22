@@ -122,7 +122,7 @@ setup_env:
 reset_env:
 	echo "RESET ENV"
 	rm -rvf code
-	cp -r ../../../clean_code/LULESH code
+	cp -r ../../../clean_code/LULESH_SEQ code
 	rm -rvf dp_folder
 	mkdir -p clean_dp_folder
 	cp -r clean_dp_folder dp_folder

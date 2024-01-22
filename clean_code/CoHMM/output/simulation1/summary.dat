@@ -1,0 +1,222 @@
+CoMD 1 Analytical 0 0
+Wave speed for the analytical response 0.042389
+Reference material's density 0.000000
+Number of HMM time steps 400
+Number of HMM grid points 400
+HMM spatial resolution dx in A 1000.000000
+HMM time resolution dt in fs 15000.000000
+Initial deformation 0.100000
+Initial energy density where undeformed in eV per A cube -0.295953
+Energy added with deformation in eV per A cube 0.005020
+Deformation start and end in percentage of HMM mesh 40.000000 50.000000
+CoMD parameters:
+Lattice parameter in A 3.618645
+Number of lattices nx ny nz 12 12 12
+Time resolution dt in fs 2.500000
+Number of MD time steps 1000
+Spatial adaptive sampling parameters:
+Refinement threshold 0.001000
+Coarsening threshold 0.000001
+Interpolation: linear 0 Akima splines 1 0
+Plot the CoHMM trajectory 0 no 1 yes 0
+Avoid using the adaptive sampling 1 yes 0 no 0
+
+
+Number of CoMD calls                                  184913 
+Number of CoMD calls avoided with the adaptive mesh   455087 
+
+
+Number of CoMD calls from the mesh coarsening scheme  44584 
+Number of CoMD calls from the mesh refinement scheme  140329 
+
+==> user time of 27 seconds
+
+
+###################################################################
+
+
+CoMD 1 Analytical 0 0
+Wave speed for the analytical response 0.042389
+Reference material's density 0.000000
+Number of HMM time steps 400
+Number of HMM grid points 400
+HMM spatial resolution dx in A 1000.000000
+HMM time resolution dt in fs 15000.000000
+Initial deformation 0.100000
+Initial energy density where undeformed in eV per A cube -0.295953
+Energy added with deformation in eV per A cube 0.005020
+Deformation start and end in percentage of HMM mesh 40.000000 50.000000
+CoMD parameters:
+Lattice parameter in A 3.618645
+Number of lattices nx ny nz 12 12 12
+Time resolution dt in fs 2.500000
+Number of MD time steps 1000
+Spatial adaptive sampling parameters:
+Refinement threshold 0.001000
+Coarsening threshold 0.000001
+Interpolation: linear 0 Akima splines 1 0
+Plot the CoHMM trajectory 0 no 1 yes 0
+Avoid using the adaptive sampling 1 yes 0 no 0
+
+
+Number of CoMD calls                                  184913 
+Number of CoMD calls avoided with the adaptive mesh   455087 
+
+
+Number of CoMD calls from the mesh coarsening scheme  44584 
+Number of CoMD calls from the mesh refinement scheme  140329 
+
+==> user time of 27 seconds
+
+
+###################################################################
+
+
+CoMD 1 Analytical 0 0
+Wave speed for the analytical response 0.042389
+Reference material's density 0.000000
+Number of HMM time steps 400
+Number of HMM grid points 400
+HMM spatial resolution dx in A 1000.000000
+HMM time resolution dt in fs 15000.000000
+Initial deformation 0.100000
+Initial energy density where undeformed in eV per A cube -0.295953
+Energy added with deformation in eV per A cube 0.005020
+Deformation start and end in percentage of HMM mesh 40.000000 50.000000
+CoMD parameters:
+Lattice parameter in A 3.618645
+Number of lattices nx ny nz 12 12 12
+Time resolution dt in fs 2.500000
+Number of MD time steps 1000
+Spatial adaptive sampling parameters:
+Refinement threshold 0.001000
+Coarsening threshold 0.000001
+Interpolation: linear 0 Akima splines 1 0
+Plot the CoHMM trajectory 0 no 1 yes 0
+Avoid using the adaptive sampling 1 yes 0 no 0
+
+
+Number of CoMD calls                                  184913 
+Number of CoMD calls avoided with the adaptive mesh   455087 
+
+
+Number of CoMD calls from the mesh coarsening scheme  44584 
+Number of CoMD calls from the mesh refinement scheme  140329 
+
+==> user time of 27 seconds
+
+
+###################################################################
+
+
+CoMD 1 Analytical 0 0
+Wave speed for the analytical response 0.042389
+Reference material's density 0.000000
+Number of HMM time steps 400
+Number of HMM grid points 400
+HMM spatial resolution dx in A 1000.000000
+HMM time resolution dt in fs 15000.000000
+Initial deformation 0.100000
+Initial energy density where undeformed in eV per A cube -0.295953
+Energy added with deformation in eV per A cube 0.005020
+Deformation start and end in percentage of HMM mesh 40.000000 50.000000
+CoMD parameters:
+Lattice parameter in A 3.618645
+Number of lattices nx ny nz 12 12 12
+Time resolution dt in fs 2.500000
+Number of MD time steps 1000
+Spatial adaptive sampling parameters:
+Refinement threshold 0.001000
+Coarsening threshold 0.000001
+Interpolation: linear 0 Akima splines 1 0
+Plot the CoHMM trajectory 0 no 1 yes 0
+Avoid using the adaptive sampling 1 yes 0 no 0
+
+
+Number of CoMD calls                                  184913 
+Number of CoMD calls avoided with the adaptive mesh   455087 
+
+
+Number of CoMD calls from the mesh coarsening scheme  44584 
+Number of CoMD calls from the mesh refinement scheme  140329 
+
+==> user time of 28 seconds
+
+
+###################################################################
+
+
+CoMD 1 Analytical 0 0
+Wave speed for the analytical response 0.042389
+Reference material's density 0.000000
+Number of HMM time steps 400
+Number of HMM grid points 400
+HMM spatial resolution dx in A 1000.000000
+HMM time resolution dt in fs 15000.000000
+Initial deformation 0.100000
+Initial energy density where undeformed in eV per A cube -0.295953
+Energy added with deformation in eV per A cube 0.005020
+Deformation start and end in percentage of HMM mesh 40.000000 50.000000
+CoMD parameters:
+Lattice parameter in A 3.618645
+Number of lattices nx ny nz 12 12 12
+Time resolution dt in fs 2.500000
+Number of MD time steps 1000
+Spatial adaptive sampling parameters:
+Refinement threshold 0.001000
+Coarsening threshold 0.000001
+Interpolation: linear 0 Akima splines 1 0
+Plot the CoHMM trajectory 0 no 1 yes 0
+Avoid using the adaptive sampling 1 yes 0 no 0
+
+
+Number of CoMD calls                                  184913 
+Number of CoMD calls avoided with the adaptive mesh   455087 
+
+
+Number of CoMD calls from the mesh coarsening scheme  44584 
+Number of CoMD calls from the mesh refinement scheme  140329 
+
+==> user time of 29 seconds
+
+
+###################################################################
+
+
+CoMD 1 Analytical 0 0
+Wave speed for the analytical response 0.042389
+Reference material's density 0.000000
+Number of HMM time steps 400
+Number of HMM grid points 400
+HMM spatial resolution dx in A 1000.000000
+HMM time resolution dt in fs 15000.000000
+Initial deformation 0.100000
+Initial energy density where undeformed in eV per A cube -0.295953
+Energy added with deformation in eV per A cube 0.005020
+Deformation start and end in percentage of HMM mesh 40.000000 50.000000
+CoMD parameters:
+Lattice parameter in A 3.618645
+Number of lattices nx ny nz 12 12 12
+Time resolution dt in fs 2.500000
+Number of MD time steps 1000
+Spatial adaptive sampling parameters:
+Refinement threshold 0.001000
+Coarsening threshold 0.000001
+Interpolation: linear 0 Akima splines 1 0
+Plot the CoHMM trajectory 0 no 1 yes 0
+Avoid using the adaptive sampling 1 yes 0 no 0
+
+
+Number of CoMD calls                                  184913 
+Number of CoMD calls avoided with the adaptive mesh   455087 
+
+
+Number of CoMD calls from the mesh coarsening scheme  44584 
+Number of CoMD calls from the mesh refinement scheme  140329 
+
+==> user time of 33 seconds
+
+
+###################################################################
+
+

@@ -69,7 +69,7 @@ gpu_get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -o ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
 
 ##### SEQUENTIAL
@@ -139,7 +139,7 @@ cleanup_cpu_exhaustive_optimum:
 	rm -rvf code_cpu_exhaustive_optimum
 prepare_cpu_exhaustive_optimum: cleanup_cpu_exhaustive_optimum get_discopop_patterns
 	make reset_env
-	cd dp_folder && pwd && discopop_optimizer -v -x ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd dp_folder && pwd && discopop_optimizer -v -o3 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd dp_folder && discopop_patch_generator -v -fcf optimizer/updated_configuration.json
 	cd dp_folder && discopop_patch_applicator -v -fcf optimizer/updated_configuration.json
 	mv code code_cpu_exhaustive_optimum

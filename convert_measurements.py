@@ -75,7 +75,7 @@ for file_path in valid_file_paths:
         data_i = dict(data[l]) 
         # determine bar color
         if "seq" in data_i.keys():
-            bar_color = "r"
+            bar_color = "y"
         elif str(optimized_solution_id) in data_i.keys():
             bar_color = "g"
         else:

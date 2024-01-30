@@ -1,13 +1,21 @@
 
 # Import the modules 
 import matplotlib.pyplot as plt 
+import sys
+import os
   
+# get path to measurement.csv
+file_path = sys.argv[1]
+if not os.path.exists(file_path):
+    raise FileNotFoundError(file_path)
+print("Parsing ", file_path)
+
 # Initialize a dictionary for months 
 data = dict() 
   
 # Read the data 
 optimized_solution_id = -1
-with open('measurements.csv', 'r') as f: 
+with open(file_path, 'r') as f: 
     for line in f.readlines(): 
         
         # Store each line in the dictionary 

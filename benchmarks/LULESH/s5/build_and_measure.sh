@@ -2,6 +2,9 @@ CC=clang
 CXX=clang++
 CPU_CC_FLAGS="-fopenmp"
 CPU_CXX_FLAGS="-fopenmp"
+DP_PATCH_GENERATOR_FLAGS=--only-maximum-id-pattern --log INFO
+
+####
 
 BASEDIR=$(pwd)
 
@@ -29,7 +32,7 @@ else
     hotspot_analyzer
     discopop_explorer --enable-patterns doall,reduction
     discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json
-    discopop_patch_generator -a optimizer/patterns.json
+    discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     cd $BASEDIR
     mv code original_build
 fi

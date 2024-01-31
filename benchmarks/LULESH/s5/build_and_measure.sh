@@ -2,13 +2,13 @@ CC=clang
 CXX=clang++
 CPU_CC_FLAGS="-fopenmp"
 CPU_CXX_FLAGS="-fopenmp"
-DP_PATCH_GENERATOR_FLAGS=--only-maximum-id-pattern --log INFO
+DP_PATCH_GENERATOR_FLAGS=--log INFO
 
 ####
 
 BASEDIR=$(pwd)
 
-# get original code 
+# get original code
 rm -rf original_code
 cp -r ../../../clean_code/LULESH_SEQ original_code
 
@@ -24,6 +24,8 @@ else
     discopop_hotspot_cmake -DWITH_MPI=Off -DWITH_OPENMP=Off .
     make 
     ./lulesh2.0 -s 5
+    ./lulesh2.0 -s 8
+    ./lulesh2.0 -s 10
     # discopop profiling
     discopop_cmake -DWITH_MPI=Off -DWITH_OPENMP=Off .
     make 

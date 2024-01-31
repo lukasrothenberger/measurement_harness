@@ -1,4 +1,11 @@
+DP_PATCH_GENERATOR_FLAGS="--log INFO"
+
 BASEDIR=$(pwd)
+
+# get original code and clean environment
+rm -rf original_code
+rm -rf code
+cp -r ../../clean_code/CoHMM original_code
 
 # get discopop suggestions
 if test -d original_build
@@ -8,12 +15,20 @@ else
     echo "Generate DiscoPoP suggestions..."
     cp -r original_code code
     cd code 
+    # hotspot detection
+    CC=discopop_hotspot_cc make
+    ./cohmm 1
+    cd .discopop
+    hotspot_analyzer
+    cd ..
+    make clean
+    # discopop pattern detection
     CC=discopop_cc make
     ./cohmm 1
     cd .discopop
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -o1 --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json
-    discopop_patch_generator -a optimizer/patterns.json
+    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json
+    discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     cd $BASEDIR
     mv code original_build
 fi

@@ -5,6 +5,7 @@ CPU_CXX_FLAGS="-fopenmp"
 GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
+DP_PATCH_GENERATOR_FLAGS=--only-maximum-id-pattern --log INFO
 
 ########## CPU + GPU
 all: clean setup_env cpu_prepare_code cpu_compile cpu_measure
@@ -39,7 +40,7 @@ cpu_get_discopop_patterns:
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
 	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
-	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json --only-maximum-id-pattern --log DEBUG
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 ##### SEQUENTIAL
 prepare_sequential:

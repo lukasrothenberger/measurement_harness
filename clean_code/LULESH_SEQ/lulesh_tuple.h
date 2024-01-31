@@ -2,7 +2,7 @@
 # error "You should specify USE_MPI=0 or USE_MPI=1 on the compile line"
 #endif
 
-#if USE_MPI
+#if _ALWAYS_FALSE_CHECK_FOR_MPI
 #include <mpi.h>
 
 /*
@@ -391,7 +391,7 @@ class Domain {
    // MPI-Related additional data
    //
 
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
    // Communication Work space 
    Real_t *commDataSend ;
    Real_t *commDataRecv ;

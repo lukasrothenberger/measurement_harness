@@ -9,3 +9,4 @@ gpu:
 
 clean:
 	cd benchmarks && make clean
+	rm -f measurement_report.pdf

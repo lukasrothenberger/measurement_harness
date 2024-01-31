@@ -155,7 +155,7 @@ Additional BSD Notice
 #include <iostream>
 #include <unistd.h>
 
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
 # include <omp.h>
 #endif
 
@@ -182,7 +182,7 @@ void TimeIncrement(Domain& domain)
          gnewdt = domain.dthydro() * Real_t(2.0) / Real_t(3.0) ;
       }
 
-#if USE_MPI      
+#if _ALWAYS_FALSE_CHECK_FOR_MPI      
       MPI_Allreduce(&gnewdt, &newdt, 1,
                     ((sizeof(Real_t) == 4) ? MPI_FLOAT : MPI_DOUBLE),
                     MPI_MIN, MPI_COMM_WORLD) ;
@@ -495,7 +495,7 @@ void IntegrateStressForElems( Domain &domain,
                               Real_t *sigxx, Real_t *sigyy, Real_t *sigzz,
                               Real_t *determ, Index_t numElem, Index_t numNode)
 {
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
    Index_t numthreads = omp_get_max_threads();
 #else
    Index_t numthreads = 1;
@@ -713,7 +713,7 @@ void CalcFBHourglassForceForElems( Domain &domain,
                                    Index_t numNode)
 {
 
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
    Index_t numthreads = omp_get_max_threads();
 #else
    Index_t numthreads = 1;
@@ -1026,7 +1026,7 @@ void CalcHourglassControlForElems(Domain& domain,
 
       /* Do a check for negative volumes */
       if ( domain.v(i) <= Real_t(0.0) ) {
-#if USE_MPI         
+#if _ALWAYS_FALSE_CHECK_FOR_MPI         
          MPI_Abort(MPI_COMM_WORLD, VolumeError) ;
 #else
          exit(VolumeError);
@@ -1075,7 +1075,7 @@ void CalcVolumeForceForElems(Domain& domain)
       // check for negative element volume
       for ( Index_t k=0 ; k<numElem ; ++k ) {
          if (determ[k] <= Real_t(0.0)) {
-#if USE_MPI            
+#if _ALWAYS_FALSE_CHECK_FOR_MPI            
             MPI_Abort(MPI_COMM_WORLD, VolumeError) ;
 #else
             exit(VolumeError);
@@ -1098,7 +1098,7 @@ static inline void CalcForceForNodes(Domain& domain)
 {
   Index_t numNode = domain.numNode() ;
 
-#if USE_MPI  
+#if _ALWAYS_FALSE_CHECK_FOR_MPI  
   CommRecv(domain, MSG_COMM_SBN, 3,
            domain.sizeX() + 1, domain.sizeY() + 1, domain.sizeZ() + 1,
            true, false) ;
@@ -1113,7 +1113,7 @@ static inline void CalcForceForNodes(Domain& domain)
   /* Calcforce calls partial, force, hourq */
   CalcVolumeForceForElems(domain) ;
 
-#if USE_MPI  
+#if _ALWAYS_FALSE_CHECK_FOR_MPI  
   Domain_member fieldData[3] ;
   fieldData[0] = &Domain::fx ;
   fieldData[1] = &Domain::fy ;
@@ -1219,7 +1219,7 @@ void LagrangeNodal(Domain& domain)
    * acceleration boundary conditions. */
   CalcForceForNodes(domain);
 
-#if USE_MPI  
+#if _ALWAYS_FALSE_CHECK_FOR_MPI  
 #ifdef SEDOV_SYNC_POS_VEL_EARLY
    CommRecv(domain, MSG_SYNC_POS_VEL, 6,
             domain.sizeX() + 1, domain.sizeY() + 1, domain.sizeZ() + 1,
@@ -1234,7 +1234,7 @@ void LagrangeNodal(Domain& domain)
    CalcVelocityForNodes( domain, delt, u_cut, domain.numNode()) ;
 
    CalcPositionForNodes( domain, delt, domain.numNode() );
-#if USE_MPI
+#if _ALWAYS_FALSE_CHECK_FOR_MPI
 #ifdef SEDOV_SYNC_POS_VEL_EARLY
   fieldData[0] = &Domain::x ;
   fieldData[1] = &Domain::y ;
@@ -1580,7 +1580,7 @@ void CalcLagrangeElements(Domain& domain)
         // See if any volumes are negative, and take appropriate action.
          if (domain.vnew(k) <= Real_t(0.0))
         {
-#if USE_MPI           
+#if _ALWAYS_FALSE_CHECK_FOR_MPI           
            MPI_Abort(MPI_COMM_WORLD, VolumeError) ;
 #else
            exit(VolumeError);
@@ -1940,7 +1940,7 @@ void CalcQForElems(Domain& domain)
 
       domain.AllocateGradients(numElem, allElem);
 
-#if USE_MPI      
+#if _ALWAYS_FALSE_CHECK_FOR_MPI      
       CommRecv(domain, MSG_MONOQ, 3,
                domain.sizeX(), domain.sizeY(), domain.sizeZ(),
                true, true) ;
@@ -1949,7 +1949,7 @@ void CalcQForElems(Domain& domain)
       /* Calculate velocity gradients */
       CalcMonotonicQGradientsForElems(domain);
 
-#if USE_MPI      
+#if _ALWAYS_FALSE_CHECK_FOR_MPI      
       Domain_member fieldData[3] ;
       
       /* Transfer veloctiy gradients in the first order elements */
@@ -1981,7 +1981,7 @@ void CalcQForElems(Domain& domain)
       }
 
       if(idx >= 0) {
-#if USE_MPI         
+#if _ALWAYS_FALSE_CHECK_FOR_MPI         
          MPI_Abort(MPI_COMM_WORLD, QStopError) ;
 #else
          exit(QStopError);
@@ -2336,7 +2336,7 @@ void ApplyMaterialPropertiesForElems(Domain& domain)
                 vc = eosvmax ;
           }
           if (vc <= 0.) {
-#if USE_MPI
+#if _ALWAYS_FALSE_CHECK_FOR_MPI
              MPI_Abort(MPI_COMM_WORLD, VolumeError) ;
 #else
              exit(VolumeError);
@@ -2409,7 +2409,7 @@ void CalcCourantConstraintForElems(Domain &domain, Index_t length,
                                    Index_t *regElemlist,
                                    Real_t qqc, Real_t& dtcourant)
 {
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
    const Index_t threads = omp_get_max_threads();
    Index_t courant_elem_per_thread[threads];
    Real_t dtcourant_per_thread[threads];
@@ -2424,7 +2424,7 @@ void CalcCourantConstraintForElems(Domain &domain, Index_t length,
       Real_t   dtcourant_tmp = dtcourant;
       Index_t  courant_elem  = -1 ;
 
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
       Index_t thread_num = omp_get_thread_num();
 #else
       Index_t thread_num = 0;
@@ -2476,7 +2476,7 @@ static inline
 void CalcHydroConstraintForElems(Domain &domain, Index_t length,
                                  Index_t *regElemlist, Real_t dvovmax, Real_t& dthydro)
 {
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
    const Index_t threads = omp_get_max_threads();
    Index_t hydro_elem_per_thread[threads];
    Real_t dthydro_per_thread[threads];
@@ -2490,7 +2490,7 @@ void CalcHydroConstraintForElems(Domain &domain, Index_t length,
       Real_t dthydro_tmp = dthydro ;
       Index_t hydro_elem = -1 ;
 
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
       Index_t thread_num = omp_get_thread_num();
 #else      
       Index_t thread_num = 0;
@@ -2572,7 +2572,7 @@ void LagrangeLeapFrog(Domain& domain)
     * material states */
    LagrangeElements(domain, domain.numElem());
 
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
 #ifdef SEDOV_SYNC_POS_VEL_LATE
    CommRecv(domain, MSG_SYNC_POS_VEL, 6,
             domain.sizeX() + 1, domain.sizeY() + 1, domain.sizeZ() + 1,
@@ -2593,7 +2593,7 @@ void LagrangeLeapFrog(Domain& domain)
 
    CalcTimeConstraintsForElems(domain);
 
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
 #ifdef SEDOV_SYNC_POS_VEL_LATE
    CommSyncPosVel(domain) ;
 #endif
@@ -2610,10 +2610,10 @@ int main(int argc, char *argv[])
    int myRank ;
    struct cmdLineOpts opts;
 
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
    Domain_member fieldData ;
    
-#ifdef _OPENMP
+#ifdef _ALWAYS_FALSE_CHECK_FOR_OPENMP
    int thread_support;
 
    MPI_Init_thread(&argc, &argv, MPI_THREAD_FUNNELED, &thread_support);
@@ -2650,7 +2650,7 @@ int main(int argc, char *argv[])
    if ((myRank == 0) && (opts.quiet == 0)) {
       std::cout << "Running problem size " << opts.nx << "^3 per domain until completion\n";
       std::cout << "Num processors: "      << numRanks << "\n";
-#if _OPENMP
+#if _ALWAYS_FALSE_CHECK_FOR_OPENMP
       std::cout << "Num threads: " << omp_get_max_threads() << "\n";
 #endif
       std::cout << "Total number of elements: " << ((Int8_t)numRanks*opts.nx*opts.nx*opts.nx) << " \n\n";
@@ -2672,7 +2672,7 @@ int main(int argc, char *argv[])
                        side, opts.numReg, opts.balance, opts.cost) ;
 
 
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
    fieldData = &Domain::nodalMass ;
 
    // Initial domain boundary communication 
@@ -2689,7 +2689,7 @@ int main(int argc, char *argv[])
 #endif   
    
    // BEGIN timestep to solution */
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
    double start = MPI_Wtime();
 #else
    timeval start;
@@ -2714,7 +2714,7 @@ int main(int argc, char *argv[])
 
    // Use reduced max elapsed time
    double elapsed_time;
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
    elapsed_time = MPI_Wtime() - start;
 #else
    timeval end;
@@ -2722,7 +2722,7 @@ int main(int argc, char *argv[])
    elapsed_time = (double)(end.tv_sec - start.tv_sec) + ((double)(end.tv_usec - start.tv_usec))/1000000 ;
 #endif
    double elapsed_timeG;
-#if USE_MPI   
+#if _ALWAYS_FALSE_CHECK_FOR_MPI   
    MPI_Reduce(&elapsed_time, &elapsed_timeG, 1, MPI_DOUBLE,
               MPI_MAX, 0, MPI_COMM_WORLD);
 #else
@@ -2740,7 +2740,7 @@ int main(int argc, char *argv[])
 
    delete locDom; 
 
-#if USE_MPI
+#if _ALWAYS_FALSE_CHECK_FOR_MPI
    MPI_Finalize() ;
 #endif
 

@@ -73,8 +73,6 @@ do
     fi
 done
 
-exit 0
-
 # execute and measure codes
 cd $BASEDIR
 rm -f measurements.csv
@@ -82,15 +80,15 @@ rm -rf logs
 for d in $(find -maxdepth 1 -name "code_*" -type d) 
 do 
     cd $BASEDIR
-    if [ -f $d/cohmm ]
+    if [ -f $d/build/lulesh2.0 ]
     then
-        echo "Measuring $d/cohmm ..."
+        echo "Measuring $d/build/lulesh2.0 ..."
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
-        cd $d
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv ./cohmm 2 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        cd $d/build
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv ./lulesh2.0 -s 12 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
-        echo "Executable $d/cohmm does not exist. Skipping."
+        echo "Executable $d/build/lulesh2.0 does not exist. Skipping."
     fi
     
 done

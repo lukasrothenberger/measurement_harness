@@ -54,16 +54,18 @@ for file_path in valid_file_paths:
             if id == "ID":
                 # skip header
                 continue
-            
+
+            # cleanup the print
+            id = id.replace("sequential", "seq")
+            if id.startswith("./code_"):
+                id = id.replace("./code_", "")
+
             # get the id of the optimized solution
             try:
                 if int(id) > optimized_solution_id:
                     optimized_solution_id = int(id)
             except ValueError:
                 pass
-
-            # cleanup the print
-            id = id.replace("sequential", "seq")
 
             if id not in data: 
                 data[id] = [] 

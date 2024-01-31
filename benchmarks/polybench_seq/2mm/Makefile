@@ -39,7 +39,7 @@ cpu_get_discopop_patterns:
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
 	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
-	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json --only-maximum-id-pattern --log DEBUG
 
 ##### SEQUENTIAL
 prepare_sequential:

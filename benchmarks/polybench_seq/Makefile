@@ -7,7 +7,7 @@ all:
 
 cpu:
 	for f in ${DIRS}; do \
-		cd $$f && make cpu && cd .. ;\
+		cd $$f && (make cpu || true) && cd .. ;\
 	done
 
 gpu:

@@ -80,7 +80,6 @@ measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 
 
 setup_env:
-	echo "ID; time; return_code;" > measurements.csv
 	mkdir clean_dp_folder
 
 reset_env:

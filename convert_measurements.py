@@ -46,7 +46,19 @@ for file_path in valid_file_paths:
     # Read the data 
     optimized_solution_id = -1
     with open(file_path, 'r') as f: 
+        ignore_next_line_due_to_error = False
         for line in f.readlines(): 
+            if ignore_next_line_due_to_error:
+                ignore_next_line_due_to_error = False
+                print("Ignoring line due to preceding error message: ", line.replace("\n", ""))
+                continue
+
+            # check for error messages
+            if len(line.split(";")) != 4:
+                ignore_next_line_due_to_error = True
+                print("Found error message: ", line.replace("\n", ""))
+                continue
+
             
             # Store each line in the dictionary 
             id, time, return_code, trail = line.split(';') 

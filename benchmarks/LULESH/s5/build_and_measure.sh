@@ -2,7 +2,7 @@ CC=clang
 CXX=clang++
 CPU_CC_FLAGS="-fopenmp"
 CPU_CXX_FLAGS="-fopenmp"
-DP_PATCH_GENERATOR_FLAGS=--log INFO
+DP_PATCH_GENERATOR_FLAGS="--log INFO --only-maximum-id-pattern"
 
 ####
 
@@ -91,7 +91,7 @@ do
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
         cd $d/build
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv ./lulesh2.0 -s 12 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 300 ./lulesh2.0 -s 12 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
         echo "Executable $d/build/lulesh2.0 does not exist. Skipping."
     fi

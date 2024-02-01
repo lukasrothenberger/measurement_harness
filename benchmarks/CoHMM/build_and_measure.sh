@@ -1,4 +1,5 @@
-DP_PATCH_GENERATOR_FLAGS="--log INFO --only-maximum-id-pattern"
+DP_PATCH_GENERATOR_FLAGS="--log INFO"
+#  --only-maximum-id-pattern"
 
 BASEDIR=$(pwd)
 
@@ -81,7 +82,7 @@ do
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
         cd $d
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 300 ./cohmm 2 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 120 ./cohmm 2 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
         echo "Executable $d/cohmm does not exist. Skipping."
     fi

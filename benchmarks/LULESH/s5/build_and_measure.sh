@@ -33,7 +33,7 @@ else
     cd .discopop
     hotspot_analyzer
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json
+    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json # cpu_only_system_configuration.json
     discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     cd $BASEDIR
     mv code original_build
@@ -67,7 +67,7 @@ for d in $(find -maxdepth 1 -name "code_*" -type d)
 do
     echo "compiling modified: $d"
     cd ${BASEDIR}/$d
-    if [ -f lulesh2.0 ]
+    if [ -f build/lulesh2.0 ]
     then
         echo "--> Executable exists. Skipping."
     else

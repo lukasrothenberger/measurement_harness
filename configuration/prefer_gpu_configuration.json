@@ -1,0 +1,60 @@
+{
+  "devices": [
+    {
+      "compute_init_delays[us]": {
+        "doall": 224.0
+      },
+      "device_id": 4,
+      "device_type": 0,
+      "frequency": 3000000000,
+      "processors": 96,
+      "threads": 96,
+      "speedup": 8.380792072759874
+    },
+    {
+      "compute_init_delays[us]": {
+        "target_teams_distribute_parallel_for": 1.0
+      },
+      "device_id": 0,
+      "device_type": 1,
+      "frequency": 512000000,
+      "processors": 128,
+      "teams": 3200,
+      "threads": 3200,
+      "speedup": 120.380792072759874,
+      "transfer_init_delays[us]": {
+        "average": 1.49999999999999,
+        "target_data_update": 1.0,
+        "target_enter_data": 2.0,
+        "target_exit_data": 2.0
+      },
+      "transfer_speeds": {
+        "D2H_MB/s": 182300.094228448292,
+        "H2D_MB/s": 364700.332158892378
+      }
+    },
+    {
+      "compute_init_delays[us]": {
+        "target_teams_distribute_parallel_for": 1.0
+      },
+      "device_id": 1,
+      "device_type": 1,
+      "frequency": 512000000,
+      "processors": 128,
+      "teams": 3200,
+      "threads": 3200,
+      "speedup": 147.380792072759874,
+      "transfer_init_delays[us]": {
+        "average": 1.5,
+        "target_data_update": 1.99999999999999,
+        "target_enter_data": 2.0,
+        "target_exit_data": 5.0
+      },
+      "transfer_speeds": {
+        "D2H_MB/s": 188800.3672798824682,
+        "H2D_MB/s": 429400.112342567107
+      }
+    }
+  ],
+  "host_device": 4
+}

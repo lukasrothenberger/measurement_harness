@@ -38,7 +38,7 @@ else
     ./CoMD-serial --nx 3 --ny 3 --nz 3
     cd .discopop
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json -v
+    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/prefer_gpu_system_configuration.json -v
     discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     cd $BASEDIR
     mv code original_build

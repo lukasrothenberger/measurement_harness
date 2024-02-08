@@ -29,17 +29,47 @@ cpu_measure:
 cpu_cleanup:
 	rm -rvf code_*
 
+########## GPU
+gpu: clean setup_env gpu_prepare_code gpu_compile gpu_measure
+
+gpu_prepare_code: 
+	make prepare_sequential
+	make gpu_get_discopop_patterns
+	make prepare_single_suggestions
+
+gpu_compile:
+	make compile_sequential
+	make gpu_compile_single_suggestions
+
+gpu_measure:
+	make measure_sequential
+	make measure_single_suggestions
+
+gpu_cleanup:
+	rm -rvf code_*
+
 
 ##### DISCOPOP 
 cpu_get_discopop_patterns:
 	make reset_env
-	cd code && make -f Makefile.discopop instrument_2mm
-	cd code && ./2mm_base
+	cd code && make -f Makefile.discopop instrument_jacobi-2d
+	cd code && ./jacobi-2d_base
 	ls code/.discopop
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -s -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
+
+gpu_get_discopop_patterns:
+	make reset_env
+	cd code && make -f Makefile.discopop instrument_jacobi-2d
+	cd code && ./jacobi-2d_base
+	ls code/.discopop
+	cp -r code/.discopop/* clean_dp_folder
+	ls -a clean_dp_folder
+	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
+	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/prefer_gpu_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 ##### SEQUENTIAL
@@ -48,9 +78,9 @@ prepare_sequential:
 	mv code code_sequential
 	mkdir -p logs/sequential
 compile_sequential:
-	-cd code_sequential && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_2mm
+	-cd code_sequential && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_jacobi-2d
 measure_sequential:
-	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/2mm_base 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
+	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/jacobi-2d_base 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
 
 
 
@@ -70,12 +100,19 @@ prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
 	done
 compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_2mm ; \
+		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_jacobi-2d ; \
 		cd .. ; \
 	done
+
+gpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${GPU_CC_FLAGS} make -f Makefile.discopop compile_jacobi-2d ; \
+		cd .. ; \
+	done
+
 measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 300 code_$$(basename $${f})/2mm_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 300 code_$$(basename $${f})/jacobi-2d_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
 	done
 
 

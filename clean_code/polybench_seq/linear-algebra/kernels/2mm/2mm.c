@@ -51,7 +51,7 @@ void init_array(int ni, int nj, int nk, int nl,
    Can be used also to check the correctness of the output. */
 static
 void print_array(int ni, int nl,
-		 DATA_TYPE POLYBENCH_2D(D,NI,NL,ni,nl))
+		 DATA_TYPE POLYBENCH_1D(D,NI*NL,ni*nl))
 {
   int i, j;
 

@@ -33,6 +33,7 @@
 #include "stdlib.h"
 #include "mpi.h"
 #include "comm.h"
+#include "openmp.h"
 
 #define BUFFACTOR 1.5
 #define BUFMIN 1000
@@ -242,7 +243,7 @@ int Comm::setup(MMD_float cutneigh, Atom &atom)
         nbox = myloc[idim] - ineed / 2;
         hi = (nbox + 1) * prd[idim] / procgrid[idim];
 
-        if(idim == 0) lo = atom.box.xhi clean_code/miniMD/ref/Makefile.default- cutneigh;
+        if(idim == 0) lo = atom.box.xhi - cutneigh;
 
         if(idim == 2) lo = atom.box.zhi - cutneigh;
 

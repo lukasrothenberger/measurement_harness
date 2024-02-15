@@ -1,42 +1,72 @@
-# Default Makefile: just call 'make -f Makefile.default'
+# Makefile for mpicxx compiler
+
 SHELL = /bin/sh
 
-#Compiler and Linker
-CC = discopop_cc
-LINK = discopop_cc
-#CC =    mpicxx
-#LINK =    mpicxx
+# Default Options
 
-# MiniMD Files
+AVX ?= no
+SIMD ?= no
 
-SRC =	ljs.cpp input.cpp integrate.cpp atom.cpp force_lj.cpp neighbor.cpp thermo.cpp comm.cpp timer.cpp output.cpp setup.cpp force_eam.cpp  
-INC = ljs.h atom.h force.h neighbor.h thermo.h timer.h comm.h integrate.h threadData.h variant.h types.h force_eam.h force_lj.h openmp.h
+#.IGNORE:
 
-	
-# Definitions
+# System-specific settings
 
-ROOT =	miniMD
-EXE =	$(ROOT)
-OBJ =	$(SRC:.cpp=.o) $(KOKKOS_SRC:.cpp=.o) 
+CC = discopop_cxx
+CCFLAGS = -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -fopenmp
+LINK = discopop_cxx
+LINKFLAGS =	-I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -fopenmp
+USRLIB = 	
+SYSLIB =	
+SIZE =		size
 
-CCFLAGS = -O3 -DMPICH_IGNORE_CXX_SEEK -DDEVICE=1  -I./ -g -mavx -fopenmp -DUSE_SIMD -DNOCHUNK
-LINKFLAGS = -O3 -g -mavx -fopenmp 
-USRLIB =  
-SYSLIB =  
+# Check for AVX compile
+ifeq ($(AVX), yes)
+CCFLAGS += -mavx 
+LINKFLAGS += -mavx
+endif
 
-#First copy all files, then call the same makefile again with the actual build target
-#Can't be done in single pass, because the actual compilation rule for .o files, need the 
-#copied cpp files to be in place. 
+ifeq ($(SIMD), yes)
+CCFLAGS += -DUSE_SIMD
+endif
 
-copy: 
-	@if [ ! -d Obj_default ]; then mkdir Obj_default; fi
-	@cp -p $(SRC) $(INC) Obj_default
-	@cp Makefile.default Obj_default/Makefile
-	@cd Obj_default; $(MAKE) all
-  
-all: $(OBJ)
-	$(LINK) $(OBJ) $(LINKFLAGS) $(USRLIB) $(SYSLIB) -o ../$(EXE)
-  
+ifeq ($(ANSI_ALIAS), yes)
+CCFLAGS += -ansi-alias 
+LINKFLAGS += -ansi-alias
+endif
+
+#Check for PAD
+ifeq ($(PAD4), yes)
+CCFLAGS += -DPAD4 
+LINKFLAGS += -DPAD4 
+endif
+
+#Check for single precision
+ifeq ($(SP), yes)
+CCFLAGS += -DPRECISION=1 
+LINKFLAGS += -DPRECISION=1 
+else
+CCFLAGS += -DPRECISION=2
+LINKFLAGS += -DPRECISION=2
+endif
+
+#Check if debug on
+ifeq ($(DEBUG), yes)
+CCFLAGS += -g  
+LINKFLAGS += -g 
+endif
+
+#Use LIBRT for precision timers
+ifeq ($(LIBRT),yes)
+CCFLAGS += -DPREC_TIMER
+USRLIB += -lrt
+endif
+
+# Link rule
+
+$(EXE):	$(OBJ)
+	$(LINK) $(LINKFLAGS) $(OBJ) $(USRLIB) $(SYSLIB) -o $(EXE)
+	$(SIZE) $(EXE)
+
 # Compilation rules
 
 .cpp.o:
@@ -46,17 +76,3 @@ all: $(OBJ)
 # Individual dependencies
 
 $(OBJ): $(INC)
-
-# Clean
-clean:
-	rm -r Obj_*
-	
-# Test
-
-scope=0
-input=lj
-halfneigh=0
-path=""
-test:
-	bash run_tests ${scope} ${input} ${halfneigh} ${path} 
-  

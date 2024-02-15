@@ -280,7 +280,6 @@ void ForceLJ::compute_halfneigh_threaded(Atom &atom, Neighbor &neighbor, int me)
   MMD_float* const f = atom.f;
   const int* const type = atom.type;
 
-  #pragma omp barrier
   // clear force on own and ghost atoms
 
   for(int i = 0; i < nall; i++) {
@@ -322,11 +321,8 @@ void ForceLJ::compute_halfneigh_threaded(Atom &atom, Neighbor &neighbor, int me)
         fiz += delz * force;
 
         if(GHOST_NEWTON || j < nlocal) {
-          #pragma omp atomic
           f[j * PAD + 0] -= delx * force;
-          #pragma omp atomic
           f[j * PAD + 1] -= dely * force;
-          #pragma omp atomic
           f[j * PAD + 2] -= delz * force;
         }
 
@@ -338,20 +334,14 @@ void ForceLJ::compute_halfneigh_threaded(Atom &atom, Neighbor &neighbor, int me)
       }
     }
 
-    #pragma omp atomic
     f[i * PAD + 0] += fix;
-    #pragma omp atomic
     f[i * PAD + 1] += fiy;
-    #pragma omp atomic
     f[i * PAD + 2] += fiz;
   }
 
-  #pragma omp atomic
   eng_vdwl += t_eng_vdwl;
-  #pragma omp atomic
   virial += t_virial;
 
-  #pragma omp barrier
 }
 
 //optimised version of compute
@@ -373,7 +363,6 @@ void ForceLJ::compute_fullneigh(Atom &atom, Neighbor &neighbor, int me)
   MMD_float* const f = atom.f;
   const int* const type = atom.type;
 
-  #pragma omp barrier
   // clear force on own and ghost atoms
 
   
@@ -439,11 +428,8 @@ void ForceLJ::compute_fullneigh(Atom &atom, Neighbor &neighbor, int me)
   t_eng_vdwl *= 4.0;
   t_virial *= 0.5;
 
-  #pragma omp atomic
   eng_vdwl += t_eng_vdwl;
-  #pragma omp atomic
   virial += t_virial;
-  #pragma omp barrier
 }
 
 

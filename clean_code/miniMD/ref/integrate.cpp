@@ -79,13 +79,11 @@ void Integrate::run(Atom &atom, Force* force, Neighbor &neighbor,
   dtforce = dtforce / mass;
   //Use OpenMP threads only within the following loop containing the main loop.
   //Do not use OpenMP for setup and postprocessing.
-  #pragma omp parallel private(i,n)
   {
     int next_sort = sort_every>0?sort_every:ntimes+1;
 
     for(n = 0; n < ntimes; n++) {
 
-      #pragma omp barrier
 
       x = atom.x;
       v = atom.v;
@@ -95,20 +93,17 @@ void Integrate::run(Atom &atom, Force* force, Neighbor &neighbor,
 
       initialIntegrate();
 
-      #pragma omp master
       timer.stamp();
 
       if((n + 1) % neighbor.every) {
 
         comm.communicate(atom);
-        #pragma omp master
         timer.stamp(TIME_COMM);
 
       } else {
         //these routines are not yet ported to OpenMP
         {
           if(check_safeexchange) {
-            #pragma omp master
             {
               double d_max = 0;
 
@@ -149,7 +144,6 @@ void Integrate::run(Atom &atom, Force* force, Neighbor &neighbor,
           }
 
 
-          #pragma omp master
           timer.stamp_extra_start();
           comm.exchange(atom);
           if(n+1>=next_sort) {
@@ -157,7 +151,6 @@ void Integrate::run(Atom &atom, Force* force, Neighbor &neighbor,
             next_sort +=  sort_every;
           }
           comm.borders(atom);
-          #pragma omp master
           {
             timer.stamp_extra_stop(TIME_TEST);
             timer.stamp(TIME_COMM);
@@ -167,34 +160,26 @@ void Integrate::run(Atom &atom, Force* force, Neighbor &neighbor,
             for(int i = 0; i < PAD * atom.nlocal; i++) xold[i] = x[i];
         }
 
-        #pragma omp barrier
 
         neighbor.build(atom);
 
-        // #pragma omp barrier
-
-        #pragma omp master
         timer.stamp(TIME_NEIGH);
       }
 
       force->evflag = (n + 1) % thermo.nstat == 0;
       force->compute(atom, neighbor, comm, comm.me);
 
-      #pragma omp master
       timer.stamp(TIME_FORCE);
 
       if(neighbor.halfneigh && neighbor.ghost_newton) {
         comm.reverse_communicate(atom);
 
-        #pragma omp master
         timer.stamp(TIME_COMM);
       }
 
       v = atom.v;
       f = atom.f;
       nlocal = atom.nlocal;
-
-      #pragma omp barrier
 
       finalIntegrate();
 

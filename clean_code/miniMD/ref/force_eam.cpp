@@ -279,7 +279,6 @@ void ForceEAM::compute_fullneigh(Atom &atom, Neighbor &neighbor, Comm &comm, int
   // grow energy and fp arrays if necessary
   // need to be atom->nmax in length
 
-  #pragma omp master
   {
     eng_vdwl = 0;
     virial = 0;
@@ -290,7 +289,6 @@ void ForceEAM::compute_fullneigh(Atom &atom, Neighbor &neighbor, Comm &comm, int
     }
   }
 
-  #pragma omp barrier
   const MMD_float* const x = atom.x;
   MMD_float* const f = atom.f;
   const int* const type = atom.type;
@@ -347,18 +345,15 @@ void ForceEAM::compute_fullneigh(Atom &atom, Neighbor &neighbor, Comm &comm, int
 
   }
 
-  // #pragma omp barrier
   // fp = derivative of embedding energy at each atom
   // phi = embedding energy at each atom
 
   // communicate derivative of embedding function
 
-  #pragma omp master
   {
     communicate(atom, comm);
   }
 
-  #pragma omp barrier
 
   MMD_float t_virial = 0;
   // compute forces on each atom
@@ -438,12 +433,9 @@ void ForceEAM::compute_fullneigh(Atom &atom, Neighbor &neighbor, Comm &comm, int
 
   }
 
-  #pragma omp atomic
   virial += t_virial;
-  #pragma omp atomic
   eng_vdwl += 2.0 * evdwl;
 
-  #pragma omp barrier
 }
 
 /* ----------------------------------------------------------------------

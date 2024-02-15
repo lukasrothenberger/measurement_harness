@@ -105,7 +105,6 @@ void Atom::addatom(MMD_float x_in, MMD_float y_in, MMD_float z_in,
 
 void Atom::pbc()
 {
-  #pragma omp for
   for(int i = 0; i < nlocal; i++) {
     if(x[i*PAD + 0] < 0.0) x[i * PAD + 0] += box.xprd;
 
@@ -138,7 +137,6 @@ void Atom::pack_comm(int n, int* list, MMD_float* buf, int* pbc_flags)
 
   if(pbc_flags[0] == 0) {
 
-	#pragma omp for schedule(static)
     for(i = 0; i < n; i++) {
       j = list[i];
       buf[3 * i] = x[j * PAD + 0];
@@ -147,7 +145,6 @@ void Atom::pack_comm(int n, int* list, MMD_float* buf, int* pbc_flags)
     }
   } else {
 
-    #pragma omp for schedule(static)
     for(i = 0; i < n; i++) {
       j = list[i];
       buf[3 * i] = x[j * PAD + 0] + pbc_flags[1] * box.xprd;
@@ -161,7 +158,6 @@ void Atom::unpack_comm(int n, int first, MMD_float* buf)
 {
   int i;
 
-  #pragma omp for schedule(static)
   for(i = 0; i < n; i++) {
     x[(first + i) * PAD + 0] = buf[3 * i];
     x[(first + i) * PAD + 1] = buf[3 * i + 1];
@@ -173,7 +169,6 @@ void Atom::pack_reverse(int n, int first, MMD_float* buf)
 {
   int i;
 
-  #pragma omp for schedule(static)
   for(i = 0; i < n; i++) {
     buf[3 * i] = f[(first + i) * PAD + 0];
     buf[3 * i + 1] = f[(first + i) * PAD + 1];
@@ -185,7 +180,6 @@ void Atom::unpack_reverse(int n, int* list, MMD_float* buf)
 {
   int i, j;
 
-  #pragma omp for schedule(static)
   for(i = 0; i < n; i++) {
     j = list[i];
     f[j * PAD + 0] += buf[3 * i];
@@ -356,7 +350,6 @@ void Atom::sort(Neighbor &neighbor)
 {
 
   neighbor.binatoms(*this,nlocal);
-  #pragma omp barrier
 
   binpos = neighbor.bincount;
   bins = neighbor.bins;
@@ -364,7 +357,6 @@ void Atom::sort(Neighbor &neighbor)
   const int mbins = neighbor.mbins;
   const int atoms_per_bin = neighbor.atoms_per_bin;
 
-  #pragma omp master
   {
     for(int i=1; i<mbins; i++)
 	  binpos[i] += binpos[i-1];
@@ -379,7 +371,6 @@ void Atom::sort(Neighbor &neighbor)
     }
   }
 
-  #pragma omp barrier
   MMD_float* new_x = x_copy;
   MMD_float* new_v = v_copy;
   int* new_type = type_copy;
@@ -387,7 +378,6 @@ void Atom::sort(Neighbor &neighbor)
   MMD_float* old_v = v;
   int* old_type = type;
 
-  #pragma omp for
   for(int mybin = 0; mybin<mbins; mybin++) {
     const int start = mybin>0?binpos[mybin-1]:0;
     const int count = binpos[mybin] - start;
@@ -404,7 +394,6 @@ void Atom::sort(Neighbor &neighbor)
     }
   }
 
-  #pragma omp master
   {
     MMD_float* x_tmp = x;
     MMD_float* v_tmp = v;
@@ -417,5 +406,4 @@ void Atom::sort(Neighbor &neighbor)
     v_copy = v_tmp;
     type_copy = type_tmp;
   }
-  #pragma omp barrier
 }

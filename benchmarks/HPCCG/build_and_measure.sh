@@ -88,7 +88,7 @@ do
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
         cd $d
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 30 ./test_HPCCG 150 200 150 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 30 ./test_HPCCG 100 100 100 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
         echo "Executable $d/test_HPCCG does not exist. Skipping."
     fi

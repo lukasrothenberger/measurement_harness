@@ -1,6 +1,6 @@
 # C compiler
-CC_FLAGS = -g -fopenmp
-OFFLOAD_CC_FLAGS = -offload-option,mic,compiler,"-no-opt-prefetch"
+#CC_FLAGS = -g -fopenmp
+#OFFLOAD_CC_FLAGS = -offload-option,mic,compiler,"-no-opt-prefetch"
 
 #all: hotspot hotspot_offload 
 all: hotspot 

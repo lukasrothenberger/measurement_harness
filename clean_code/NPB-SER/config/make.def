@@ -67,7 +67,7 @@ CLINKFLAGS = -O3 -mcmodel=medium -fopenmp
 # this compiler go here also; typically there are few flags required; hence 
 # there are no separate macros provided for such flags.
 #---------------------------------------------------------------------------
-UCC	= clang++
+UCC	= clang++ -g -fno-discard-value-names
 
 
 #---------------------------------------------------------------------------

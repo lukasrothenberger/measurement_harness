@@ -69,7 +69,7 @@ do
     then
         echo "--> Executable exists. Skipping."
     else
-        CC=clang++ CXX=clang++ CC_FLAGS=-fopenmp make is CLASS=C
+        CC=clang++ CXX=clang++ CC_FLAGS=-fopenmp make cp CLASS=A
     fi
 done
 

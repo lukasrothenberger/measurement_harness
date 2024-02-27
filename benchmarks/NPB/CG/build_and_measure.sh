@@ -65,7 +65,7 @@ for d in $(find -maxdepth 1 -name "code_*" -type d)
 do
     echo "compiling modified: $d"
     cd ${BASEDIR}/$d
-    if [ -f bin/cg.B ]
+    if [ -f bin/cg.A ]
     then
         echo "--> Executable exists. Skipping."
     else
@@ -80,15 +80,15 @@ rm -rf logs
 for d in $(find -maxdepth 1 -name "code_*" -type d) 
 do 
     cd $BASEDIR
-    if [ -f $d/bin/cg.B ]
+    if [ -f $d/bin/cg.A ]
     then
-        echo "Measuring $d/bin/cg.B ..."
+        echo "Measuring $d/bin/cg.A ..."
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
         cd $d/bin
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 60 ./cg.B 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 60 ./cg.A 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
-        echo "Executable $d/bin/cg.B does not exist. Skipping."
+        echo "Executable $d/bin/cg.A does not exist. Skipping."
     fi
     
 done

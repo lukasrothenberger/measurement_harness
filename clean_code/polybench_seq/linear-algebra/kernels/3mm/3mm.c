@@ -53,7 +53,7 @@ void print_array(int ni, int nl,
 
   for (i = 0; i < ni; i++)
     for (j = 0; j < nl; j++) {
-	fprintf (stderr, DATA_PRINTF_MODIFIER, G[i][j]);
+	fprintf (stderr, DATA_PRINTF_MODIFIER, G[i*NI+j]);
 	if ((i * ni + j) % 20 == 0) fprintf (stderr, "\n");
     }
   fprintf (stderr, "\n");

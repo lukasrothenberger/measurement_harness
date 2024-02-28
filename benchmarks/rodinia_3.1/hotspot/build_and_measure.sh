@@ -26,7 +26,7 @@ else
     
     CXX=discopop_cxx CC=discopop_cc CC_FLAGS="-fopenmp" make hotspot
 
-    ./hotspot 1024 1024 2 4 $BASEDIR/../../../data/rodinia-3.1-data/data/hotspot/temp_1024 /home/lukas/git/benchmark_harness/data/rodinia-3.1-data/data/hotspot/power_1024 out.txt
+    ./hotspot 1024 1024 2 4 $BASEDIR/../../../data/rodinia-3.1-data/data/hotspot/temp_1024 $BASEDIR/../../../data/rodinia-3.1-data/data/hotspot/power_1024 out.txt
 
     cd .discopop
     discopop_explorer --enable-patterns doall,reduction
@@ -85,7 +85,7 @@ do
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
         cd $d/openmp/hotspot
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 60 ./hotspot 1024 1024 500 16 $BASEDIR/../../../data/rodinia-3.1-data/data/hotspot/temp_1024 /home/lukas/git/benchmark_harness/data/rodinia-3.1-data/data/hotspot/power_1024 out.txt 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 60 ./hotspot 1024 1024 500 16 $BASEDIR/../../../data/rodinia-3.1-data/data/hotspot/temp_1024 $BASEDIR/../../../data/rodinia-3.1-data/data/hotspot/power_1024 out.txt 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
         echo "Executable $d/openmp/hotspot does not exist. Skipping."
     fi

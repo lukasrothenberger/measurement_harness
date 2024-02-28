@@ -2,7 +2,7 @@ CC=clang
 CXX=clang++
 CPU_CC_FLAGS="-fopenmp"
 CPU_CXX_FLAGS="-fopenmp"
-DP_PATCH_GENERATOR_FLAGS="--log INFO --only-maximum-id-pattern"
+DP_PATCH_GENERATOR_FLAGS="--log INFO" # --only-maximum-id-pattern"
 
 ####
 

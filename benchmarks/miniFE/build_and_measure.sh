@@ -1,4 +1,5 @@
 DP_PATCH_GENERATOR_FLAGS="--log INFO"
+# --only-maximum-id-pattern"
 #  --only-optimizer-output-patterns"
 
 BASEDIR=$(pwd)
@@ -34,7 +35,7 @@ else
     ./miniFE.x
     cd .discopop
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -p2 -s --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json 
+    discopop_optimizer -v -p2 -o1 -s --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json 
     discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     cd $BASEDIR
     mv code original_build
@@ -89,7 +90,7 @@ do
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
         cd $d/src
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 60 ./miniFE.x -nx 150 -ny 150 -nz 150 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 10 ./miniFE.x -nx 50 -ny 50 -nz 50 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
         echo "Executable $d/src/miniFE.x does not exist. Skipping."
     fi

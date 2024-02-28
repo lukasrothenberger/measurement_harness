@@ -5,7 +5,7 @@ CPU_CXX_FLAGS="-fopenmp"
 GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 DP_OPTIMIZER_FLAGS=--log DEBUG # --doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json --log INFO
-DP_PATCH_GENERATOR_FLAGS=--log INFO --only-optimizer-output-patterns # --only-maximum-id-pattern 
+DP_PATCH_GENERATOR_FLAGS=--log INFO --only-maximum-id-pattern
 
 ########## CPU + GPU
 all: clean setup_env cpu_prepare_code cpu_compile cpu_measure

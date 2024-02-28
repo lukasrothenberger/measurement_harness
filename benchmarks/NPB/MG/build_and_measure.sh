@@ -1,5 +1,4 @@
-DP_PATCH_GENERATOR_FLAGS="--log INFO"
-#  --only-maximum-id-pattern"
+DP_PATCH_GENERATOR_FLAGS="--log INFO --only-maximum-id-pattern"
 
 BASEDIR=$(pwd)
 
@@ -32,7 +31,7 @@ else
 
     cd .discopop
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -s --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json
+    discopop_optimizer -v -s -o1 --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json
     discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     cd $BASEDIR
     mv code original_build

@@ -15,28 +15,6 @@
       "compute_init_delays[us]": {
         "target_teams_distribute_parallel_for": 1.0
       },
-      "device_id": 2,
-      "device_type": 1,
-      "frequency": 512000000,
-      "processors": 128,
-      "teams": 3200,
-      "threads": 3200,
-      "speedup": 120.380792072759874,
-      "transfer_init_delays[us]": {
-        "average": 1.49999999999999,
-        "target_data_update": 1.0,
-        "target_enter_data": 2.0,
-        "target_exit_data": 2.0
-      },
-      "transfer_speeds": {
-        "D2H_MB/s": 182300.094228448292,
-        "H2D_MB/s": 364700.332158892378
-      }
-    },
-    {
-      "compute_init_delays[us]": {
-        "target_teams_distribute_parallel_for": 1.0
-      },
       "device_id": 1,
       "device_type": 1,
       "frequency": 512000000,

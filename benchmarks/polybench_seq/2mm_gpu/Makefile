@@ -58,7 +58,7 @@ cpu_get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 gpu_get_discopop_patterns:
@@ -69,7 +69,7 @@ gpu_get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/prefer_gpu_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/prefer_gpu_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 ##### SEQUENTIAL
@@ -110,7 +110,7 @@ gpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	done
 measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 300 code_$$(basename $${f})/2mm_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 20 code_$$(basename $${f})/2mm_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
 	done
 
 

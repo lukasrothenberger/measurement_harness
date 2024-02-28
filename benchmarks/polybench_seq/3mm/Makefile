@@ -39,7 +39,7 @@ cpu_get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -s -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 ##### SEQUENTIAL

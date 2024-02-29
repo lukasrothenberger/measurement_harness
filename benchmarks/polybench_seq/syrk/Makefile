@@ -75,7 +75,7 @@ compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	done
 measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 300 code_$$(basename $${f})/syrk_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 15 code_$$(basename $${f})/syrk_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
 	done
 
 

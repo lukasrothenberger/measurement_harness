@@ -3,3 +3,4 @@ code_copy/
 patch_generator_output/
 measurements.csv
 measurement_report.pdf
+.vscode/

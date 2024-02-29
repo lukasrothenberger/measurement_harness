@@ -124,3 +124,9 @@ compile_correlation:
 
 instrument_correlation:
 	discopop_cc -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base -DMINI_DATASET -lm
+
+compile_covariance:
+	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance -lm
+
+instrument_covariance:
+	discopop_cc -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance -DMINI_DATASET -lm

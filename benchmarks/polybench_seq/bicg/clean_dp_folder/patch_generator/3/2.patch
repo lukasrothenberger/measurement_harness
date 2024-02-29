@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/benchmarks/polybench_seq/bicg/code/linear-algebra/kernels/bicg/bicg.c	2024-02-29 09:50:50.750483977 +0100
++++ /home/lukas/git/benchmark_harness/benchmarks/polybench_seq/bicg/code/linear-algebra/kernels/bicg/bicg.c.discopop_patch_generator.temp	2024-02-29 09:51:06.670578120 +0100
+@@ -76,6 +76,7 @@
+   for (i = 0; i < _PB_NX; i++)
+     {
+       q[i] = 0;
++      #pragma omp parallel for private(j) shared(A,i,nx,ny,p,q,r,s) 
+       for (j = 0; j < _PB_NY; j++)
+ 	{
+ 	  s[j] = s[j] + r[i] * A[i*nx+j];

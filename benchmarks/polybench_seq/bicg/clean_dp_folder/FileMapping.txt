@@ -1,0 +1,2 @@
+1	/home/lukas/git/benchmark_harness/benchmarks/polybench_seq/bicg/code/utilities/polybench.c
+2	/home/lukas/git/benchmark_harness/benchmarks/polybench_seq/bicg/code/linear-algebra/kernels/bicg/bicg.c

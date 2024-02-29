@@ -40,7 +40,7 @@ void init_array(int nr, int nq, int np,
    Can be used also to check the correctness of the output. */
 static
 void print_array(int nr, int nq, int np,
-		 DATA_TYPE POLYBENCH_3D(A,NR,NQ,NP,nr,nq,np))
+		 DATA_TYPE POLYBENCH_1D(A,NR*NQ*NP,nr*nq*np))
 {
   int i, j, k;
 
@@ -72,7 +72,7 @@ void kernel_doitgen(int nr, int nq, int np,
   #pragma omp target enter data map(to:q) device(1)
   #pragma omp target enter data map(to:np) device(1)
   #pragma omp target enter data map(to:A[0:nr*nq*np]) device(1)
-  #pragma omp target enter data map(to:C4[0:nr*nq*np]) device(1)
+  #pragma omp target enter data map(to:C4[0:np*np]) device(1)
   #pragma omp target enter data map(to:nr) device(1)
   #pragma omp target teams distribute parallel for device(1) collapse(2) private(p,q,r,s) shared(A,C4,np,nq,nr,sum) 
   for (r = 0; r < _PB_NR; r++)
@@ -94,7 +94,7 @@ void kernel_doitgen(int nr, int nq, int np,
 #pragma omp target exit data map(delete:q) device(1)
 #pragma omp target exit data map(delete:np) device(1)
 #pragma omp target exit data map(from:A[0:nr*nq*np]) device(1)
-#pragma omp target exit data map(delete:C4[0:nr*nq*np]) device(1)
+#pragma omp target exit data map(delete:C4[0:np*np]) device(1)
 #pragma omp target exit data map(delete:nr) device(1)
 }
 

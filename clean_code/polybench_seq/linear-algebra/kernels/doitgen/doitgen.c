@@ -40,7 +40,7 @@ void init_array(int nr, int nq, int np,
    Can be used also to check the correctness of the output. */
 static
 void print_array(int nr, int nq, int np,
-		 DATA_TYPE POLYBENCH_3D(A,NR,NQ,NP,nr,nq,np))
+		 DATA_TYPE POLYBENCH_1D(A,NR*NQ*NP,nr*nq*np))
 {
   int i, j, k;
 

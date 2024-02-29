@@ -83,16 +83,16 @@ void kernel_fdtd_2d(int tmax,
       for (j = 0; j < _PB_NY; j++)
 	ey[0*nx+j] = _fict_[t];
       #pragma omp target enter data map(to:ny) device(1)
-      #pragma omp target enter data map(to:ey[0:n*ny]) device(1)
+      #pragma omp target enter data map(to:ey[0:nx*ny]) device(1)
       #pragma omp target enter data map(to:j) device(1)
       #pragma omp target enter data map(to:i) device(1)
-      #pragma omp target enter data map(to:hz[0:n*ny]) device(1)
+      #pragma omp target enter data map(to:hz[0:nx*ny]) device(1)
       #pragma omp target enter data map(to:nx) device(1)
       #pragma omp target teams distribute parallel for device(1) collapse(2) private(i,j) shared(ey,hz,nx,ny) 
       for (i = 1; i < _PB_NX; i++)
 	for (j = 0; j < _PB_NY; j++)
 	  ey[i*nx+j] = ey[i*nx+j] - 0.5*(hz[i*nx+j]-hz[(i-1)*nx+j]);
-      #pragma omp target enter data map(to:ex[0:n*ny]) device(1)
+      #pragma omp target enter data map(to:ex[0:nx*ny]) device(1)
       #pragma omp target update from(i) device(1)
       #pragma omp target update to(i) device(1)
       #pragma omp target teams distribute parallel for device(1) collapse(2) private(i,j) shared(ex,hz,nx,ny) 
@@ -107,12 +107,12 @@ void kernel_fdtd_2d(int tmax,
 	  hz[i*nx+j] = hz[i*nx+j] - 0.7*  (ex[i*nx+(j+1)] - ex[i*nx+j] +
 				       ey[(i+1)*nx+j] - ey[i*nx+j]);
   #pragma omp target exit data map(from:ny) device(1)
-  #pragma omp target exit data map(from:ey[0:n*ny]) device(1)
+  #pragma omp target exit data map(from:ey[0:nx*ny]) device(1)
   #pragma omp target exit data map(delete:j) device(1)
   #pragma omp target exit data map(delete:i) device(1)
-  #pragma omp target exit data map(from:hz[0:n*ny]) device(1)
+  #pragma omp target exit data map(from:hz[0:nx*ny]) device(1)
   #pragma omp target exit data map(from:nx) device(1)
-  #pragma omp target exit data map(from:ex[0:n*ny]) device(1)
+  #pragma omp target exit data map(from:ex[0:nx*ny]) device(1)
     }
 }
 

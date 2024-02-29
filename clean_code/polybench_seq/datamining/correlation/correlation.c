@@ -23,7 +23,7 @@ static
 void init_array (int m,
 		 int n,
 		 DATA_TYPE *float_n,
-		 DATA_TYPE POLYBENCH_2D(data,M,N,m,n))
+		 DATA_TYPE POLYBENCH_1D(data,M*N,m*n))
 {
   int i, j;
 
@@ -31,7 +31,7 @@ void init_array (int m,
 
   for (i = 0; i < m; i++)
     for (j = 0; j < n; j++)
-      data[i][j] = ((DATA_TYPE) i*j) / M;
+      data[i*m+j] = ((DATA_TYPE) i*j) / M;
 }
 
 
@@ -39,14 +39,14 @@ void init_array (int m,
    Can be used also to check the correctness of the output. */
 static
 void print_array(int m,
-		 DATA_TYPE POLYBENCH_2D(symmat,M,M,m,m))
+		 DATA_TYPE POLYBENCH_1D(symmat,M*M,m*m))
 
 {
   int i, j;
 
   for (i = 0; i < m; i++)
     for (j = 0; j < m; j++) {
-      fprintf (stderr, DATA_PRINTF_MODIFIER, symmat[i][j]);
+      fprintf (stderr, DATA_PRINTF_MODIFIER, symmat[i*m+j]);
       if ((i * m + j) % 20 == 0) fprintf (stderr, "\n");
     }
   fprintf (stderr, "\n");
@@ -58,8 +58,8 @@ void print_array(int m,
 static
 void kernel_correlation(int m, int n,
 			DATA_TYPE float_n,
-			DATA_TYPE POLYBENCH_2D(data,M,N,m,n),
-			DATA_TYPE POLYBENCH_2D(symmat,M,M,m,m),
+			DATA_TYPE POLYBENCH_1D(data,M*N,m*n),
+			DATA_TYPE POLYBENCH_1D(symmat,M*M,m*m),
 			DATA_TYPE POLYBENCH_1D(mean,M,m),
 			DATA_TYPE POLYBENCH_1D(stddev,M,m))
 {
@@ -74,7 +74,7 @@ void kernel_correlation(int m, int n,
     {
       mean[j] = 0.0;
       for (i = 0; i < _PB_N; i++)
-	mean[j] += data[i][j];
+	mean[j] += data[i*m+j];
       mean[j] /= float_n;
     }
 
@@ -83,7 +83,7 @@ void kernel_correlation(int m, int n,
     {
       stddev[j] = 0.0;
       for (i = 0; i < _PB_N; i++)
-	stddev[j] += (data[i][j] - mean[j]) * (data[i][j] - mean[j]);
+	stddev[j] += (data[i*m+j] - mean[j]) * (data[i*m+j] - mean[j]);
       stddev[j] /= float_n;
       stddev[j] = sqrt_of_array_cell(stddev, j);
       /* The following in an inelegant but usual way to handle
@@ -96,23 +96,23 @@ void kernel_correlation(int m, int n,
   for (i = 0; i < _PB_N; i++)
     for (j = 0; j < _PB_M; j++)
       {
-	data[i][j] -= mean[j];
-	data[i][j] /= sqrt(float_n) * stddev[j];
+	data[i*m+j] -= mean[j];
+	data[i*m+j] /= sqrt(float_n) * stddev[j];
       }
 
   /* Calculate the m * m correlation matrix. */
   for (j1 = 0; j1 < _PB_M-1; j1++)
     {
-      symmat[j1][j1] = 1.0;
+      symmat[j1*m+j1] = 1.0;
       for (j2 = j1+1; j2 < _PB_M; j2++)
 	{
-	  symmat[j1][j2] = 0.0;
+	  symmat[j1*m+j2] = 0.0;
 	  for (i = 0; i < _PB_N; i++)
-	    symmat[j1][j2] += (data[i][j1] * data[i][j2]);
-	  symmat[j2][j1] = symmat[j1][j2];
+	    symmat[j1*m+j2] += (data[i*m+j1] * data[i*m+j2]);
+	  symmat[j2*m+j1] = symmat[j1*m+j2];
 	}
     }
-  symmat[_PB_M-1][_PB_M-1] = 1.0;
+  symmat[(_PB_M-1)*m+(_PB_M-1)] = 1.0;
 
 }
 
@@ -125,8 +125,8 @@ int main(int argc, char** argv)
 
   /* Variable declaration/allocation. */
   DATA_TYPE float_n;
-  POLYBENCH_2D_ARRAY_DECL(data,DATA_TYPE,M,N,m,n);
-  POLYBENCH_2D_ARRAY_DECL(symmat,DATA_TYPE,M,M,m,m);
+  POLYBENCH_1D_ARRAY_DECL(data,DATA_TYPE,M*N,m*n);
+  POLYBENCH_1D_ARRAY_DECL(symmat,DATA_TYPE,M*M,m*m);
   POLYBENCH_1D_ARRAY_DECL(mean,DATA_TYPE,M,m);
   POLYBENCH_1D_ARRAY_DECL(stddev,DATA_TYPE,M,m);
 

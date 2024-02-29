@@ -79,8 +79,6 @@ void kernel_adi(int tsteps,
       #pragma omp target update to(B[0:n*n]) device(1)
       #pragma omp target teams distribute parallel for device(1) collapse(2) private(i1,i2) shared(A,B,X,n) 
       for (i1 = 0; i1 < _PB_N; i1++)
-	#pragma omp target update to(i2) device(1)
-	#pragma omp target update to(i2) device(1)
 	for (i2 = 1; i2 < _PB_N; i2++)
 	  {
 	    #pragma omp target update to(X[0:n*n]) device(1)

@@ -122,7 +122,7 @@ void kernel_adi(int tsteps,
       #pragma omp target update to(X[0:n*n]) device(1)
       #pragma omp target update to(i2) device(1)
       #pragma omp target update to(i2) device(1)
-	  #pragma omp target update to(X[0:n*n) device(1)
+	  #pragma omp target update to(X[0:n*n]) device(1)
 	#pragma omp target update to(i2) device(1)
       #pragma omp target teams distribute parallel for device(1) collapse(2) private(i1,i2) shared(A,B,X,n) 
       for (i1 = 1; i1 < _PB_N; i1++)

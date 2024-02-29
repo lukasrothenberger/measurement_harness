@@ -25,7 +25,7 @@ void init_array(int n,
 		DATA_TYPE POLYBENCH_1D(x2,N,n),
 		DATA_TYPE POLYBENCH_1D(y_1,N,n),
 		DATA_TYPE POLYBENCH_1D(y_2,N,n),
-		DATA_TYPE POLYBENCH_2D(A,N,N,n,n))
+		DATA_TYPE POLYBENCH_1D(A,N*N,n*n))
 {
   int i, j;
 
@@ -36,7 +36,7 @@ void init_array(int n,
       y_1[i] = ((DATA_TYPE) i + 3) / n;
       y_2[i] = ((DATA_TYPE) i + 4) / n;
       for (j = 0; j < n; j++)
-	A[i][j] = ((DATA_TYPE) i*j) / N;
+	A[i*n+j] = ((DATA_TYPE) i*j) / N;
     }
 }
 
@@ -67,16 +67,16 @@ void kernel_mvt(int n,
 		DATA_TYPE POLYBENCH_1D(x2,N,n),
 		DATA_TYPE POLYBENCH_1D(y_1,N,n),
 		DATA_TYPE POLYBENCH_1D(y_2,N,n),
-		DATA_TYPE POLYBENCH_2D(A,N,N,n,n))
+		DATA_TYPE POLYBENCH_1D(A,N*N,n*n))
 {
   int i, j;
 
   for (i = 0; i < _PB_N; i++)
     for (j = 0; j < _PB_N; j++)
-      x1[i] = x1[i] + A[i][j] * y_1[j];
+      x1[i] = x1[i] + A[i*n+j] * y_1[j];
   for (i = 0; i < _PB_N; i++)
     for (j = 0; j < _PB_N; j++)
-      x2[i] = x2[i] + A[j][i] * y_2[j];
+      x2[i] = x2[i] + A[j*n+i] * y_2[j];
 
 }
 
@@ -87,7 +87,7 @@ int main(int argc, char** argv)
   int n = N;
 
   /* Variable declaration/allocation. */
-  POLYBENCH_2D_ARRAY_DECL(A, DATA_TYPE, N, N, n, n);
+  POLYBENCH_1D_ARRAY_DECL(A, DATA_TYPE, N*N, n*n);
   POLYBENCH_1D_ARRAY_DECL(x1, DATA_TYPE, N, n);
   POLYBENCH_1D_ARRAY_DECL(x2, DATA_TYPE, N, n);
   POLYBENCH_1D_ARRAY_DECL(y_1, DATA_TYPE, N, n);

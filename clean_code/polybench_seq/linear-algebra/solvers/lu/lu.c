@@ -27,7 +27,7 @@ void init_array (int n,
 
   for (i = 0; i < n; i++)
     for (j = 0; j < n; j++)
-      A[i*nj] = ((DATA_TYPE) (i+1)*(j+1)) / n;
+      A[i*n+j] = ((DATA_TYPE) (i+1)*(j+1)) / n;
 }
 
 

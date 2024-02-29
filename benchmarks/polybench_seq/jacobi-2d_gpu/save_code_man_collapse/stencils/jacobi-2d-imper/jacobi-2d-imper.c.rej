@@ -1,0 +1,30 @@
+--- jacobi-2d-imper.c	2024-02-29 14:23:03.053835815 +0100
++++ jacobi-2d-imper.c.discopop_patch_generator.temp	2024-02-29 14:23:18.417723918 +0100
+@@ -63,11 +63,27 @@
+ {
+   int t, i, j;
+ 
++  #pragma omp target exit data map(from:n) device(1)
++  #pragma omp target exit data map(from:j) device(1)
++  #pragma omp target exit data map(from:A) device(1)
++  #pragma omp target exit data map(from:B) device(1)
++  #pragma omp target exit data map(from:i) device(1)
+   for (t = 0; t < _PB_TSTEPS; t++)
+     {
++      #pragma omp target enter data map(to:n) device(1)
++      #pragma omp target enter data map(to:j) device(1)
++      #pragma omp target enter data map(to:A) device(1)
++      #pragma omp target enter data map(to:B) device(1)
++      #pragma omp target enter data map(to:i) device(1)
++      #pragma omp target update to(j) device(1)
++      #pragma omp target teams distribute parallel for device(1) collapse(2) private(i,j) shared(A,B,n) 
+       for (i = 1; i < _PB_N - 1; i++)
++	#pragma omp target update to(j) device(1)
++	#pragma omp target update to(j) device(1)
+ 	for (j = 1; j < _PB_N - 1; j++)
++	  #pragma omp target update to(j) device(1)
+ 	  B[i][j] = 0.2 * (A[i][j] + A[i][j-1] + A[i][1+j] + A[1+i][j] + A[i-1][j]);
++      #pragma omp target update from(i) device(1)
+       for (i = 1; i < _PB_N-1; i++)
+ 	for (j = 1; j < _PB_N-1; j++)
+ 	  A[i][j] = B[i][j];

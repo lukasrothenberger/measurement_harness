@@ -1,5 +1,5 @@
 /**
- * jacobi-2d-imper.c: This file is part of the PolyBench/C 3.2 test suite.
+ * lu.c: This file is part of the PolyBench/C 3.2 test suite.
  *
  *
  * Contact: Louis-Noel Pouchet <pouchet@cse.ohio-state.edu>
@@ -14,24 +14,20 @@
 #include <polybench.h>
 
 /* Include benchmark-specific header. */
-/* Default data type is double, default size is 20x1000. */
-#include "jacobi-2d-imper.h"
+/* Default data type is double, default size is 1024. */
+#include "lu.h"
 
 
 /* Array initialization. */
 static
 void init_array (int n,
-		 DATA_TYPE POLYBENCH_1D(A,N*N,n*n),
-		 DATA_TYPE POLYBENCH_1D(B,N*N,n*n))
+		 DATA_TYPE POLYBENCH_1D(A,N*N,n*n))
 {
   int i, j;
 
   for (i = 0; i < n; i++)
     for (j = 0; j < n; j++)
-      {
-	A[i*n+j] = ((DATA_TYPE) i*(j+2) + 2) / n;
-	B[i*n+j] = ((DATA_TYPE) i*(j+3) + 3) / n;
-      }
+      A[i*n+j] = ((DATA_TYPE) (i+1)*(j+1)) / n;
 }
 
 
@@ -46,32 +42,31 @@ void print_array(int n,
 
   for (i = 0; i < n; i++)
     for (j = 0; j < n; j++) {
-      fprintf(stderr, DATA_PRINTF_MODIFIER, A[i*n+j]);
-      if ((i * n + j) % 20 == 0) fprintf(stderr, "\n");
+      fprintf (stderr, DATA_PRINTF_MODIFIER, A[i*n+j]);
+      if ((i * n + j) % 20 == 0) fprintf (stderr, "\n");
     }
-  fprintf(stderr, "\n");
+  fprintf (stderr, "\n");
 }
 
 
 /* Main computational kernel. The whole function will be timed,
    including the call and return. */
 static
-void kernel_jacobi_2d_imper(int tsteps,
-			    int n,
-			    DATA_TYPE POLYBENCH_1D(A,N*N,n*n),
-			    DATA_TYPE POLYBENCH_1D(B,N*N,n*n))
+void kernel_lu(int n,
+	       DATA_TYPE POLYBENCH_1D(A,N*N,n*n))
 {
-  int t, i, j;
+  int i, j, k;
 
-  for (t = 0; t < _PB_TSTEPS; t++)
+  #pragma omp parallel for private(i,j,k) shared(A,n) 
+  for (k = 0; k < _PB_N; k++)
     {
-      for (i = 1; i < _PB_N - 1; i++)
-	for (j = 1; j < _PB_N - 1; j++)
-	  B[i*n+j] = 0.2 * (A[i*n+j] + A[i*n+(j-1)] + A[i*n+(1+j)] + A[(1+i)*n+j] + A[(i-1)*n+j]);
-      for (i = 1; i < _PB_N-1; i++)
-	for (j = 1; j < _PB_N-1; j++)
-	  A[i*n+j] = B[i*n+j];
+      for (j = k + 1; j < _PB_N; j++)
+	A[k*n+j] = A[k*n+j] / A[k*n+k];
+      for(i = k + 1; i < _PB_N; i++)
+	for (j = k + 1; j < _PB_N; j++)
+	  A[i*n+j] = A[i*n+j] - A[i*n+k] * A[k*n+j];
     }
+
 }
 
 
@@ -79,21 +74,19 @@ int main(int argc, char** argv)
 {
   /* Retrieve problem size. */
   int n = N;
-  int tsteps = TSTEPS;
 
   /* Variable declaration/allocation. */
   POLYBENCH_1D_ARRAY_DECL(A, DATA_TYPE, N*N, n*n);
-  POLYBENCH_1D_ARRAY_DECL(B, DATA_TYPE, N*N, n*n);
 
 
   /* Initialize array(s). */
-  init_array (n, POLYBENCH_ARRAY(A), POLYBENCH_ARRAY(B));
+  init_array (n, POLYBENCH_ARRAY(A));
 
   /* Start timer. */
   polybench_start_instruments;
 
   /* Run kernel. */
-  kernel_jacobi_2d_imper (tsteps, n, POLYBENCH_ARRAY(A), POLYBENCH_ARRAY(B));
+  kernel_lu (n, POLYBENCH_ARRAY(A));
 
   /* Stop and print timer. */
   polybench_stop_instruments;
@@ -105,7 +98,6 @@ int main(int argc, char** argv)
 
   /* Be clean. */
   POLYBENCH_FREE_ARRAY(A);
-  POLYBENCH_FREE_ARRAY(B);
 
   return 0;
 }

@@ -65,12 +65,30 @@ void kernel_jacobi_2d_imper(int tsteps,
 
   for (t = 0; t < _PB_TSTEPS; t++)
     {
+      #pragma omp target enter data map(to:n) device(1)
+      #pragma omp target enter data map(to:A[0:n*n]) device(1)
+      #pragma omp target enter data map(to:j) device(1)
+      #pragma omp target enter data map(to:i) device(1)
+      #pragma omp target enter data map(to:B[0:n*n]) device(1)
+      #pragma omp target update to(j) device(1)
+      #pragma omp target teams distribute parallel for device(1) collapse(2) private(i,j) shared(A,B,n) 
       for (i = 1; i < _PB_N - 1; i++)
 	for (j = 1; j < _PB_N - 1; j++)
 	  B[i*n+j] = 0.2 * (A[i*n+j] + A[i*n+(j-1)] + A[i*n+(1+j)] + A[(1+i)*n+j] + A[(i-1)*n+j]);
+      #pragma omp target update to(j) device(1)
+      #pragma omp target update from(i) device(1)
+      #pragma omp target update to(j) device(1)
+      #pragma omp target update to(i) device(1)
+      #pragma omp target update to(B[0:n*n]) device(1)
+      #pragma omp target teams distribute parallel for device(1) collapse(2) private(i,j) shared(A,B,n) 
       for (i = 1; i < _PB_N-1; i++)
 	for (j = 1; j < _PB_N-1; j++)
 	  A[i*n+j] = B[i*n+j];
+  #pragma omp target exit data map(from:n) device(1)
+  #pragma omp target exit data map(from:A[0:n*n]) device(1)
+  #pragma omp target exit data map(delete:j) device(1)
+  #pragma omp target exit data map(delete:i) device(1)
+  #pragma omp target exit data map(from:B[0:n*n]) device(1)
     }
 }
 

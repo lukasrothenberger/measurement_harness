@@ -8,38 +8,37 @@ DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.jso
 DP_PATCH_GENERATOR_FLAGS=--log INFO #--only-maximum-id-pattern
 
 ########## CPU + GPU
-all: clean setup_env cpu_prepare_code cpu_compile cpu_measure
+all: clean setup_env gpu_prepare_code gpu_compile gpu_measure
 
 ########## CPU
-cpu: clean setup_env cpu_prepare_code cpu_compile cpu_measure
+gpu: clean setup_env gpu_prepare_code gpu_compile gpu_measure
 
-cpu_prepare_code: 
+gpu_prepare_code: 
 	make prepare_sequential
-	make cpu_get_discopop_patterns
+	make gpu_get_discopop_patterns
 	make prepare_single_suggestions
 
-cpu_compile:
+gpu_compile:
 	make compile_sequential
 	make compile_single_suggestions
 
-cpu_measure:
+gpu_measure:
 	make measure_sequential
 	make measure_single_suggestions
 
-cpu_cleanup:
+gpu_cleanup:
 	rm -rvf code_*
 
-
 ##### DISCOPOP 
-cpu_get_discopop_patterns:
+gpu_get_discopop_patterns:
 	make reset_env
-	cd code && make -f Makefile.discopop instrument_syr2k
-	cd code && ./syr2k_base
+	cd code && make -f Makefile.discopop instrument_jacobi-2d
+	cd code && ./jacobi-2d_base
 	ls code/.discopop
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/prefer_gpu_system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 ##### SEQUENTIAL
@@ -48,9 +47,9 @@ prepare_sequential:
 	mv code code_sequential
 	mkdir -p logs/sequential
 compile_sequential:
-	-cd code_sequential && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_syr2k
+	-cd code_sequential && CC=${CC} CFLAGS=${GPU_CC_FLAGS} make -f Makefile.discopop compile_jacobi-2d
 measure_sequential:
-	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/syr2k_base 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
+	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/jacobi-2d_base 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
 
 
 
@@ -70,12 +69,19 @@ prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
 	done
 compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_syr2k ; \
+		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${GPU_CC_FLAGS} make -f Makefile.discopop compile_jacobi-2d ; \
 		cd .. ; \
 	done
+
+gpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${GPU_CC_FLAGS} make -f Makefile.discopop compile_jacobi-2d ; \
+		cd .. ; \
+	done
+
 measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 15 code_$$(basename $${f})/syr2k_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 300 code_$$(basename $${f})/jacobi-2d_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
 	done
 
 
@@ -96,6 +102,6 @@ clean:
 	rm -rvf dp_folder
 	rm -rvf measurements.csv
 	rm -rvf logs
-	make cpu_cleanup
+	make gpu_cleanup
 
 

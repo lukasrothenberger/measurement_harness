@@ -23,9 +23,9 @@ static
 void init_array(int ni, int nj, int nk,
 		DATA_TYPE *alpha,
 		DATA_TYPE *beta,
-		DATA_TYPE POLYBENCH_2D(C,NI,NJ,ni,nj),
-		DATA_TYPE POLYBENCH_2D(A,NI,NK,ni,nk),
-		DATA_TYPE POLYBENCH_2D(B,NK,NJ,nk,nj))
+		DATA_TYPE POLYBENCH_1D(C,NI*NJ,ni*nj),
+		DATA_TYPE POLYBENCH_1D(A,NI*NK,ni*nk),
+		DATA_TYPE POLYBENCH_1D(B,NK*NJ,nk*nj))
 {
   int i, j;
 
@@ -33,13 +33,13 @@ void init_array(int ni, int nj, int nk,
   *beta = 2123;
   for (i = 0; i < ni; i++)
     for (j = 0; j < nj; j++)
-      C[i][j] = ((DATA_TYPE) i*j) / ni;
+      C[i*ni+j] = ((DATA_TYPE) i*j) / ni;
   for (i = 0; i < ni; i++)
     for (j = 0; j < nk; j++)
-      A[i][j] = ((DATA_TYPE) i*j) / ni;
+      A[i*ni+j] = ((DATA_TYPE) i*j) / ni;
   for (i = 0; i < nk; i++)
     for (j = 0; j < nj; j++)
-      B[i][j] = ((DATA_TYPE) i*j) / ni;
+      B[i*nk+j] = ((DATA_TYPE) i*j) / ni;
 }
 
 
@@ -47,13 +47,13 @@ void init_array(int ni, int nj, int nk,
    Can be used also to check the correctness of the output. */
 static
 void print_array(int ni, int nj,
-		 DATA_TYPE POLYBENCH_2D(C,NI,NJ,ni,nj))
+		 DATA_TYPE POLYBENCH_1D(C,NI*NJ,ni*nj))
 {
   int i, j;
 
   for (i = 0; i < ni; i++)
     for (j = 0; j < nj; j++) {
-	fprintf (stderr, DATA_PRINTF_MODIFIER, C[i][j]);
+	fprintf (stderr, DATA_PRINTF_MODIFIER, C[i*ni+j]);
 	if ((i * ni + j) % 20 == 0) fprintf (stderr, "\n");
     }
   fprintf (stderr, "\n");
@@ -66,9 +66,9 @@ static
 void kernel_gemm(int ni, int nj, int nk,
 		 DATA_TYPE alpha,
 		 DATA_TYPE beta,
-		 DATA_TYPE POLYBENCH_2D(C,NI,NJ,ni,nj),
-		 DATA_TYPE POLYBENCH_2D(A,NI,NK,ni,nk),
-		 DATA_TYPE POLYBENCH_2D(B,NK,NJ,nk,nj))
+		 DATA_TYPE POLYBENCH_1D(C,NI*NJ,ni*nj),
+		 DATA_TYPE POLYBENCH_1D(A,NI*NK,ni*nk),
+		 DATA_TYPE POLYBENCH_1D(B,NK*NJ,nk*nj))
 {
   int i, j, k;
 
@@ -76,9 +76,9 @@ void kernel_gemm(int ni, int nj, int nk,
   for (i = 0; i < _PB_NI; i++)
     for (j = 0; j < _PB_NJ; j++)
       {
-	C[i][j] *= beta;
+	C[i*ni+j] *= beta;
 	for (k = 0; k < _PB_NK; ++k)
-	  C[i][j] += alpha * A[i][k] * B[k][j];
+	  C[i*ni+j] += alpha * A[i*ni+k] * B[k*nk+j];
       }
 
 }
@@ -94,9 +94,9 @@ int main(int argc, char** argv)
   /* Variable declaration/allocation. */
   DATA_TYPE alpha;
   DATA_TYPE beta;
-  POLYBENCH_2D_ARRAY_DECL(C,DATA_TYPE,NI,NJ,ni,nj);
-  POLYBENCH_2D_ARRAY_DECL(A,DATA_TYPE,NI,NK,ni,nk);
-  POLYBENCH_2D_ARRAY_DECL(B,DATA_TYPE,NK,NJ,nk,nj);
+  POLYBENCH_1D_ARRAY_DECL(C,DATA_TYPE,NI*NJ,ni*nj);
+  POLYBENCH_1D_ARRAY_DECL(A,DATA_TYPE,NI*NK,ni*nk);
+  POLYBENCH_1D_ARRAY_DECL(B,DATA_TYPE,NK*NJ,nk*nj);
 
   /* Initialize array(s). */
   init_array (ni, nj, nk, &alpha, &beta,

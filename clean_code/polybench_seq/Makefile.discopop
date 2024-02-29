@@ -131,7 +131,7 @@ compile_covariance:
 instrument_covariance:
 	discopop_cc -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base -DMINI_DATASET -lm
 
-compile_jacobi-2d
+compile_jacobi-2d:
 	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base -lm
 
 instrument_jacobi-2d:

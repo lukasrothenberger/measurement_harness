@@ -118,3 +118,9 @@ compile_ludcmp:
 
 instrument_ludcmp:
 	discopop_cc -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base -DSMALL_DATASET
+
+compile_correlation:
+	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base
+
+instrument_correlation:
+	discopop_cc -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base -DSMALL_DATASET

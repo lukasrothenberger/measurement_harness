@@ -142,3 +142,9 @@ compile_jacobi-1d:
 
 instrument_jacobi-1d:
 	discopop_cc -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base -DMINI_DATASET -lm
+
+compile_fdtd-2d:
+	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base -lm
+
+instrument_fdtd-2d:
+	discopop_cc -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base -DMINI_DATASET -lm

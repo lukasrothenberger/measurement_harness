@@ -21,20 +21,20 @@
 /* Array initialization. */
 static
 void init_array(int ni, int nj,
-		DATA_TYPE POLYBENCH_2D(A,NI,NJ,ni,nj),
-		DATA_TYPE POLYBENCH_2D(R,NJ,NJ,nj,nj),
-		DATA_TYPE POLYBENCH_2D(Q,NI,NJ,ni,nj))
+		DATA_TYPE POLYBENCH_1D(A,NI*NJ,ni*nj),
+		DATA_TYPE POLYBENCH_1D(R,NJ*NJ,nj*nj),
+		DATA_TYPE POLYBENCH_1D(Q,NI*NJ,ni*nj))
 {
   int i, j;
 
   for (i = 0; i < ni; i++)
     for (j = 0; j < nj; j++) {
-      A[i][j] = ((DATA_TYPE) i*j) / ni;
-      Q[i][j] = ((DATA_TYPE) i*(j+1)) / nj;
+      A[i*ni+j] = ((DATA_TYPE) i*j) / ni;
+      Q[i*ni+j] = ((DATA_TYPE) i*(j+1)) / nj;
     }
   for (i = 0; i < nj; i++)
     for (j = 0; j < nj; j++)
-      R[i][j] = ((DATA_TYPE) i*(j+2)) / nj;
+      R[i*nj+j] = ((DATA_TYPE) i*(j+2)) / nj;
 }
 
 
@@ -42,27 +42,27 @@ void init_array(int ni, int nj,
    Can be used also to check the correctness of the output. */
 static
 void print_array(int ni, int nj,
-		 DATA_TYPE POLYBENCH_2D(A,NI,NJ,ni,nj),
-		 DATA_TYPE POLYBENCH_2D(R,NJ,NJ,nj,nj),
-		 DATA_TYPE POLYBENCH_2D(Q,NI,NJ,ni,nj))
+		 DATA_TYPE POLYBENCH_1D(A,NI*NJ,ni*nj),
+		 DATA_TYPE POLYBENCH_1D(R,NJ*NJ,nj*nj),
+		 DATA_TYPE POLYBENCH_1D(Q,NI*NJ,ni*nj))
 {
   int i, j;
 
   for (i = 0; i < ni; i++)
     for (j = 0; j < nj; j++) {
-	fprintf (stderr, DATA_PRINTF_MODIFIER, A[i][j]);
+	fprintf (stderr, DATA_PRINTF_MODIFIER, A[i*ni+j]);
 	if (i % 20 == 0) fprintf (stderr, "\n");
     }
   fprintf (stderr, "\n");
   for (i = 0; i < nj; i++)
     for (j = 0; j < nj; j++) {
-	fprintf (stderr, DATA_PRINTF_MODIFIER, R[i][j]);
+	fprintf (stderr, DATA_PRINTF_MODIFIER, R[i*nj+j]);
 	if (i % 20 == 0) fprintf (stderr, "\n");
     }
   fprintf (stderr, "\n");
   for (i = 0; i < ni; i++)
     for (j = 0; j < nj; j++) {
-	fprintf (stderr, DATA_PRINTF_MODIFIER, Q[i][j]);
+	fprintf (stderr, DATA_PRINTF_MODIFIER, Q[i*ni+j]);
 	if (i % 20 == 0) fprintf (stderr, "\n");
     }
   fprintf (stderr, "\n");
@@ -73,9 +73,9 @@ void print_array(int ni, int nj,
    including the call and return. */
 static
 void kernel_gramschmidt(int ni, int nj,
-			DATA_TYPE POLYBENCH_2D(A,NI,NJ,ni,nj),
-			DATA_TYPE POLYBENCH_2D(R,NJ,NJ,nj,nj),
-			DATA_TYPE POLYBENCH_2D(Q,NI,NJ,ni,nj))
+			DATA_TYPE POLYBENCH_1D(A,NI*NJ,ni*nj),
+			DATA_TYPE POLYBENCH_1D(R,NJ*NJ,nj*nj),
+			DATA_TYPE POLYBENCH_1D(Q,NI*NJ,ni*nj))
 {
   int i, j, k;
 
@@ -85,17 +85,17 @@ void kernel_gramschmidt(int ni, int nj,
     {
       nrm = 0;
       for (i = 0; i < _PB_NI; i++)
-        nrm += A[i][k] * A[i][k];
-      R[k][k] = sqrt(nrm);
+        nrm += A[i*ni+k] * A[i*ni+k];
+      R[k*nj+k] = sqrt(nrm);
       for (i = 0; i < _PB_NI; i++)
-        Q[i][k] = A[i][k] / R[k][k];
+        Q[i*ni+k] = A[i*ni+k] / R[k*nj+k];
       for (j = k + 1; j < _PB_NJ; j++)
 	{
-	  R[k][j] = 0;
+	  R[k*nj+j] = 0;
 	  for (i = 0; i < _PB_NI; i++)
-	    R[k][j] += Q[i][k] * A[i][j];
+	    R[k*nj+j] += Q[i*ni+k] * A[i*ni+j];
 	  for (i = 0; i < _PB_NI; i++)
-	    A[i][j] = A[i][j] - Q[i][k] * R[k][j];
+	    A[i*ni+j] = A[i*ni+j] - Q[i*ni+k] * R[k*nj+j];
 	}
     }
 
@@ -109,9 +109,9 @@ int main(int argc, char** argv)
   int nj = NJ;
 
   /* Variable declaration/allocation. */
-  POLYBENCH_2D_ARRAY_DECL(A,DATA_TYPE,NI,NJ,ni,nj);
-  POLYBENCH_2D_ARRAY_DECL(R,DATA_TYPE,NJ,NJ,nj,nj);
-  POLYBENCH_2D_ARRAY_DECL(Q,DATA_TYPE,NI,NJ,ni,nj);
+  POLYBENCH_1D_ARRAY_DECL(A,DATA_TYPE,NI*NJ,ni*nj);
+  POLYBENCH_1D_ARRAY_DECL(R,DATA_TYPE,NJ*NJ,nj*nj);
+  POLYBENCH_1D_ARRAY_DECL(Q,DATA_TYPE,NI*NJ,ni*nj);
 
   /* Initialize array(s). */
   init_array (ni, nj,

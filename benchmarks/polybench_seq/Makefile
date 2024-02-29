@@ -1,4 +1,4 @@
-DIRS=$$(find . -maxdepth 1 -type d -not -name .)
+DIRS=$$(find . -maxdepth 1 -type d -not -name ".*")
 
 all:
 	for f in ${DIRS}; do \

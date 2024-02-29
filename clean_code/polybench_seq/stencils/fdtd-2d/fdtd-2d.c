@@ -23,9 +23,9 @@ static
 void init_array (int tmax,
 		 int nx,
 		 int ny,
-		 DATA_TYPE POLYBENCH_2D(ex,NX,NY,nx,ny),
-		 DATA_TYPE POLYBENCH_2D(ey,NX,NY,nx,ny),
-		 DATA_TYPE POLYBENCH_2D(hz,NX,NY,nx,ny),
+		 DATA_TYPE POLYBENCH_1D(ex,NX*NY,nx*ny),
+		 DATA_TYPE POLYBENCH_1D(ey,NX*NY,nx*ny),
+		 DATA_TYPE POLYBENCH_1D(hz,NX*NY,nx*ny),
 		 DATA_TYPE POLYBENCH_1D(_fict_,TMAX,tmax))
 {
   int i, j;
@@ -35,9 +35,9 @@ void init_array (int tmax,
   for (i = 0; i < nx; i++)
     for (j = 0; j < ny; j++)
       {
-	ex[i][j] = ((DATA_TYPE) i*(j+1)) / nx;
-	ey[i][j] = ((DATA_TYPE) i*(j+2)) / ny;
-	hz[i][j] = ((DATA_TYPE) i*(j+3)) / nx;
+	ex[i*nx+j] = ((DATA_TYPE) i*(j+1)) / nx;
+	ey[i*nx+j] = ((DATA_TYPE) i*(j+2)) / ny;
+	hz[i*nx+j] = ((DATA_TYPE) i*(j+3)) / nx;
       }
 }
 
@@ -47,17 +47,17 @@ void init_array (int tmax,
 static
 void print_array(int nx,
 		 int ny,
-		 DATA_TYPE POLYBENCH_2D(ex,NX,NY,nx,ny),
-		 DATA_TYPE POLYBENCH_2D(ey,NX,NY,nx,ny),
-		 DATA_TYPE POLYBENCH_2D(hz,NX,NY,nx,ny))
+		 DATA_TYPE POLYBENCH_1D(ex,NX*NY,nx*ny),
+		 DATA_TYPE POLYBENCH_1D(ey,NX*NY,nx*ny),
+		 DATA_TYPE POLYBENCH_1D(hz,NX*NY,nx*ny))
 {
   int i, j;
 
   for (i = 0; i < nx; i++)
     for (j = 0; j < ny; j++) {
-      fprintf(stderr, DATA_PRINTF_MODIFIER, ex[i][j]);
-      fprintf(stderr, DATA_PRINTF_MODIFIER, ey[i][j]);
-      fprintf(stderr, DATA_PRINTF_MODIFIER, hz[i][j]);
+      fprintf(stderr, DATA_PRINTF_MODIFIER, ex[i*nx+j]);
+      fprintf(stderr, DATA_PRINTF_MODIFIER, ey[i*nx+j]);
+      fprintf(stderr, DATA_PRINTF_MODIFIER, hz[i*nx+j]);
       if ((i * nx + j) % 20 == 0) fprintf(stderr, "\n");
     }
   fprintf(stderr, "\n");
@@ -70,9 +70,9 @@ static
 void kernel_fdtd_2d(int tmax,
 		    int nx,
 		    int ny,
-		    DATA_TYPE POLYBENCH_2D(ex,NX,NY,nx,ny),
-		    DATA_TYPE POLYBENCH_2D(ey,NX,NY,nx,ny),
-		    DATA_TYPE POLYBENCH_2D(hz,NX,NY,nx,ny),
+		    DATA_TYPE POLYBENCH_1D(ex,NX*NY,nx*ny),
+		    DATA_TYPE POLYBENCH_1D(ey,NX*NY,nx*ny),
+		    DATA_TYPE POLYBENCH_1D(hz,NX*NY,nx*ny),
 		    DATA_TYPE POLYBENCH_1D(_fict_,TMAX,tmax))
 {
   int t, i, j;
@@ -81,17 +81,17 @@ void kernel_fdtd_2d(int tmax,
   for(t = 0; t < _PB_TMAX; t++)
     {
       for (j = 0; j < _PB_NY; j++)
-	ey[0][j] = _fict_[t];
+	ey[0*nx+j] = _fict_[t];
       for (i = 1; i < _PB_NX; i++)
 	for (j = 0; j < _PB_NY; j++)
-	  ey[i][j] = ey[i][j] - 0.5*(hz[i][j]-hz[i-1][j]);
+	  ey[i*nx+j] = ey[i*nx+j] - 0.5*(hz[i*nx+j]-hz[(i-1)*nx+j]);
       for (i = 0; i < _PB_NX; i++)
 	for (j = 1; j < _PB_NY; j++)
-	  ex[i][j] = ex[i][j] - 0.5*(hz[i][j]-hz[i][j-1]);
+	  ex[i*nx+j] = ex[i*nx+j] - 0.5*(hz[i*nx+j]-hz[i*nx+(j-1)]);
       for (i = 0; i < _PB_NX - 1; i++)
 	for (j = 0; j < _PB_NY - 1; j++)
-	  hz[i][j] = hz[i][j] - 0.7*  (ex[i][j+1] - ex[i][j] +
-				       ey[i+1][j] - ey[i][j]);
+	  hz[i*nx+j] = hz[i*nx+j] - 0.7*  (ex[i*nx+(j+1)] - ex[i*nx+j] +
+				       ey[(i+1)*nx+j] - ey[i*nx+j]);
     }
 
 }
@@ -105,9 +105,9 @@ int main(int argc, char** argv)
   int ny = NY;
 
   /* Variable declaration/allocation. */
-  POLYBENCH_2D_ARRAY_DECL(ex,DATA_TYPE,NX,NY,nx,ny);
-  POLYBENCH_2D_ARRAY_DECL(ey,DATA_TYPE,NX,NY,nx,ny);
-  POLYBENCH_2D_ARRAY_DECL(hz,DATA_TYPE,NX,NY,nx,ny);
+  POLYBENCH_1D_ARRAY_DECL(ex,DATA_TYPE,NX*NY,nx*ny);
+  POLYBENCH_1D_ARRAY_DECL(ey,DATA_TYPE,NX*NY,nx*ny);
+  POLYBENCH_1D_ARRAY_DECL(hz,DATA_TYPE,NX*NY,nx*ny);
   POLYBENCH_1D_ARRAY_DECL(_fict_,DATA_TYPE,TMAX,tmax);
 
   /* Initialize array(s). */

@@ -102,10 +102,10 @@ instrument_dynprog:
 	discopop_cc -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base -DSMALL_DATASET
 
 compile_gramschmidt:
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base -lm
 
 instrument_gramschmidt:
-	discopop_cc -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base -DSMALL_DATASET
+	discopop_cc -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base -DSMALL_DATASET -lm
 
 compile_lu:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base

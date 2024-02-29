@@ -58,7 +58,7 @@ cpu_get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 gpu_get_discopop_patterns:
@@ -69,7 +69,7 @@ gpu_get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/prefer_gpu_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/prefer_gpu_system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 ##### SEQUENTIAL

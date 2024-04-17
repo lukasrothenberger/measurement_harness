@@ -597,7 +597,7 @@ void write_ep_info(FILE *fp, char class_npb){
 	 * direction m1, m2, m3. nt is the number of iterations
 	 */
 	int m;
-	if (class_npb == 'S'){m = 24;}
+	if (class_npb == 'S'){m = 17;}
 	else if(class_npb == 'W'){m = 25;}
 	else if(class_npb == 'A'){m = 28;}
 	else if(class_npb == 'B'){m = 30;}

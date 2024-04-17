@@ -1,0 +1,1 @@
+Sequential version was created by removing pragmas from the "openmp" version, since "ref" prevents parallelization in some spots (e.g. by calling "TICK" and "TOCK")

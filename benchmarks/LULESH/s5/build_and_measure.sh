@@ -29,12 +29,13 @@ else
     # discopop profiling
     discopop_cmake -DWITH_MPI=Off -DWITH_OPENMP=Off .
     make 
-    ./lulesh2.0 -s 5
+    ./lulesh2.0 -s 2
     cd .discopop
     hotspot_analyzer
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json # cpu_only_system_configuration.json
-    discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
+#    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json # cpu_only_system_configuration.json
+#    discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
+    discopop_patch_generator
     cd $BASEDIR
     mv code original_build
 fi

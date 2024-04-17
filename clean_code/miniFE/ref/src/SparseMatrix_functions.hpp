@@ -457,7 +457,9 @@ impose_dirichlet(typename MatrixType::ScalarType prescribed_value,
     }
   }
 
-  for(size_t i=0; i<A.rows.size(); ++i) {
+  const int ROW_COUNT = A.rows.size();
+
+  for(MINIFE_GLOBAL_ORDINAL i=0; i < ROW_COUNT; ++i) {
     GlobalOrdinal row = A.rows[i];
 
     if (bc_rows.find(row) != bc_rows.end()) continue;
@@ -482,60 +484,6 @@ impose_dirichlet(typename MatrixType::ScalarType prescribed_value,
 static timer_type exchtime = 0;
 
 //------------------------------------------------------------------------
-//Compute matrix vector product y = A*x and return dot(x,y), where:
-//
-// A - input matrix
-// x - input vector
-// y - result vector
-//
-template<typename MatrixType,
-         typename VectorType>
-typename TypeTraits<typename VectorType::ScalarType>::magnitude_type
-matvec_and_dot(MatrixType& A,
-               VectorType& x,
-               VectorType& y)
-{
-  timer_type t0 = mytimer();
-  exchange_externals(A, x);
-  exchtime += mytimer()-t0;
-
-  typedef typename TypeTraits<typename VectorType::ScalarType>::magnitude_type magnitude;
-  typedef typename MatrixType::ScalarType ScalarType;
-  typedef typename MatrixType::GlobalOrdinalType GlobalOrdinalType;
-  typedef typename MatrixType::LocalOrdinalType LocalOrdinalType;
-
-  int n = A.rows.size();
-  const LocalOrdinalType* Arowoffsets = &A.row_offsets[0];
-  const GlobalOrdinalType* Acols      = &A.packed_cols[0];
-  const ScalarType* Acoefs            = &A.packed_coefs[0];
-  const ScalarType* xcoefs = &x.coefs[0];
-        ScalarType* ycoefs = &y.coefs[0];
-  ScalarType beta = 0;
-
-  magnitude result = 0;
-
-  for(int row=0; row<n; ++row) {
-    ScalarType sum = beta*ycoefs[row];
-
-    for(LocalOrdinalType i=Arowoffsets[row]; i<Arowoffsets[row+1]; ++i) {
-      sum += Acoefs[i]*xcoefs[Acols[i]];
-    }
-
-    ycoefs[row] = sum;
-    result += xcoefs[row]*sum;
-  }
-
-#ifdef HAVE_MPI
-  magnitude local_dot = result, global_dot = 0;
-  MPI_Datatype mpi_dtype = TypeTraits<magnitude>::mpi_type();  
-  MPI_Allreduce(&local_dot, &global_dot, 1, mpi_dtype, MPI_SUM, MPI_COMM_WORLD);
-  return global_dot;
-#else
-  return result;
-#endif
-}
-
-//------------------------------------------------------------------------
 //Compute matrix vector product y = A*x where:
 //
 // A - input matrix
@@ -550,30 +498,33 @@ void operator()(MatrixType& A,
             VectorType& x,
             VectorType& y)
 {
-  exchange_externals(A, x);
+  	exchange_externals(A, x);
 
-  typedef typename MatrixType::ScalarType ScalarType;
-  typedef typename MatrixType::GlobalOrdinalType GlobalOrdinalType;
-  typedef typename MatrixType::LocalOrdinalType LocalOrdinalType;
+  	typedef typename MatrixType::ScalarType ScalarType;
+  	typedef typename MatrixType::GlobalOrdinalType GlobalOrdinalType;
+  	typedef typename MatrixType::LocalOrdinalType LocalOrdinalType;
 
-  int n = A.rows.size();
-  const LocalOrdinalType* Arowoffsets = &A.row_offsets[0];
-  const GlobalOrdinalType* Acols      = &A.packed_cols[0];
-  const ScalarType* Acoefs            = &A.packed_coefs[0];
-  const ScalarType* xcoefs = &x.coefs[0];
-        ScalarType* ycoefs = &y.coefs[0];
-  ScalarType beta = 0;
+        const MINIFE_GLOBAL_ORDINAL rows_size     = A.rows.size();
+        const LocalOrdinalType* const Arowoffsets = &A.row_offsets[0];
+        const GlobalOrdinalType* const Acols      = &A.packed_cols[0];
+        const ScalarType* const Acoefs            = &A.packed_coefs[0];
+        const ScalarType* const xcoefs            = &x.coefs[0];
+        ScalarType* ycoefs                        = &y.coefs[0];
+        const ScalarType beta                     = 0;
 
-  for(int row=0; row<n; ++row) {
-    ScalarType sum = beta*ycoefs[row];
+        for(MINIFE_GLOBAL_ORDINAL row = 0; row < rows_size; ++row) {
+                const MINIFE_GLOBAL_ORDINAL row_start = Arowoffsets[row];
+                const MINIFE_GLOBAL_ORDINAL row_end   = Arowoffsets[row+1];
 
-    for(LocalOrdinalType i=Arowoffsets[row]; i<Arowoffsets[row+1]; ++i) {
-      sum += Acoefs[i]*xcoefs[Acols[i]];
-    }
+                MINIFE_SCALAR sum = 0;
 
-    //std::cout << "row[" << row << "] = " << sum << std::endl;
-    ycoefs[row] = sum;
-  }
+                #pragma loop_count(15)
+                for(MINIFE_GLOBAL_ORDINAL i = row_start; i < row_end; ++i) {
+                        sum += Acoefs[i] * xcoefs[Acols[i]];
+                }
+
+                ycoefs[row] = sum;
+        }
 }
 };
 #elif defined(MINIFE_ELL_MATRIX)
@@ -603,6 +554,7 @@ void operator()(MatrixType& A,
 
     int row_start=row*row_len;
     int row_end=row_start+row_len;
+
     for(LocalOrdinalType i=row_start; i<row_end; ++i) {
       sum += Acoefs[i]*xcoefs[Acols[i]];
     }

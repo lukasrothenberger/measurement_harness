@@ -209,7 +209,10 @@ int main(int argc, char *argv[]) {
 	char *TIMERS_NAMES[NUM_TIMERS] = {"Total_time" };
 	char *DEFAULT_VALUES[NUM_ARGS] = {"64"};
 
-	N = KILO * 64;
+  char* tmp; 
+  int k = atoi(argv[1]);
+
+	N = KILO * k;
 
   /* N = KILO * get_params(argc, argv); */
   
@@ -228,12 +231,6 @@ int main(int argc, char *argv[]) {
   FFT(A, a, W, N, 1, D);
   /* write_array(N, A); */
 
-	/* Display results and time */
-	printf("Test array: ");
-	if (test_array(N, A))
-		printf("Ok\n");
-	else
-		printf("Fails\n");
   free(W);
   free(D);
   free(A);

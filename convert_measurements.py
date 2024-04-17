@@ -90,8 +90,8 @@ for file_path in valid_file_paths:
         # determine bar color
         if "seq" in data_i.keys():
             bar_color = "y"
-        elif str(optimized_solution_id) in data_i.keys():
-            bar_color = "g"
+#        elif str(optimized_solution_id) in data_i.keys():
+#            bar_color = "g"
         else:
             bar_color = "b"
 

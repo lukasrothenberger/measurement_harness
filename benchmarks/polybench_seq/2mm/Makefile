@@ -1,11 +1,11 @@
 CC=clang
 CXX=clang++
-CPU_CC_FLAGS="-fopenmp"
-CPU_CXX_FLAGS="-fopenmp"
+CPU_CC_FLAGS="-fopenmp -O3"
+CPU_CXX_FLAGS="-fopenmp -O3"
 GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
-DP_PATCH_GENERATOR_FLAGS=--log INFO # --only-optimizer-output-patterns #--only-maximum-id-pattern
+DP_PATCH_GENERATOR_FLAGS=--log INFO --only-optimizer-output-patterns #--only-maximum-id-pattern
 
 ########## CPU + GPU
 all: clean setup_env cpu_prepare_code cpu_compile cpu_measure
@@ -39,7 +39,7 @@ cpu_get_discopop_patterns:
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_optimizer -v -s -o1 ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
 	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
 
 ##### SEQUENTIAL
@@ -75,7 +75,7 @@ compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	done
 measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 300 code_$$(basename $${f})/2mm_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 60 code_$$(basename $${f})/2mm_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
 	done
 
 

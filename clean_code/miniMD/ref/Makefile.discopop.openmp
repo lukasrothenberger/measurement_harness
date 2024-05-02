@@ -1,4 +1,4 @@
-3# Makefile for mpicxx compiler
+# Makefile for mpicxx compiler
 
 SHELL = /bin/sh
 
@@ -11,10 +11,10 @@ SIMD ?= no
 
 # System-specific settings
 
-CC = discopop_cxx
-CCFLAGS = -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -fopenmp
-LINK = discopop_cxx
-LINKFLAGS =	-I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -fopenmp
+CC = clang
+CCFLAGS = -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -fopenmp -O3
+LINK = clang
+LINKFLAGS =	-I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -fopenmp -O3
 USRLIB = 	
 SYSLIB =	
 SIZE =		size

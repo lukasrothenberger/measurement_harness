@@ -29,7 +29,7 @@ instrument_cholesky:
 	discopop_cc -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base -DSMALL_DATASET
 
 compile_doitgen:
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base -DLARGE_DATASET
 
 instrument_doitgen:
 	discopop_cc -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base -DSMALL_DATASET
@@ -108,7 +108,7 @@ instrument_gramschmidt:
 	discopop_cc -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base -DSMALL_DATASET -lm
 
 compile_lu:
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base -DEXTRALARGE_DATASET
 
 instrument_lu:
 	discopop_cc -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base -DSMALL_DATASET

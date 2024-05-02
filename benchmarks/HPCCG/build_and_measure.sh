@@ -33,8 +33,9 @@ else
     ./test_HPCCG 9 8 7 
     cd .discopop
     discopop_explorer --enable-patterns doall,reduction
-    discopop_optimizer -v -p1 -s --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json 
-    discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
+    discopop_patch_generator ${DP_PATCH_GENERATOR_FLAGS}
+    #discopop_optimizer -v -p1 -s --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json 
+    #discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     cd $BASEDIR
     mv code original_build
 fi

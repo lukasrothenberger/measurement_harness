@@ -1,9 +1,9 @@
 CC=clang
 CXX=clang++
-CPU_CC_FLAGS="-fopenmp"
-CPU_CXX_FLAGS="-fopenmp"
-GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
-GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
+CPU_CC_FLAGS="-fopenmp -O3"
+CPU_CXX_FLAGS="-fopenmp -O3"
+GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx6 -O3"
+GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64 -O3"
 DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
 DP_PATCH_GENERATOR_FLAGS=--log INFO #--only-maximum-id-pattern
 

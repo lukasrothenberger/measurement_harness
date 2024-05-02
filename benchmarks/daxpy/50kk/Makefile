@@ -2,13 +2,12 @@ CC=clang
 CXX=clang++
 CPU_CC_FLAGS="-fopenmp -O3"
 CPU_CXX_FLAGS="-fopenmp -O3"
-GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64 -O3"
-GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64 -O3"
+GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
+GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
-DP_PATCH_GENERATOR_FLAGS=--log INFO --only-optimizer-output-patterns #--only-maximum-id-pattern
 
 ########## CPU + GPU
-all: clean setup_env cpu_prepare_code cpu_compile cpu_measure
+all: clean setup_env cpu_prepare_code gpu_prepare_code cpu_compile gpu_compile cpu_measure gpu_measure
 
 ########## CPU
 cpu: clean setup_env cpu_prepare_code cpu_compile cpu_measure
@@ -20,7 +19,7 @@ cpu_prepare_code:
 
 cpu_compile:
 	make compile_sequential
-	make compile_single_suggestions
+	make cpu_compile_single_suggestions
 
 cpu_measure:
 	make measure_sequential
@@ -28,6 +27,7 @@ cpu_measure:
 
 cpu_cleanup:
 	rm -rvf code_*
+
 
 ########## GPU
 gpu: clean setup_env gpu_prepare_code gpu_compile gpu_measure
@@ -52,25 +52,25 @@ gpu_cleanup:
 ##### DISCOPOP 
 cpu_get_discopop_patterns:
 	make reset_env
-	cd code && make -f Makefile.discopop instrument_3mm
-	cd code && ./3mm_base
+	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx . && make
+	cd code && ./prog
 	ls code/.discopop
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
-	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
+	cd clean_dp_folder && discopop_optimizer -v -o1 -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
 
 gpu_get_discopop_patterns:
 	make reset_env
-	cd code && make -f Makefile.discopop instrument_3mm
-	cd code && ./3mm_base
+	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx . && make
+	cd code && ./prog
 	ls code/.discopop
 	cp -r code/.discopop/* clean_dp_folder
 	ls -a clean_dp_folder
 	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
-	cd clean_dp_folder && discopop_optimizer -v -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/prefer_gpu_configuration.json
-	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
+	cd clean_dp_folder && discopop_optimizer -v -o1 -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
 
 ##### SEQUENTIAL
 prepare_sequential:
@@ -78,9 +78,9 @@ prepare_sequential:
 	mv code code_sequential
 	mkdir -p logs/sequential
 compile_sequential:
-	-cd code_sequential && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_3mm
+	-cd code_sequential && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
 measure_sequential:
-	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/3mm_base 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
+	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/prog 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
 
 
 
@@ -98,29 +98,31 @@ prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
 		mv code code_$$(basename $${f}); \
 		mkdir -p logs/$$(basename $${f}); \
 	done
-compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+cpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${CPU_CC_FLAGS} make -f Makefile.discopop compile_3mm ; \
+		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make ; \
 		cd .. ; \
 	done
 gpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		cd code_$$(basename $${f}) && CC=${CC} CFLAGS=${GPU_CC_FLAGS} make -f Makefile.discopop compile_3mm ; \
+		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make ; \
 		cd .. ; \
 	done
 measure_single_suggestions: $(SUGGESTIONS_DIR)/*
 	for f in $^; do \
-		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv timeout 300 code_$$(basename $${f})/3mm_base 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv code_$$(basename $${f})/prog 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
 	done
 
 
+	
 setup_env:
+	echo "ID; time; return_code;" > measurements.csv
 	mkdir clean_dp_folder
 
 reset_env:
 	echo "RESET ENV"
 	rm -rvf code
-	cp -r ../../../clean_code/polybench_seq code
+	cp -r ../../../clean_code/daxpy/50kk code
 	rm -rvf dp_folder
 	mkdir -p clean_dp_folder
 	cp -r clean_dp_folder dp_folder
@@ -132,5 +134,6 @@ clean:
 	rm -rvf measurements.csv
 	rm -rvf logs
 	make cpu_cleanup
+	make gpu_cleanup
 
 

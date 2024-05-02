@@ -1,7 +1,7 @@
 CC=clang
 CXX=clang++
-CPU_CC_FLAGS="-fopenmp"
-CPU_CXX_FLAGS="-fopenmp"
+CPU_CC_FLAGS="-fopenmp -O3"
+CPU_CXX_FLAGS="-fopenmp -O3"
 DP_PATCH_GENERATOR_FLAGS="--log INFO" # --only-maximum-id-pattern"
 
 ####
@@ -74,7 +74,7 @@ do
     else
         mkdir build
         cd build 
-        cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} ..
+        cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS="${CPU_CC_FLAGS}" -DCMAKE_CXX_FLAGS="${CPU_CXX_FLAGS}" ..
         make -j 8
     fi
 done
@@ -92,7 +92,7 @@ do
         LOGDIR=$BASEDIR/logs/$d
         mkdir -p $LOGDIR
         cd $d/build
-        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 300 ./lulesh2.0 -s 12 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
+        /usr/bin/time --format="$d;%e;%x;" --append --output=$BASEDIR/measurements.csv timeout 300 ./lulesh2.0 -s 25 1>> $LOGDIR/stdout.txt 2>> $LOGDIR/stderr.txt ;
     else
         echo "Executable $d/build/lulesh2.0 does not exist. Skipping."
     fi

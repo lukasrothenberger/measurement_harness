@@ -1,7 +1,7 @@
 CC=clang
 CXX=clang++
-CPU_CC_FLAGS="-fopenmp"
-CPU_CXX_FLAGS="-fopenmp"
+CPU_CC_FLAGS="-fopenmp -O3"
+CPU_CXX_FLAGS="-fopenmp -O3"
 GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
 DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json

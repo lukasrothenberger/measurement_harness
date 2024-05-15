@@ -1,0 +1,139 @@
+CC=clang
+CXX=clang++
+CPU_CC_FLAGS="-fopenmp"
+CPU_CXX_FLAGS="-fopenmp"
+GPU_CC_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
+GPU_CXX_FLAGS="-fopenmp -fopenmp-targets=nvptx64"
+DP_OPTIMIZER_FLAGS=--doall-microbench-file ../../../../configuration/doall_1.json --reduction-microbench-file ../../../../configuration/reduction.json
+
+########## CPU + GPU
+all: clean setup_env cpu_prepare_code gpu_prepare_code cpu_compile gpu_compile cpu_measure gpu_measure
+
+########## CPU
+cpu: clean setup_env cpu_prepare_code cpu_compile cpu_measure
+
+cpu_prepare_code: 
+	make prepare_sequential
+	make cpu_get_discopop_patterns
+	make prepare_single_suggestions
+
+cpu_compile:
+	make compile_sequential
+	make cpu_compile_single_suggestions
+
+cpu_measure:
+	make measure_sequential
+	make measure_single_suggestions
+
+cpu_cleanup:
+	rm -rvf code_*
+
+
+########## GPU
+gpu: clean setup_env gpu_prepare_code gpu_compile gpu_measure
+
+gpu_prepare_code: 
+	make prepare_sequential
+	make gpu_get_discopop_patterns
+	make prepare_single_suggestions
+
+gpu_compile:
+	make compile_sequential
+	make gpu_compile_single_suggestions
+
+gpu_measure:
+	make measure_sequential
+	make measure_single_suggestions
+
+gpu_cleanup:
+	rm -rvf code_*
+
+
+##### DISCOPOP 
+cpu_get_discopop_patterns:
+	make reset_env
+	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
+	cd code && ./prog
+	ls code/.discopop
+	cp -r code/.discopop/* clean_dp_folder
+	ls -a clean_dp_folder
+	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
+	cd clean_dp_folder && discopop_optimizer -v -o1 -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/cpu_only_system_configuration.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
+
+gpu_get_discopop_patterns:
+	make reset_env
+	cd code && cmake -DCMAKE_C_COMPILER=discopop_cc -DCMAKE_CXX_COMPILER=discopop_cxx -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
+	cd code && ./prog
+	ls code/.discopop
+	cp -r code/.discopop/* clean_dp_folder
+	ls -a clean_dp_folder
+	cd clean_dp_folder && discopop_explorer --enable-patterns=reduction,doall
+	cd clean_dp_folder && discopop_optimizer -v -o1 -s ${DP_OPTIMIZER_FLAGS} --system-configuration ../../../../configuration/system_configuration.json
+	cd clean_dp_folder && discopop_patch_generator -a optimizer/patterns.json
+
+##### SEQUENTIAL
+prepare_sequential:
+	make reset_env
+	mv code code_sequential
+	mkdir -p logs/sequential
+compile_sequential:
+	-cd code_sequential && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make
+measure_sequential:
+	-/usr/bin/time --format="sequential;%e;%x;" --append --output=measurements.csv code_sequential/prog 1>> logs/sequential/stdout.txt 2>> logs/sequential/stderr.txt
+
+
+
+##### SINGLE SUGGESTIONS
+SUGGESTIONS_DIR=./clean_dp_folder/patch_generator
+prepare_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		basename $${f}; \
+		rm -rvf code_$$(basename $${f}); \
+		make reset_env; \
+		ls; \
+		pwd; \
+		cd dp_folder && discopop_patch_applicator -v -a $$(basename $${f}); \
+		cd .. ;\
+		mv code code_$$(basename $${f}); \
+		mkdir -p logs/$$(basename $${f}); \
+	done
+cpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${CPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${CPU_CXX_FLAGS} . && make ; \
+		cd .. ; \
+	done
+gpu_compile_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		cd code_$$(basename $${f}) && cmake -DCMAKE_C_COMPILER=${CC} -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_FLAGS=${GPU_CC_FLAGS} -DCMAKE_CXX_FLAGS=${GPU_CXX_FLAGS} . && make ; \
+		cd .. ; \
+	done
+measure_single_suggestions: $(SUGGESTIONS_DIR)/*
+	for f in $^; do \
+		/usr/bin/time --format="$$(basename $${f});%e;%x;" --append --output=measurements.csv code_$$(basename $${f})/prog 1>> logs/$$(basename $${f})/stdout.txt 2>> logs/$$(basename $${f})/stderr.txt ; \
+	done
+
+
+	
+setup_env:
+	echo "ID; time; return_code;" > measurements.csv
+	mkdir clean_dp_folder
+
+reset_env:
+	echo "RESET ENV"
+	rm -rvf code
+	cp -r ../../../clean_code/burkardt/dijkstra code
+	rm -rvf dp_folder
+	mkdir -p clean_dp_folder
+	cp -r clean_dp_folder dp_folder
+
+clean:
+	rm -rvf code*
+	rm -rvf clean_dp_folder
+	rm -rvf dp_folder
+	rm -rvf measurements.csv
+	rm -rvf logs
+	make cpu_cleanup
+	make gpu_cleanup
+
+

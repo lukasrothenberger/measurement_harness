@@ -17,18 +17,17 @@ else
     echo "Generate DiscoPoP suggestions..."
     cp -r original_code code
     cd code 
-    # hotspot detection
-#    cd src-mpi
-#    cp Makefile.hotspot Makefile
-#    DOT_DISCOPOP=$(pwd)/../bin/.discopop make
-#    make clean
-#    rm Makefile
-#    cd ../bin
-#    ./CoMD-serial --nx 3 --ny 3 --nz 3
-#    ./CoMD-serial --nx 4 --ny 4 --nz 4
-#    cd .discopop
-#    hotspot_analyzer
-#    cd ../..
+    # discopop hotspot detection
+    cd src 
+    make -f Makefile.discopop.hotspots
+    ./miniFE.x -nx 20 -ny 20 -nz 20
+    ./miniFE.x -nx 30 -ny 30 -nz 30
+    ./miniFE.x -nx 40 -ny 40 -nz 40
+    cd .discopop
+    hotspot_analyzer
+    cd..
+    make -f Makefile.discopop.hotspots clean
+    cd ..
     # discopop pattern detection
     cd src
     make -f Makefile.discopop.patterns

@@ -18,16 +18,16 @@ else
     cp -r original_code code
     cd code 
     # discopop hotspot detection
-    cd src 
-    make -f Makefile.discopop.hotspots
-    ./miniFE.x -nx 20 -ny 20 -nz 20
-    ./miniFE.x -nx 30 -ny 30 -nz 30
-    ./miniFE.x -nx 40 -ny 40 -nz 40
-    cd .discopop
-    hotspot_analyzer
-    cd..
-    make -f Makefile.discopop.hotspots clean
-    cd ..
+#    cd src 
+#    make -f Makefile.discopop.hotspots
+#    ./miniFE.x -nx 20 -ny 20 -nz 20
+#    ./miniFE.x -nx 30 -ny 30 -nz 30
+#    ./miniFE.x -nx 40 -ny 40 -nz 40
+#    cd .discopop
+#    hotspot_analyzer
+#    cd..
+#    make -f Makefile.discopop.hotspots clean
+#    cd ..
     # discopop pattern detection
     cd src
     make -f Makefile.discopop.patterns

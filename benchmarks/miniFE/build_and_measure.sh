@@ -18,22 +18,25 @@ else
     cp -r original_code code
     cd code 
     # discopop hotspot detection
-#    cd src 
-#    make -f Makefile.discopop.hotspots
-#    ./miniFE.x -nx 20 -ny 20 -nz 20
-#    ./miniFE.x -nx 30 -ny 30 -nz 30
+    cd src 
+    ls 
+    
+    make -f Makefile.discopop.hotspots
+    
+    ./miniFE.x -nx 10 -ny 10 -nz 10
+    ./miniFE.x -nx 25 -ny 25 -nz 25
 #    ./miniFE.x -nx 40 -ny 40 -nz 40
-#    cd .discopop
-#    hotspot_analyzer
-#    cd..
-#    make -f Makefile.discopop.hotspots clean
-#    cd ..
+    cd .discopop
+    hotspot_analyzer
+    cd ..
+    make -f Makefile.discopop.hotspots clean
+    cd ..
     # discopop pattern detection
     cd src
     make -f Makefile.discopop.patterns
     ./miniFE.x
     cd .discopop
-    discopop_explorer --enable-patterns doall,reduction
+    discopop_explorer --enable-patterns doall,reduction --log INFO
 #    discopop_optimizer -v -p2 -o1 -s --doall-microbench-file $BASEDIR/../../configuration/doall_1.json --system-configuration $BASEDIR/../../configuration/cpu_only_system_configuration.json 
 #    discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}
     discopop_patch_generator ${DP_PATCH_GENERATOR_FLAGS}

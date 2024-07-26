@@ -9,4 +9,5 @@ gpu:
 
 clean:
 	cd benchmarks && make clean
+	cd auto_tuner_benchmarks && make clean
 	rm -f measurement_report.pdf

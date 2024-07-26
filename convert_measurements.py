@@ -42,6 +42,7 @@ for file_path in valid_file_paths:
 
     # Initialize a dictionary for months 
     data = dict() 
+    return_codes = dict()
     
     # Read the data 
     optimized_solution_id = -1
@@ -61,7 +62,8 @@ for file_path in valid_file_paths:
 
             
             # Store each line in the dictionary 
-            id, time, return_code, trail = line.split(';') 
+            line = line.replace(" ", "")
+            id, time, return_code, trail = line.split(';')
             
             if id == "ID":
                 # skip header
@@ -82,16 +84,23 @@ for file_path in valid_file_paths:
             if id not in data: 
                 data[id] = [] 
             data[id].append((id, float(time))) 
+            return_codes[id] = return_code
 
     for i, l in enumerate(data.keys()): 
         #plt.subplot(positions[i]) 
         plt.subplot(rows, cols, current_idx)
+        
         data_i = dict(data[l]) 
+        case_id = data[l][0][0]
+        
         # determine bar color
         if "seq" in data_i.keys():
             bar_color = "y"
 #        elif str(optimized_solution_id) in data_i.keys():
 #            bar_color = "g"
+        elif return_codes[case_id] != "0":
+            bar_color = "r"
+        
         else:
             bar_color = "b"
 

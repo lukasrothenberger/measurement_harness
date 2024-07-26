@@ -1,0 +1,33 @@
+strict digraph  {
+"/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig\n8.137s" [color=black, fillcolor=green, style=filled, shape=box];
+"1@281 - HotspotNodeType.LOOP  1.388s" [color=black, fillcolor=white, style=filled];
+"step 0\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" [color=black, fillcolor=green, shape=box, style=filled];
+"step 0\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig\n8.137s" [color=black, fillcolor=green, shape=box, style=filled];
+"1@291 - HotspotNodeType.LOOP  1.385s" [color=black, fillcolor=white, style=filled];
+"step 1\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" [color=black, fillcolor=green, shape=box, style=filled];
+"1@167 - HotspotNodeType.LOOP  1.374s" [color=black, fillcolor=white, style=filled];
+"step 2\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" [color=black, fillcolor=green, shape=box, style=filled];
+"1@310 - HotspotNodeType.LOOP  0.29s" [color=black, fillcolor=white, style=filled];
+"step 3\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" [color=black, fillcolor=green, shape=box, style=filled];
+"1@370 - HotspotNodeType.LOOP  0.151s" [color=black, fillcolor=white, style=filled];
+"step 4\n[2, 0]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_2\n9.511s" [color=black, fillcolor=green, shape=box, style=filled];
+"step 4\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" [color=black, fillcolor=green, shape=box, style=filled];
+"1@286 - HotspotNodeType.LOOP  0.001s" [color=black, fillcolor=white, style=filled];
+"step 5\n[2, 3]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_3\n1.992s" [color=black, fillcolor=green, shape=box, style=filled];
+"step 5\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" [color=black, fillcolor=green, shape=box, style=filled];
+"/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig\n8.137s" -> "1@281 - HotspotNodeType.LOOP  1.388s";
+"1@281 - HotspotNodeType.LOOP  1.388s" -> "step 0\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s";
+"1@281 - HotspotNodeType.LOOP  1.388s" -> "step 0\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig\n8.137s";
+"step 0\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" -> "1@291 - HotspotNodeType.LOOP  1.385s";
+"1@291 - HotspotNodeType.LOOP  1.385s" -> "step 1\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s";
+"step 1\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" -> "1@167 - HotspotNodeType.LOOP  1.374s";
+"1@167 - HotspotNodeType.LOOP  1.374s" -> "step 2\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s";
+"step 2\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" -> "1@310 - HotspotNodeType.LOOP  0.29s";
+"1@310 - HotspotNodeType.LOOP  0.29s" -> "step 3\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s";
+"step 3\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" -> "1@370 - HotspotNodeType.LOOP  0.151s";
+"1@370 - HotspotNodeType.LOOP  0.151s" -> "step 4\n[2, 0]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_2\n9.511s";
+"1@370 - HotspotNodeType.LOOP  0.151s" -> "step 4\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s";
+"step 4\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s" -> "1@286 - HotspotNodeType.LOOP  0.001s";
+"1@286 - HotspotNodeType.LOOP  0.001s" -> "step 5\n[2, 3]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_3\n1.992s";
+"1@286 - HotspotNodeType.LOOP  0.001s" -> "step 5\n[2]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_dpautotune_1\n1.66s";
+}

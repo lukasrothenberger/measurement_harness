@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/EP/EP_orig/EP/ep.cpp	2024-07-26 14:10:44.186583252 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/EP/EP_orig/EP/ep.cpp.discopop_patch_generator.temp	2024-07-26 14:10:50.662587267 +0200
+@@ -151,6 +151,7 @@
+ 
+ 	t1 = A;
+ 
++	#pragma omp parallel for private(i,t2) shared(t1) 
+ 	for(i=0; i<MK+1; i++){
+ 		t2 = randlc(&t1, t1);
+ 	}

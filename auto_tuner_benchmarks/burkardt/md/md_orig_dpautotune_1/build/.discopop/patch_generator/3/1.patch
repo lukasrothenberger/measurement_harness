@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig/md.cpp	2024-07-26 14:11:50.146623859 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig/md.cpp.discopop_patch_generator.temp	2024-07-26 14:12:02.430631354 +0200
+@@ -283,6 +283,7 @@
+ //
+ //  Compute the potential energy and forces.
+ //
++    #pragma omp parallel for private(i) shared(f,k,nd) 
+     for ( i = 0; i < nd; i++ )
+     {
+       f[i+k*nd] = 0.0;

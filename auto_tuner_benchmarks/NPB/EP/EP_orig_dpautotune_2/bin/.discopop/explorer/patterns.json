@@ -1,0 +1,118 @@
+{
+  "version": "3.2.1",
+  "patterns": {
+    "optimizer_output": [],
+    "merged_pattern": [],
+    "reduction": [],
+    "do_all": [
+      {
+        "pattern_id": 0,
+        "node_id": "1:16",
+        "start_line": "1:154",
+        "end_line": "1:156",
+        "applicable_pattern": true,
+        "average_iteration_count": 17,
+        "iterations_count": 17,
+        "entries": 1,
+        "workload": 124,
+        "per_iteration_workload": 4,
+        "device_id": null,
+        "device_type": null,
+        "first_private": [],
+        "private": [
+          "i",
+          "t2"
+        ],
+        "last_private": [],
+        "shared": [
+          "t1"
+        ],
+        "reduction": [],
+        "scheduling_clause": "static",
+        "collapse_level": 1
+      },
+      {
+        "pattern_id": 1,
+        "node_id": "1:10",
+        "start_line": "1:139",
+        "end_line": "1:139",
+        "applicable_pattern": true,
+        "average_iteration_count": 131073,
+        "iterations_count": 131073,
+        "entries": 1,
+        "workload": 1179662,
+        "per_iteration_workload": 6,
+        "device_id": null,
+        "device_type": null,
+        "first_private": [],
+        "private": [
+          "i"
+        ],
+        "last_private": [],
+        "shared": [],
+        "reduction": [],
+        "scheduling_clause": "static",
+        "collapse_level": 1
+      },
+      {
+        "pattern_id": 2,
+        "node_id": "3:150",
+        "start_line": "3:155",
+        "end_line": "3:173",
+        "applicable_pattern": true,
+        "average_iteration_count": 65536,
+        "iterations_count": 262144,
+        "entries": 4,
+        "workload": 3276805,
+        "per_iteration_workload": 46,
+        "device_id": null,
+        "device_type": null,
+        "first_private": [],
+        "private": [
+          "i",
+          "t1",
+          "t2",
+          "t3",
+          "t4",
+          "x",
+          "x1",
+          "x2",
+          "z"
+        ],
+        "last_private": [],
+        "shared": [
+          "a1",
+          "a2",
+          "n",
+          "y"
+        ],
+        "reduction": [],
+        "scheduling_clause": "static",
+        "collapse_level": 1
+      },
+      {
+        "pattern_id": 3,
+        "node_id": "1:81",
+        "start_line": "1:265",
+        "end_line": "1:267",
+        "applicable_pattern": true,
+        "average_iteration_count": 9,
+        "iterations_count": 9,
+        "entries": 1,
+        "workload": 104,
+        "per_iteration_workload": 8,
+        "device_id": null,
+        "device_type": null,
+        "first_private": [],
+        "private": [
+          "i"
+        ],
+        "last_private": [],
+        "shared": [],
+        "reduction": [],
+        "scheduling_clause": "static",
+        "collapse_level": 1
+      }
+    ]
+  }
+}

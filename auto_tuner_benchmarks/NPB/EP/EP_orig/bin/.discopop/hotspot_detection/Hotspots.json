@@ -1,0 +1,227 @@
+{"code_regions": [{
+    "csid": 1,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 139,
+    "name": "",
+    "runtimes": [
+        0.000625
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.000625,
+    "sum": 0.000625,
+    "minVal": 0.000625,
+    "maxVal": 0.000625,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 2,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 154,
+    "name": "",
+    "runtimes": [
+        2e-06
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 2e-06,
+    "sum": 2e-06,
+    "minVal": 2e-06,
+    "maxVal": 2e-06,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 4,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 175,
+    "name": "",
+    "runtimes": [
+        0.017024
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.017024,
+    "sum": 0.017024,
+    "minVal": 0.017024,
+    "maxVal": 0.017024,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 6,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 202,
+    "name": "",
+    "runtimes": [
+        0.006946
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.006946,
+    "sum": 0.006946,
+    "minVal": 0.006946,
+    "maxVal": 0.006946,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 8,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 265,
+    "name": "",
+    "runtimes": [
+        1.8e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 1.8e-05,
+    "sum": 1.8e-05,
+    "minVal": 1.8e-05,
+    "maxVal": 1.8e-05,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 9,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 83,
+    "name": "main",
+    "runtimes": [
+        0.017809
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.017809,
+    "sum": 0.017809,
+    "minVal": 0.017809,
+    "maxVal": 0.017809,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 10,
+    "typ": "FUNCTION",
+    "fid": 2,
+    "lineNum": 70,
+    "name": "_Z15c_print_resultsPcciiiiddS_iS_S_S_S_S_S_S_S_S_S_",
+    "runtimes": [
+        7.3e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 7.3e-05,
+    "sum": 7.3e-05,
+    "minVal": 7.3e-05,
+    "maxVal": 7.3e-05,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 11,
+    "typ": "FUNCTION",
+    "fid": 3,
+    "lineNum": 80,
+    "name": "_Z6randlcPdd",
+    "runtimes": [
+        2e-06
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 2e-06,
+    "sum": 2e-06,
+    "minVal": 2e-06,
+    "maxVal": 2e-06,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 12,
+    "typ": "LOOP",
+    "fid": 3,
+    "lineNum": 155,
+    "name": "",
+    "runtimes": [
+        0.010077
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.010077,
+    "sum": 0.010077,
+    "minVal": 0.010077,
+    "maxVal": 0.010077,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 13,
+    "typ": "FUNCTION",
+    "fid": 3,
+    "lineNum": 136,
+    "name": "_Z6vranlciPddS_",
+    "runtimes": [
+        0.010077
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.010077,
+    "sum": 0.010077,
+    "minVal": 0.010077,
+    "maxVal": 0.010077,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 15,
+    "typ": "FUNCTION",
+    "fid": 4,
+    "lineNum": 64,
+    "name": "_Z11timer_cleari",
+    "runtimes": [
+        1e-06
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 1e-06,
+    "sum": 1e-06,
+    "minVal": 1e-06,
+    "maxVal": 1e-06,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+}
+]
+}

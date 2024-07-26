@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig/IS/is.cpp	2024-07-26 14:10:01.742556778 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig/IS/is.cpp.discopop_patch_generator.temp	2024-07-26 14:10:21.322569026 +0200
+@@ -615,6 +615,7 @@
+ 	/* each bucket, which can be done in parallel.  Because the distribution */
+ 	/* of the number of keys in the buckets is Gaussian, the use of */
+ 	/* a dynamic schedule should improve load balance, thus, performance */
++	#pragma omp parallel for private(i,k,k1,k2,m) shared(bucket_ptrs,key_buff_ptr,key_buff_ptr2,num_bucket_keys) 
+ 	for( i=0; i< NUM_BUCKETS; i++ ) {
+ 		/* Clear the work array section associated with each bucket */
+ 		k1 = i * num_bucket_keys;

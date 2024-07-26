@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig/IS/is.cpp	2024-07-26 14:10:01.742556778 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig/IS/is.cpp.discopop_patch_generator.temp	2024-07-26 14:10:21.206568954 +0200
+@@ -376,6 +376,7 @@
+ #ifdef USE_BUCKETS
+ 	bucket_size = (INT_TYPE**)alloc_mem(sizeof(INT_TYPE*)*num_procs);
+ 
++	#pragma omp parallel for private(i) shared(bucket_size,num_procs) 
+ 	for(i = 0; i < num_procs; i++){
+ 		bucket_size[i] = (INT_TYPE*)alloc_mem(sizeof(INT_TYPE)*NUM_BUCKETS);
+ 	}

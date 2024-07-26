@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig/md.cpp	2024-07-26 14:11:50.146623859 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig/md.cpp.discopop_patch_generator.temp	2024-07-26 14:12:02.410631342 +0200
+@@ -316,6 +316,7 @@
+ //
+ //  Compute the kinetic energy.
+ //
++    #pragma omp parallel for private(i) shared(k,nd,vel) reduction(+:ke) 
+     for ( i = 0; i < nd; i++ )
+     {
+       ke = ke + vel[i+k*nd] * vel[i+k*nd];

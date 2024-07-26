@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig/IS/is.cpp	2024-07-26 14:10:01.742556778 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig/IS/is.cpp.discopop_patch_generator.temp	2024-07-26 14:10:21.226568966 +0200
+@@ -587,6 +587,7 @@
+ 	/* Accumulative bucket sizes are the bucket pointers. */
+ 	/* These are global sizes accumulated upon to each bucket */
+ 	bucket_ptrs[0] = 0;
++	#pragma omp parallel for private(bucket_ptrs,bucket_size,k) shared(myid) 
+ 	for( k=0; k< myid; k++ )  
+ 		bucket_ptrs[0] += bucket_size[k][0];
+ 

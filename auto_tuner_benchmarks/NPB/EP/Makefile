@@ -24,4 +24,4 @@ execute_dynamic_analysis:
 execute_auto_tuner:
 	cd EP_orig && mv DP_COMPILE_EP.sh DP_COMPILE.sh
 	cd EP_orig && mv DP_EXECUTE_EP.sh DP_EXECUTE.sh
-	cd EP_orig && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop --skip-cleanup
+	cd EP_orig && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop

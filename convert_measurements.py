@@ -32,6 +32,9 @@ else:
 # configure plot
 cols = int(1)
 rows = int((len(valid_file_paths) + (len(valid_file_paths) % 2)) / cols)
+if rows == 0:
+    warnings.warn("Nothing to be done. Exiting.")
+    sys.exit(0)
 fig, axes = plt.subplots(nrows=rows, ncols=cols, figsize=(10*cols, 5*rows))
 fig.tight_layout(pad=8)
 

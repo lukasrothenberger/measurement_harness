@@ -1,1 +1,0 @@
-/usr/bin/c++ -fopenmp CMakeFiles/prog.dir/md.cpp.o -o prog 

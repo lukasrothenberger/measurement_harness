@@ -1,7 +1,0 @@
-strict digraph  {
-"/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/EP/EP_orig\n13.919s" [color=black, fillcolor=green, style=filled, shape=box];
-"1@175 - HotspotNodeType.LOOP  0.017s" [color=black, fillcolor=white, style=filled];
-"step 0\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/EP/EP_orig\n13.919s" [color=black, fillcolor=green, shape=box, style=filled];
-"/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/EP/EP_orig\n13.919s" -> "1@175 - HotspotNodeType.LOOP  0.017s";
-"1@175 - HotspotNodeType.LOOP  0.017s" -> "step 0\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/EP/EP_orig\n13.919s";
-}

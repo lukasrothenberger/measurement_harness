@@ -10,4 +10,5 @@ gpu:
 clean:
 	cd benchmarks && make clean
 	cd auto_tuner_benchmarks && make clean
+	cd reference_parallelization && make clean
 	rm -f measurement_report.pdf

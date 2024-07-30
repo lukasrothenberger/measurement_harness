@@ -25,3 +25,8 @@ execute_auto_tuner:
 	cd SP_orig && mv DP_COMPILE_SP.sh DP_COMPILE.sh
 	cd SP_orig && mv DP_EXECUTE_SP.sh DP_EXECUTE.sh
 	cd SP_orig && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+
+execute_parallel_reference:
+	cp -r ../../../clean_code/NPB-OMP SP_OMP
+	cd SP_OMP && ./DP_COMPILE_SP.sh
+	cd SP_OMP && /usr/bin/time --append --format="REF; %e; %x;" -o ../SP_orig/measurements.csv ./DP_EXECUTE_SP.sh

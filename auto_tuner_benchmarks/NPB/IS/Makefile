@@ -1,6 +1,6 @@
 all: cpu
 
-cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis execute_auto_tuner
+cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis execute_auto_tuner execute_parallel_reference
 
 clean: 
 	rm -rvf IS_*
@@ -25,3 +25,9 @@ execute_auto_tuner:
 	cd IS_orig && mv DP_COMPILE_IS.sh DP_COMPILE.sh
 	cd IS_orig && mv DP_EXECUTE_IS.sh DP_EXECUTE.sh
 	cd IS_orig && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop 
+
+execute_parallel_reference:
+	cp -r ../../../clean_code/NPB-OMP IS_OMP
+	cd IS_OMP && ./DP_COMPILE_IS.sh
+	cd IS_OMP && /usr/bin/time --append --format="REF; %e; %x;" -o ../IS_orig/measurements.csv ./DP_EXECUTE_IS.sh
+

@@ -45,8 +45,18 @@ Authors of the C++ code:
 	Dalvan Griebler <dalvangriebler@gmail.com>
 	Gabriell Araujo <hexenoften@gmail.com>
  	Júnior Löff <loffjh@gmail.com>
-*/ 
 
+------------------------------------------------------------------------------
+
+The OpenMP version is a parallel implementation of the serial C++ version
+OpenMP version: https://github.com/GMAP/NPB-CPP/tree/master/NPB-OMP
+
+Authors of the OpenMP code:
+	Júnior Löff <loffjh@gmail.com>
+	
+*/
+
+#include "omp.h"
 #include "../common/npb-CPP.hpp"
 #include "npbparams.hpp"
 
@@ -109,7 +119,10 @@ static double (*fjac)[5][5]=(double(*)[5][5])malloc(sizeof(double)*((PROBLEM_SIZ
 static double (*njac)[5][5]=(double(*)[5][5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(5)*(5)));
 double (*lhs)[3][5][5]=(double(*)[3][5][5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(3)*(5)*(5)));
 static double (*ce)[5]=(double(*)[5])malloc(sizeof(double)*((13)*(5)));
-#endifauto_tuner_benchmarks/NPB/LU
+#endif
+static double tx1, tx2, tx3, ty1, ty2, ty3, tz1, tz2, tz3, 
+	      dx1, dx2, dx3, dx4, dx5, dy1, dy2, dy3, dy4, 
+	      dy5, dz1, dz2, dz3, dz4, dz5, dssp, dt, 
 	      dxmax, dymax, dzmax, xxcon1, xxcon2, 
 	      xxcon3, xxcon4, xxcon5, dx1tx1, dx2tx1, dx3tx1,
 	      dx4tx1, dx5tx1, yycon1, yycon2, yycon3, yycon4,
@@ -197,7 +210,7 @@ int main(int argc, char* argv[]){
 	}else{
 		timeron=FALSE;
 	}
-	printf("\n\n NAS Parallel Benchmarks 4.1 Serial C++ version - BT Benchmark\n\n");
+	printf("\n\n NAS Parallel Benchmarks 4.1 Parallel C++ version with OpenMP - BT Benchmark\n\n");
 	printf(" Size: %4dx%4dx%4d\n",grid_points[0],grid_points[1],grid_points[2]);
 	printf(" Iterations: %4d    dt: %10.6f\n",niter,dt);
 	printf("\n");
@@ -208,22 +221,32 @@ int main(int argc, char* argv[]){
 	}
 	set_constants();
 	for(i=1;i<=T_LAST;i++){timer_clear(i);}
-	initialize();
+	#pragma omp parallel
+	{
+		initialize();
+	}
 	exact_rhs();
 	/*
 	 * ---------------------------------------------------------------------
 	 * do one time step to touch all code, and reinitialize
 	 * ---------------------------------------------------------------------
 	 */
-	adi();
-	initialize();
+	#pragma omp parallel
+	{
+		adi();
+		initialize();
+	}
 	for(i=1;i<=T_LAST;i++){timer_clear(i);}
 	timer_start(1);
-	for(step=1; step<=niter; step++){
-		if((step%20)==0||step==1){
-			printf(" Time step %4d\n",step);
+	#pragma omp parallel firstprivate(niter) private(step)
+	{
+		for(step=1; step<=niter; step++){
+			if((step%20)==0||step==1){
+				#pragma omp master
+					printf(" Time step %4d\n",step);
+			}
+			adi();
 		}
-		adi();
 	}
 	timer_stop(1);
 	tmax=timer_read(1);
@@ -237,6 +260,7 @@ int main(int argc, char* argv[]){
 	}else{
 		mflops=0.0;
 	}
+	setenv("OMP_NUM_THREADS","1",0);
 	c_print_results((char*)"BT",
 			class_npb,
 			grid_points[0],
@@ -250,6 +274,8 @@ int main(int argc, char* argv[]){
 			(char*)NPBVERSION,
 			(char*)COMPILETIME,
 			(char*)COMPILERVERSION,
+			(char*)LIBVERSION,
+			std::getenv("OMP_NUM_THREADS"),
 			(char*)CS1,
 			(char*)CS2,
 			(char*)CS3,
@@ -295,7 +321,10 @@ int main(int argc, char* argv[]){
  */
 void add(){
 	int i, j, k, m;
-	if(timeron){timer_start(T_ADD);}
+	int thread_id = omp_get_thread_num();
+
+	if(timeron && thread_id==0){timer_start(T_ADD);}
+	#pragma omp for
 	for(k=1; k<=grid_points[2]-2; k++){
 		for(j=1; j<=grid_points[1]-2; j++){
 			for(i=1; i<=grid_points[0]-2; i++){
@@ -305,7 +334,7 @@ void add(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_ADD);}
+	if(timeron && thread_id==0){timer_stop(T_ADD);}
 }
 
 void adi(){
@@ -700,13 +729,16 @@ void binvrhs(double lhs[5][5], double r[5]){
 void compute_rhs(){
 	int i, j, k, m;
 	double rho_inv, uijk, up1, um1, vijk, vp1, vm1, wijk, wp1, wm1;
-	if(timeron){timer_start(T_RHS);}
+	int thread_id = omp_get_thread_num();
+
+	if(timeron && thread_id==0){timer_start(T_RHS);}
 	/*
 	 * ---------------------------------------------------------------------
 	 * compute the reciprocal of density, and the kinetic energy, 
 	 * and the speed of sound.
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		for(j=0; j<=grid_points[1]-1; j++){
 			for(i=0; i<=grid_points[0]-1; i++){
@@ -730,6 +762,7 @@ void compute_rhs(){
 	 * including the boundary                   
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		for(j=0; j<=grid_points[1]-1; j++){
 			for(i=0; i<=grid_points[0]-1; i++){
@@ -739,12 +772,13 @@ void compute_rhs(){
 			}
 		}
 	}
-	if(timeron){timer_start(T_RHSX);}
+	if(timeron && thread_id==0){timer_start(T_RHSX);}
 	/*
 	 * ---------------------------------------------------------------------
 	 * compute xi-direction fluxes 
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=1; k<=grid_points[2]-2; k++){
 		for(j=1; j<=grid_points[1]-2; j++){
 			for(i=1; i<=grid_points[0]-2; i++){
@@ -838,13 +872,14 @@ void compute_rhs(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_RHSX);}
-	if(timeron){timer_start(T_RHSY);}
+	if(timeron && thread_id==0){timer_stop(T_RHSX);}
+	if(timeron && thread_id==0){timer_start(T_RHSY);}
 	/*
 	 * ---------------------------------------------------------------------
 	 * compute eta-direction fluxes 
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=1; k<=grid_points[2]-2; k++){
 		for(j=1; j<=grid_points[1]-2; j++){
 			for(i=1; i<=grid_points[0]-2; i++){
@@ -942,13 +977,14 @@ void compute_rhs(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_RHSY);}
-	if(timeron){timer_start(T_RHSZ);}
+	if(timeron && thread_id==0){timer_stop(T_RHSY);}
+	if(timeron && thread_id==0){timer_start(T_RHSZ);}
 	/*
 	 * ---------------------------------------------------------------------
 	 * compute zeta-direction fluxes 
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=1; k<=grid_points[2]-2; k++){
 		for(j=1; j<=grid_points[1]-2; j++){
 			for(i=1; i<=grid_points[0]-2; i++){
@@ -1005,6 +1041,7 @@ void compute_rhs(){
 	 * ---------------------------------------------------------------------
 	 */
 	k=1;
+	#pragma omp for
 	for(j=1; j<=grid_points[1]-2; j++){
 		for(i=1; i<=grid_points[0]-2; i++){
 			for(m=0; m<5; m++){
@@ -1015,6 +1052,7 @@ void compute_rhs(){
 		}
 	}
 	k=2;
+	#pragma omp for
 	for(j=1; j<=grid_points[1]-2; j++){
 		for(i=1; i<=grid_points[0]-2; i++){
 			for(m=0; m<5; m++){
@@ -1024,6 +1062,7 @@ void compute_rhs(){
 			}
 		}
 	}
+	#pragma omp for
 	for(k=3; k<=grid_points[2]-4; k++){
 		for(j=1; j<=grid_points[1]-2; j++){
 			for(i=1; i<=grid_points[0]-2; i++){
@@ -1037,6 +1076,7 @@ void compute_rhs(){
 		}
 	}
 	k=grid_points[2]-3;
+	#pragma omp for
 	for(j=1; j<=grid_points[1]-2; j++){
 		for(i=1; i<=grid_points[0]-2; i++){
 			for(m=0; m<5; m++){
@@ -1047,6 +1087,7 @@ void compute_rhs(){
 		}
 	}
 	k=grid_points[2]-2;
+	#pragma omp for
 	for(j=1; j<=grid_points[1]-2; j++){
 		for(i=1; i<=grid_points[0]-2; i++){
 			for(m=0; m<5; m++){
@@ -1056,7 +1097,8 @@ void compute_rhs(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_RHSZ);}
+	if(timeron && thread_id==0){timer_stop(T_RHSZ);}
+	#pragma omp for
 	for(k=1; k<=grid_points[2]-2; k++){
 		for(j=1; j<=grid_points[1]-2; j++){
 			for(i=1; i<=grid_points[0]-2; i++){
@@ -1066,7 +1108,7 @@ void compute_rhs(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_RHS);}
+	if(timeron && thread_id==0){timer_stop(T_RHS);}
 }
 
 /*
@@ -1432,6 +1474,7 @@ void initialize(){
 	 * values are nonzero by initializing the whole thing here. 
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		for(j=0; j<=grid_points[1]-1; j++){
 			for(i=0; i<=grid_points[0]-1; i++){
@@ -1446,6 +1489,7 @@ void initialize(){
 	 * first store the "interpolated" values everywhere on the grid    
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		zeta=(double)(k)* dnzm1;
 		for(j=0; j<=grid_points[1]-1; j++){
@@ -1481,6 +1525,7 @@ void initialize(){
 	 */
 	i=0;
 	xi=0.0;
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		zeta=(double)(k)*dnzm1;
 		for(j=0; j<=grid_points[1]-1; j++){
@@ -1498,6 +1543,7 @@ void initialize(){
 	 */
 	i=grid_points[0]-1;
 	xi=1.0;
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		zeta=(double)(k)*dnzm1;
 		for(j=0; j<=grid_points[1]-1; j++){
@@ -1515,6 +1561,7 @@ void initialize(){
 	 */
 	j=0;
 	eta=0.0;
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		zeta=(double)(k)*dnzm1;
 		for(i=0; i<=grid_points[0]-1; i++){
@@ -1532,6 +1579,7 @@ void initialize(){
 	 */
 	j=grid_points[1]-1;
 	eta=1.0;
+	#pragma omp for
 	for(k=0; k<=grid_points[2]-1; k++){
 		zeta=(double)(k)*dnzm1;
 		for(i=0; i<=grid_points[0]-1; i++){
@@ -1549,6 +1597,7 @@ void initialize(){
 	 */
 	k=0;
 	zeta=0.0;
+	#pragma omp for
 	for(j=0; j<=grid_points[1]-1; j++){
 		eta=(double)(j)*dnym1;
 		for(i=0; i<=grid_points[0]-1; i++){
@@ -1566,6 +1615,7 @@ void initialize(){
 	 */
 	k=grid_points[2]-1;
 	zeta=1.0;
+	#pragma omp for
 	for(j=0; j<=grid_points[1]-1; j++){
 		eta=(double)(j)*dnym1;
 		for(i=0; i<=grid_points[0]-1; i++){
@@ -2305,7 +2355,9 @@ void verify(int no_time_steps, char* class_npb, boolean* verified){
  */
 void x_solve(){
 	int i, j, k, m, n, isize;
-	if(timeron){timer_start(T_XSOLVE);}
+	int thread_id = omp_get_thread_num();
+
+	if(timeron && thread_id==0){timer_start(T_XSOLVE);}
 	/*
 	 * ---------------------------------------------------------------------
 	 * this function computes the left hand side in the xi-direction
@@ -2317,7 +2369,13 @@ void x_solve(){
 	 * determine a (labeled f) and n jacobians
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=1; k<=grid_points[2]-2; k++){
+		double fjac[PROBLEM_SIZE+1][5][5];
+		double njac[PROBLEM_SIZE+1][5][5];
+		double lhs[PROBLEM_SIZE+1][3][5][5];
+    	double tmp1, tmp2, tmp3;
+
 		for(j=1; j<=grid_points[1]-2; j++){
 			for(i=0; i<=isize; i++){
 				tmp1=rho_i[k][j][i];
@@ -2611,7 +2669,7 @@ void x_solve(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_XSOLVE);}
+	if(timeron && thread_id==0){timer_stop(T_XSOLVE);}
 }
 
 /*
@@ -2627,7 +2685,9 @@ void x_solve(){
  */
 void y_solve(){
 	int i, j, k, m, n, jsize;
-	if(timeron){timer_start(T_YSOLVE);}
+	int thread_id = omp_get_thread_num();
+
+	if(timeron && thread_id==0){timer_start(T_YSOLVE);}
 	/*
 	 * ---------------------------------------------------------------------
 	 * this function computes the left hand side for the three y-factors   
@@ -2640,7 +2700,13 @@ void y_solve(){
 	 * determine a (labeled f) and n jacobians for cell c
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(k=1; k<=grid_points[2]-2; k++){
+		double fjac[PROBLEM_SIZE+1][5][5];
+		double njac[PROBLEM_SIZE+1][5][5];
+		double lhs[PROBLEM_SIZE+1][3][5][5];
+    	double tmp1, tmp2, tmp3;
+
 		for(i=1; i<=grid_points[0]-2; i++){
 			for(j=0; j<=jsize; j++){
 				tmp1=rho_i[k][j][i];
@@ -2936,7 +3002,7 @@ void y_solve(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_YSOLVE);}
+	if(timeron && thread_id==0){timer_stop(T_YSOLVE);}
 }
 
 /*
@@ -2952,7 +3018,9 @@ void y_solve(){
  */
 void z_solve(){
 	int i, j, k, m, n, ksize;
-	if(timeron){timer_start(T_ZSOLVE);}
+	int thread_id = omp_get_thread_num();
+	
+	if(timeron && thread_id==0){timer_start(T_ZSOLVE);}
 	/*
 	 * ---------------------------------------------------------------------
 	 * this function computes the left hand side for the three z-factors   
@@ -2965,7 +3033,13 @@ void z_solve(){
 	 * determine c (labeled f) and s jacobians
 	 * ---------------------------------------------------------------------
 	 */
+	#pragma omp for
 	for(j=1; j<=grid_points[1]-2; j++){
+		double fjac[PROBLEM_SIZE+1][5][5];
+		double njac[PROBLEM_SIZE+1][5][5];
+		double lhs[PROBLEM_SIZE+1][3][5][5];
+    	double tmp1, tmp2, tmp3;
+
 		for(i=1; i<=grid_points[0]-2; i++){
 			for(k=0; k<=ksize; k++){
 				tmp1=1.0/u[k][j][i][0];
@@ -3266,5 +3340,5 @@ void z_solve(){
 			}
 		}
 	}
-	if(timeron){timer_stop(T_ZSOLVE);}
+	if(timeron && thread_id==0){timer_stop(T_ZSOLVE);}
 }

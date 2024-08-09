@@ -15,7 +15,7 @@ execute_hotspot_detection:
 	cd miniFE_orig/src && DP_PROJECT_ROOT_DIR=${MINIFE_DIR} make -f Makefile.discopop.hotspots
 	cd miniFE_orig/src && ./miniFE.x --nx 5 --ny 5 --nz 5
 	cd miniFE_orig/src && ./miniFE.x --nx 25 --ny 25 --nz 25
-	cd miniFE_orig/src && ./miniFE.x --nx 35 --ny 35 --nz 35
+	cd miniFE_orig/src && ./miniFE.x --nx 40 --ny 40 --nz 45
 	cd miniFE_orig/src/.discopop && hotspot_analyzer
 
 execute_dynamic_analysis:

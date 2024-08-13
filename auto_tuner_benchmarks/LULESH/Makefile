@@ -21,10 +21,7 @@ execute_hotspot_detection:
 	cd lulesh_orig/build/.discopop && hotspot_analyzer
 
 execute_dynamic_analysis:
-	cp -r ../../clean_code/burkardt/md_parallel md_PAR
-	cd md_PAR && ./DP_COMPILE.sh
-	cd md_PAR && /usr/bin/time --append --format="REF; %e; %x;" -o ../md_orig_with_metadata/measurements.csv ./DP_EXECUTE.sh
-	cd md_PAR && /usr/bin/time --append --format="REF; %e; %x;" -o ../md_orig_without_metadata/measurements.csv ./DP_EXECUTE.shtall.cmake
+	cd lulesh_orig/build && rm -r CMakeCache.txt CMakeFiles cmake_install.cmake
 	cd lulesh_orig/build && cmake -DCMAKE_CXX_COMPILER=discopop_cxx -DWITH_MPI=Off -DWITH_OPENMP=Off ..
 	cd lulesh_orig/build && make 
 	cd lulesh_orig/build && ./lulesh2.0 -s 3

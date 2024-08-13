@@ -32,6 +32,8 @@ else
     ./lulesh2.0 -s 2
     cd .discopop
     hotspot_analyzer
+    # remove metadata
+    rm -f profiler/dependency_metadata.txt
     discopop_explorer --enable-patterns doall,reduction
 #    discopop_optimizer -v -o1 -p2 --doall-microbench-file $BASEDIR/../../../configuration/doall_1.json --system-configuration $BASEDIR/../../../configuration/cpu_only_system_configuration.json # cpu_only_system_configuration.json
 #    discopop_patch_generator -a optimizer/patterns.json ${DP_PATCH_GENERATOR_FLAGS}

@@ -41,6 +41,8 @@ create_code_version_without_metadata:
 	echo ${BENCHMARK_NAME} >> orig_without_metadata/DP_COMPILE.sh
 # preapre DP_EXECUTE.sh
 	echo "./${BENCHMARK_NAME}_base" >> orig_without_metadata/DP_EXECUTE.sh
+# modify dynamic dependency file to reflect legacy discopop output
+	cd $$(discopop_config_provider -s)/discopop_library/Compatibility/LegacyDiscoPoP && python -m GEPDependencyRemover --log info --dyndep-file-path ${CURDIR}/orig_without_metadata/.discopop/profiler/dynamic_dependencies.txt
 
 execute_pattern_analysis_with_metadata:
 	cd orig_with_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction

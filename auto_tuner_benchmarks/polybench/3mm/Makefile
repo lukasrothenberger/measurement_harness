@@ -57,4 +57,5 @@ execute_auto_tuner_with_metadata:
 
 execute_auto_tuner_without_metadata:
 	cd orig_without_metadata && echo "$$(pwd)"
-	cd orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/.discopop
+	cd orig_without_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/.discopop
+	

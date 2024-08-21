@@ -1,6 +1,6 @@
 compile_atax:
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_dump_arrays -DPOLYBENCH_DUMP_ARRAYS
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_dump_arrays -DPOLYBENCH_DUMP_ARRAYS -DLARGE_DATASET
 
 instrument_atax:
 	discopop_cc -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base -DSMALL_DATASET

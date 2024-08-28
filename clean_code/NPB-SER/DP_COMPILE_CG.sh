@@ -1,2 +1,2 @@
 make clean 
-CC=clang++ make cg CLASS=A
+CC=clang++ make cg CLASS=C

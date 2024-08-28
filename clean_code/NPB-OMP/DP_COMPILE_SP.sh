@@ -1,2 +1,2 @@
 make clean 
-CC=clang++ make sp CLASS=A
+CC=clang++ make sp CLASS=C

@@ -1,2 +1,2 @@
 make clean 
-CC=clang++ make mg CLASS=A
+CC=clang++ make mg CLASS=C

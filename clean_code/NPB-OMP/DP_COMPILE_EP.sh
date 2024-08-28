@@ -1,2 +1,2 @@
 make clean 
-CC=clang++ make ep CLASS=A
+CC=clang++ make ep CLASS=C

@@ -1,4 +1,4 @@
 cd bin
-./sp.A > dp_execute_out.txt
+./sp.C > dp_execute_out.txt
 grep "Verification    =               SUCCESSFUL" dp_execute_out.txt
 return $?

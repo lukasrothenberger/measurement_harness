@@ -1,2 +1,2 @@
 make clean 
-CC=clang++ make bt CLASS=A
+CC=clang++ make bt CLASS=C

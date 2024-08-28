@@ -2,8 +2,8 @@
 SHELL = /bin/sh
 
 #Compiler and Linker
-CC =    discopop_cxx
-LINK =    discopop_cxx
+CC =    clang++
+LINK =    clang++
 
 # MiniMD Files
 
@@ -17,8 +17,8 @@ ROOT =	miniMD
 EXE =	$(ROOT)
 OBJ =	$(SRC:.cpp=.o) $(KOKKOS_SRC:.cpp=.o) 
 
-CCFLAGS = -DMPICH_IGNORE_CXX_SEEK -DDEVICE=1  -I./ -g -mavx -fopenmp -DNOCHUNK -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi
-LINKFLAGS = -g -mavx -fopenmp -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi_cxx -lmpi
+CCFLAGS = -DMPICH_IGNORE_CXX_SEEK -DDEVICE=1  -I./ -g -mavx -fopenmp -DNOCHUNK -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -O3
+LINKFLAGS = -g -mavx -fopenmp -L/usr/lib/x86_64-linux-gnu/openmpi/lib -lmpi_cxx -lmpi -O3
 USRLIB =  
 SYSLIB =  
 
@@ -29,7 +29,7 @@ SYSLIB =
 copy: 
 	@if [ ! -d Obj_default ]; then mkdir Obj_default; fi
 	@cp -p $(SRC) $(INC) Obj_default
-	@cp Makefile.discopop.patterns Obj_default/Makefile
+	@cp Makefile.clang.openmp Obj_default/Makefile
 	@cd Obj_default; $(MAKE) all
   
 all: $(OBJ)

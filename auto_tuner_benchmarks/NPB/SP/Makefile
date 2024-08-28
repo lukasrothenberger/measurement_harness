@@ -44,7 +44,7 @@ execute_auto_tuner_with_metadata:
 	cd SP_orig_with_metadata && mv DP_COMPILE_SP.sh DP_COMPILE.sh
 	cd SP_orig_with_metadata && mv DP_EXECUTE_SP.sh DP_EXECUTE.sh
 	cd SP_orig_with_metadata && echo "$$(pwd)"
-	cd SP_orig_with_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop --skip-cleanup
+	cd SP_orig_with_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
 
 execute_auto_tuner_without_metadata:
 	cd SP_orig_without_metadata && mv DP_COMPILE_SP.sh DP_COMPILE.sh

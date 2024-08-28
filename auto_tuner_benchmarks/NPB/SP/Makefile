@@ -1,6 +1,6 @@
 all: cpu
 
-cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis execute_auto_tuner
+cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis create_code_version_with_metadata create_code_version_without_metadata execute_pattern_analysis_with_metadata execute_pattern_analysis_without_metadata execute_auto_tuner_with_metadata execute_auto_tuner_without_metadata execute_parallel_reference
 
 clean: 
 	rm -rvf SP_*

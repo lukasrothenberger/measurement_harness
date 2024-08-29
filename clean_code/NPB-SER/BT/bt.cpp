@@ -109,7 +109,10 @@ static double (*fjac)[5][5]=(double(*)[5][5])malloc(sizeof(double)*((PROBLEM_SIZ
 static double (*njac)[5][5]=(double(*)[5][5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(5)*(5)));
 double (*lhs)[3][5][5]=(double(*)[3][5][5])malloc(sizeof(double)*((PROBLEM_SIZE+1)*(3)*(5)*(5)));
 static double (*ce)[5]=(double(*)[5])malloc(sizeof(double)*((13)*(5)));
-#endifauto_tuner_benchmarks/NPB/LU
+#endif
+static double tx1, tx2, tx3, ty1, ty2, ty3, tz1, tz2, tz3, 
+	      dx1, dx2, dx3, dx4, dx5, dy1, dy2, dy3, dy4, 
+	      dy5, dz1, dz2, dz3, dz4, dz5, dssp, dt,
 	      dxmax, dymax, dzmax, xxcon1, xxcon2, 
 	      xxcon3, xxcon4, xxcon5, dx1tx1, dx2tx1, dx3tx1,
 	      dx4tx1, dx5tx1, yycon1, yycon2, yycon3, yycon4,

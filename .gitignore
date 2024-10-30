@@ -4,3 +4,6 @@ patch_generator_output/
 measurements.csv
 measurement_report.pdf
 .vscode/
+
+clean_code/rodinia_3.1/data/
+clean_code/rodinia_3.1-OMP/data/

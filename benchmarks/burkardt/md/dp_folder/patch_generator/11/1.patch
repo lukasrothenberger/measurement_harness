@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/benchmarks/burkardt/md/code/md.cpp	2024-10-17 12:38:10.214517371 +0200
++++ /home/lukas/git/benchmark_harness/benchmarks/burkardt/md/code/md.cpp.discopop_patch_generator.temp	2024-10-17 12:38:15.910574592 +0200
+@@ -425,6 +425,7 @@
+ //
+   for ( i = 0; i < nd; i++ )
+   {
++    #pragma omp parallel for private(j) shared(box,i,nd,np,pos,seed) 
+     for ( j = 0; j < np; j++ )
+     {
+       pos[i+j*nd] = box[i] * r8_uniform_01 ( seed );

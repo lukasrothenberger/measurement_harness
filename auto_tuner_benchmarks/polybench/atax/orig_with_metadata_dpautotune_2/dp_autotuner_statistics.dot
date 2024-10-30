@@ -1,0 +1,13 @@
+strict digraph  {
+"/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata\n0.357s" [color=black, fillcolor=green, style=filled, shape=box];
+"2@67 - HotspotNodeType.LOOP  0.35s" [color=black, fillcolor=white, style=filled];
+"step 0\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata\n0.357s" [color=black, fillcolor=green, shape=box, style=filled];
+"2@31 - HotspotNodeType.LOOP  0.344s" [color=black, fillcolor=white, style=filled];
+"step 1\n[4]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata_dpautotune_1\n0.311s" [color=black, fillcolor=green, shape=box, style=filled];
+"step 1\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata\n0.357s" [color=black, fillcolor=green, shape=box, style=filled];
+"/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata\n0.357s" -> "2@67 - HotspotNodeType.LOOP  0.35s";
+"2@67 - HotspotNodeType.LOOP  0.35s" -> "step 0\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata\n0.357s";
+"step 0\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata\n0.357s" -> "2@31 - HotspotNodeType.LOOP  0.344s";
+"2@31 - HotspotNodeType.LOOP  0.344s" -> "step 1\n[4]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata_dpautotune_1\n0.311s";
+"2@31 - HotspotNodeType.LOOP  0.344s" -> "step 1\n[]\n/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_with_metadata\n0.357s";
+}

@@ -39,6 +39,7 @@ const FLOAT chip_height = 0.016;
 const FLOAT chip_width = 0.016;
 
 #ifdef OMP_OFFLOAD
+#pragma offload_attribute(push, target(mic))
 #endif
 
 /* ambient temperature, assuming no package at all	*/
@@ -65,6 +66,7 @@ void single_iteration(FLOAT *result, FLOAT *temp, FLOAT *power, int row, int col
     #ifndef __MIC__
 	omp_set_num_threads(num_omp_threads);
     #endif
+    //#pragma ompparallel for shared(power, temp, result) private(chunk, r, c, delta) firstprivate(row, col, num_chunk, chunks_in_row) schedule(static)
 #endif
     for ( chunk = 0; chunk < num_chunk; ++chunk )
     {
@@ -133,6 +135,7 @@ void single_iteration(FLOAT *result, FLOAT *temp, FLOAT *power, int row, int col
         }
 
         for ( r = r_start; r < r_start + BLOCK_SIZE_R; ++r ) {
+//#pragma ompsimd        
             for ( c = c_start; c < c_start + BLOCK_SIZE_C; ++c ) {
             /* Update Temperatures */
                 result[r*col+c] =temp[r*col+c]+ 
@@ -146,6 +149,7 @@ void single_iteration(FLOAT *result, FLOAT *temp, FLOAT *power, int row, int col
 }
 
 #ifdef OMP_OFFLOAD
+#pragma offload_attribute(pop)
 #endif
 
 /* Transient solver driver routine: simply converts the heat 
@@ -180,6 +184,10 @@ void compute_tran_temp(FLOAT *result, int num_iterations, FLOAT *temp, FLOAT *po
 
 #ifdef OMP_OFFLOAD
         int array_size = row*col;
+//#pragma omptarget \
+        map(temp[0:array_size]) \
+        map(to: power[0:array_size], row, col, Cap_1, Rx_1, Ry_1, Rz_1, step, num_iterations) \
+        map( result[0:array_size])
 #endif
         {
             FLOAT* r = result;

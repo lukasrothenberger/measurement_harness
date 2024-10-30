@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_without_metadata/linear-algebra/kernels/atax/atax.c	2024-10-28 15:25:58.570269673 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_without_metadata/linear-algebra/kernels/atax/atax.c.discopop_patch_generator.temp	2024-10-28 15:26:05.882326694 +0100
+@@ -26,6 +26,7 @@
+ {
+   int i, j;
+ 
++  #pragma omp parallel for private(i) shared(ny,x) 
+   for (i = 0; i < ny; i++)
+       x[i] = i * M_PI;
+   for (i = 0; i < nx; i++)

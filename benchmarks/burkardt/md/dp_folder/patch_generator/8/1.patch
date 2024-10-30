@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/benchmarks/burkardt/md/code/md.cpp	2024-10-17 12:38:10.214517371 +0200
++++ /home/lukas/git/benchmark_harness/benchmarks/burkardt/md/code/md.cpp.discopop_patch_generator.temp	2024-10-17 12:38:15.866574149 +0200
+@@ -440,6 +440,7 @@
+   }
+   for ( j = 0; j < np; j++ )
+   {
++    #pragma omp parallel for private(i) shared(acc,j,nd) 
+     for ( i = 0; i < nd; i++ )
+     {
+       acc[i+j*nd] = 0.0;

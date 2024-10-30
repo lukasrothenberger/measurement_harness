@@ -5,9 +5,11 @@
 #include <fstream>
 
 #ifdef OMP_OFFLOAD
+//#pragma ompdeclare target
 #endif
 #include <cmath>
 #ifdef OMP_OFFLOAD
+//#pragma ompend declare target
 #endif
 
 #include <omp.h>
@@ -16,8 +18,7 @@ struct float3 { float x, y, z; };
 
 #ifndef block_length
 	#ifdef _OPENMP
-	//#error "you need to define block_length"
-	#define block_length 8
+	#error "you need to define block_length"
 	#else
 	#define block_length 1
 	#endif
@@ -68,16 +69,19 @@ void dealloc(T* array)
 }
 
 #ifdef OMP_OFFLOAD
+//#pragma ompdeclare target
 #endif
 template <typename T>
 void copy(T* dst, T* src, int N)
 {
+	//#pragma ompparallel for default(shared) schedule(static)
 	for(int i = 0; i < N; i++)
 	{
 		dst[i] = src[i];
 	}
 }
 #ifdef OMP_OFFLOAD
+//#pragma ompend declare target
 #endif
 
 
@@ -112,6 +116,7 @@ void dump(float* variables, int nel, int nelr)
 
 void initialize_variables(int nelr, float* variables, float* ff_variable)
 {
+	//#pragma ompparallel for default(shared) schedule(static)
 	for(int i = 0; i < nelr; i++)
 	{
 		for(int j = 0; j < NVAR; j++) variables[i + j*nelr] = ff_variable[j];
@@ -119,6 +124,7 @@ void initialize_variables(int nelr, float* variables, float* ff_variable)
 }
 
 #ifdef OMP_OFFLOAD
+//#pragma ompdeclare target
 #endif
 inline void compute_flux_contribution(float& density, float3& momentum, float& density_energy, float& pressure, float3& velocity, float3& fc_momentum_x, float3& fc_momentum_y, float3& fc_momentum_z, float3& fc_density_energy)
 {
@@ -165,10 +171,12 @@ inline float compute_speed_of_sound(float& density, float& pressure)
 
 void compute_step_factor(int nelr, float* __restrict variables, float* areas, float* __restrict step_factors)
 {
+	//#pragma ompparallel for default(shared) schedule(auto)
         for(int blk = 0; blk < nelr/block_length; ++blk)
         {
             int b_start = blk*block_length;
             int b_end = (blk+1)*block_length > nelr ? nelr : (blk+1)*block_length;
+//#pragma ompsimd
 	for(int i = b_start; i < b_end; i++)
 	{
 		float density = variables[i + VAR_DENSITY*nelr];
@@ -200,10 +208,12 @@ void compute_flux(int nelr, int* elements_surrounding_elements, float* normals, 
 {
 	const float smoothing_coefficient = float(0.2f);
 
+	//#pragma ompparallel for default(shared) schedule(auto)
         for(int blk = 0; blk < nelr/block_length; ++blk)
         {
             int b_start = blk*block_length;
             int b_end = (blk+1)*block_length > nelr ? nelr : (blk+1)*block_length;
+//#pragma ompsimd
 	for(int i = b_start; i < b_end; ++i)
 	{
                 float density_i = variables[i + VAR_DENSITY*nelr];
@@ -236,6 +246,7 @@ void compute_flux(int nelr, int* elements_surrounding_elements, float* normals, 
 		float3 flux_contribution_nb_momentum_x, flux_contribution_nb_momentum_y, flux_contribution_nb_momentum_z;
 		float3 flux_contribution_nb_density_energy;
 		float speed_sqd_nb, speed_of_sound_nb, pressure_nb;
+#pragma unroll
 		for(int j = 0; j < NNB; j++)
 		{
                         float3 normal; float normal_len;
@@ -333,10 +344,12 @@ void compute_flux(int nelr, int* elements_surrounding_elements, float* normals, 
 
 void time_step(int j, int nelr, float* old_variables, float* variables, float* step_factors, float* fluxes)
 {
+    //#pragma ompparallel for  default(shared) schedule(auto)
     for(int blk = 0; blk < nelr/block_length; ++blk)
     {
         int b_start = blk*block_length;
         int b_end = (blk+1)*block_length > nelr ? nelr : (blk+1)*block_length;
+        //#pragma ompsimd
         for(int i = b_start; i < b_end; ++i)
         {
             float factor = step_factors[i]/float(RK+1-j);
@@ -351,6 +364,7 @@ void time_step(int j, int nelr, float* old_variables, float* variables, float* s
     }
 }
 #ifdef OMP_OFFLOAD
+//#pragma ompend declare target
 #endif
 /*
  * Main function
@@ -457,6 +471,7 @@ int main(int argc, char** argv)
 #ifdef _OPENMP
 	double start = omp_get_wtime();
     #ifdef OMP_OFFLOAD
+        //#pragma omptarget map(alloc: old_variables[0:(nelr*NVAR)]) map(to: nelr, areas[0:nelr], step_factors[0:nelr], elements_surrounding_elements[0:(nelr*NNB)], normals[0:(NDIM*NNB*nelr)], fluxes[0:(nelr*NVAR)], ff_variable[0:NVAR], ff_flux_contribution_momentum_x, ff_flux_contribution_momentum_y, ff_flux_contribution_momentum_z, ff_flux_contribution_density_energy) map(variables[0:(nelr*NVAR)])
     #endif
 #endif
 	// Begin iterations

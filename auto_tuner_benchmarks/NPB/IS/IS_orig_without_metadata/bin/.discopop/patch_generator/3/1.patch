@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig_without_metadata/IS/is.cpp	2024-10-23 17:23:47.717357662 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig_without_metadata/IS/is.cpp.discopop_patch_generator.temp	2024-10-23 17:23:56.481439934 +0200
+@@ -619,6 +619,7 @@
+ 		/* Clear the work array section associated with each bucket */
+ 		k1 = i * num_bucket_keys;
+ 		k2 = k1 + num_bucket_keys;
++		#pragma omp parallel for private(k) shared(k2,key_buff_ptr) 
+ 		for ( k = k1; k < k2; k++ )
+ 			key_buff_ptr[k] = 0;
+ 		/* Ranking of all keys occurs in this section: */

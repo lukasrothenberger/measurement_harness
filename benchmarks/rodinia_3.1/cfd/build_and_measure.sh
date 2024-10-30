@@ -7,7 +7,7 @@ BASEDIR=$(pwd)
 rm -rf original_code
 rm -rf code
 cp -r ../../../clean_code/rodinia_3.1 original_code
-exit 0
+
 # get discopop suggestions
 if test -d original_build
 then

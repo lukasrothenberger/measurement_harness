@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_with_metadata/md.cpp	2024-10-23 17:10:25.117844117 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_with_metadata/md.cpp.discopop_patch_generator.temp	2024-10-23 17:10:29.357883628 +0200
+@@ -278,6 +278,7 @@
+   
+ 
+ //# pragma omp for reduction ( + : pe, ke )
++  #pragma omp parallel for private(d,d2,i,j,k,rij) shared(PI2,f,nd,np,pos,vel) reduction(+:ke,pe) 
+   for ( k = 0; k < np; k++ )
+   {
+ //

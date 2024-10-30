@@ -147,15 +147,18 @@ void computeTempOMP(float *pIn, float* tIn, float *tOut,
     cc = 1.0 - (2.0*ce + 2.0*cn + 3.0*ct);
 
 
+//#pragma ompparallel
     {
         int count = 0;
         float *tIn_t = tIn;
         float *tOut_t = tOut;
 
+//#pragma ompmaster
         printf("%d threads running\n", omp_get_num_threads());
 
         do {
             int z; 
+//#pragma ompfor 
             for (z = 0; z < nz; z++) {
                 int y;
                 for (y = 0; y < ny; y++) {

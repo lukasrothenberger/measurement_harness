@@ -1,0 +1,15 @@
+PERUN REPORT
+
+App name: convert_measurements
+First run: 2024-09-10T11:35:02.570621
+Last run: 2024-09-10T11:35:02.570621
+
+
+RUN ID: 2024-09-10T11:35:02.570621
+
+|   Round # |      Host |   RUNTIME |   CPU_UTIL |   DRAM_MEM |
+|----------:|----------:|----------:|-----------:|-----------:|
+|         0 |       All |   1.460 s |   28.267 % |   3.979 GB |
+|         0 | lukasT14s |   1.460 s |   28.267 % |   3.979 GB |
+
+The application has been run 1 times.

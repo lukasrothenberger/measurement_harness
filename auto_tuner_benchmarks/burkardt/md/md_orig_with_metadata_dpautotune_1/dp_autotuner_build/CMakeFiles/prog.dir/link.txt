@@ -1,0 +1,1 @@
+/usr/bin/c++ -fopenmp -fsanitize=thread -g CMakeFiles/prog.dir/md.cpp.o -o prog 

@@ -1,0 +1,2 @@
+cd openmp/hotspot
+./hotspot 1024 1024 2 4 ../../data/hotspot/temp_1024 ../../data/hotspot/power_1024 output.out

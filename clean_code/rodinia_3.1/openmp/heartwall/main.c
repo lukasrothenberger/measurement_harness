@@ -9,11 +9,11 @@
 #include <string.h>
 #include <time.h>
 
-#include "AVI/avilib.h"
-#include "AVI/avimod.h"
+#include <avilib.h>
+#include <avimod.h>
 #include <omp.h>
 
-//#include "define.c"
+#include "define.c"
 #include "kernel.c"
 
 
@@ -546,6 +546,7 @@ int main(int argc, char *argv []){
 		omp_set_num_threads(omp_num_threads);
 		
 
+		//#pragma ompparallel for
 		for(i=0; i<public.allPoints; i++){
 			kernel(	public,
 						private[i]);

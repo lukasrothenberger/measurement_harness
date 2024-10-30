@@ -1,0 +1,248 @@
+{"code_regions": [{
+    "csid": 7,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 383,
+    "name": "polybench_alloc_data",
+    "runtimes": [
+        2.1e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 2.1e-05,
+    "sum": 2.1e-05,
+    "minVal": 2.1e-05,
+    "maxVal": 2.1e-05,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 8,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 370,
+    "name": "xmalloc",
+    "runtimes": [
+        2.1e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 2.1e-05,
+    "sum": 2.1e-05,
+    "minVal": 2.1e-05,
+    "maxVal": 2.1e-05,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 10,
+    "typ": "FUNCTION",
+    "fid": 2,
+    "lineNum": 80,
+    "name": "main",
+    "runtimes": [
+        0.738118
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.738118,
+    "sum": 0.738118,
+    "minVal": 0.738118,
+    "maxVal": 0.738118,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 11,
+    "typ": "LOOP",
+    "fid": 2,
+    "lineNum": 29,
+    "name": "",
+    "runtimes": [
+        0.000107
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.000107,
+    "sum": 0.000107,
+    "minVal": 0.000107,
+    "maxVal": 0.000107,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 12,
+    "typ": "LOOP",
+    "fid": 2,
+    "lineNum": 31,
+    "name": "",
+    "runtimes": [
+        0.34357
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.34357,
+    "sum": 0.34357,
+    "minVal": 0.34357,
+    "maxVal": 0.34357,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 13,
+    "typ": "LOOP",
+    "fid": 2,
+    "lineNum": 32,
+    "name": "",
+    "runtimes": [
+        0.34331
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.34331,
+    "sum": 0.34331,
+    "minVal": 0.34331,
+    "maxVal": 0.34331,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 14,
+    "typ": "FUNCTION",
+    "fid": 2,
+    "lineNum": 26,
+    "name": "init_array",
+    "runtimes": [
+        0.343678
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.343678,
+    "sum": 0.343678,
+    "minVal": 0.343678,
+    "maxVal": 0.343678,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 15,
+    "typ": "LOOP",
+    "fid": 2,
+    "lineNum": 65,
+    "name": "",
+    "runtimes": [
+        4.8e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 4.8e-05,
+    "sum": 4.8e-05,
+    "minVal": 4.8e-05,
+    "maxVal": 4.8e-05,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 16,
+    "typ": "LOOP",
+    "fid": 2,
+    "lineNum": 67,
+    "name": "",
+    "runtimes": [
+        0.349652
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.349652,
+    "sum": 0.349652,
+    "minVal": 0.349652,
+    "maxVal": 0.349652,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 17,
+    "typ": "LOOP",
+    "fid": 2,
+    "lineNum": 70,
+    "name": "",
+    "runtimes": [
+        0.17224
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.17224,
+    "sum": 0.17224,
+    "minVal": 0.17224,
+    "maxVal": 0.17224,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 18,
+    "typ": "LOOP",
+    "fid": 2,
+    "lineNum": 72,
+    "name": "",
+    "runtimes": [
+        0.176785
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.176785,
+    "sum": 0.176785,
+    "minVal": 0.176785,
+    "maxVal": 0.176785,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topRatio": true
+},
+{
+    "csid": 19,
+    "typ": "FUNCTION",
+    "fid": 2,
+    "lineNum": 62,
+    "name": "kernel_atax",
+    "runtimes": [
+        0.3497
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.3497,
+    "sum": 0.3497,
+    "minVal": 0.3497,
+    "maxVal": 0.3497,
+    "delta": 0.0,
+    "ratio": 0.5,
+    "topAvr": true,
+    "topRatio": true
+}
+]
+}

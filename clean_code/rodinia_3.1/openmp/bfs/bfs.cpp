@@ -117,6 +117,7 @@ void BFSGraph( int argc, char** argv)
 #ifdef OPEN
         double start_time = omp_get_wtime();
 #ifdef OMP_OFFLOAD
+//#pragma omptarget data map(to: no_of_nodes, h_graph_mask[0:no_of_nodes], h_graph_nodes[0:no_of_nodes], h_graph_edges[0:edge_list_size], h_graph_visited[0:no_of_nodes], h_updating_graph_mask[0:no_of_nodes]) map(h_cost[0:no_of_nodes])
         {
 #endif 
 #endif
@@ -129,7 +130,9 @@ void BFSGraph( int argc, char** argv)
 #ifdef OPEN
             //omp_set_num_threads(num_omp_threads);
     #ifdef OMP_OFFLOAD
+    //#pragma omptarget
     #endif
+    //#pragma ompparallel for 
 #endif 
             for(int tid = 0; tid < no_of_nodes; tid++ )
             {
@@ -149,7 +152,9 @@ void BFSGraph( int argc, char** argv)
 
 #ifdef OPEN
     #ifdef OMP_OFFLOAD
+    //#pragma omptarget map(stop)
     #endif
+    //#pragma ompparallel for
 #endif
             for(int tid=0; tid< no_of_nodes ; tid++ )
             {

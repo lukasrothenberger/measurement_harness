@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_with_metadata/md.cpp	2024-10-23 17:10:25.117844117 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/burkardt/md/md_orig_with_metadata/md.cpp.discopop_patch_generator.temp	2024-10-23 17:10:29.465884635 +0200
+@@ -629,6 +629,7 @@
+ 
+ //# pragma omp for
+ 
++  #pragma omp parallel for private(i,j) shared(acc,dt,f,nd,np,pos,rmass,vel) 
+   for ( j = 0; j < np; j++ )
+   {
+     for ( i = 0; i < nd; i++ )

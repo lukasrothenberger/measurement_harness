@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig_with_metadata/IS/is.cpp	2024-10-23 17:23:47.709357587 +0200
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/IS/IS_orig_with_metadata/IS/is.cpp.discopop_patch_generator.temp	2024-10-23 17:23:52.237400094 +0200
+@@ -594,6 +594,7 @@
+ 		bucket_ptrs[i] = bucket_ptrs[i-1];
+ 		for( k=0; k< myid; k++ )
+ 			bucket_ptrs[i] += bucket_size[k][i];
++		#pragma omp parallel for private(k) shared(bucket_ptrs,bucket_size,i,num_procs) 
+ 		for( k=myid; k< num_procs; k++ )
+ 			bucket_ptrs[i] += bucket_size[k][i-1];
+ 	}

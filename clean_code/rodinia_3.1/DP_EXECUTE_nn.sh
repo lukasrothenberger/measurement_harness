@@ -1,0 +1,2 @@
+cd openmp/nn
+./nn filelist_4 5 30 90

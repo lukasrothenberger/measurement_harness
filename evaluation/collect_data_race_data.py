@@ -1,7 +1,7 @@
 from enum import IntEnum
 import os
 import logging
-from typing import Dict, Tuple
+from typing import Dict, List, Tuple
 from discopop_library.GlobalLogger.setup import setup_logger
 from discopop_library.ArgumentClasses.GeneralArguments import GeneralArguments
 from pathlib import Path
@@ -48,29 +48,38 @@ def collect_data() -> None:
     data_race_data: Dict[str, Dict[str, Dict[str, int]]] = dict()
     for benchmark_name in benchmark_name_and_paths:
         # collect data for suggestions generated with metadata
-        with_metadata_suggestions_with_data_race = 0
-        with_metadata_suggestions_without_data_race = 0
+        with_metadata_suggestions_with_data_race: List[List[str]] = []
+        with_metadata_suggestions_without_data_race: List[List[str]] = []
 
         with open(benchmark_name_and_paths[benchmark_name][True], "r") as f:
             suggestion_results = json.load(f)
             for suggestion_dict in suggestion_results:
+                print("SUGGESTIONS_DICT: ", suggestion_dict)
                 if suggestion_dict["TSAN_CODE"]:
-                    with_metadata_suggestions_without_data_race += 1
+                    with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
                 else:
-                    with_metadata_suggestions_with_data_race += 1
+                    if "VALIDATION" in suggestion_dict and suggestion_dict["VALIDATION"]:
+                        with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
+                        print("FIX1")
+                    else:
+                        with_metadata_suggestions_with_data_race.append(suggestion_dict["applied_pattern_tags"])
 
 
         # collect data for suggestions generated without metadata
-        without_metadata_suggestions_with_data_race = 0
-        without_metadata_suggestions_without_data_race = 0
+        without_metadata_suggestions_with_data_race: List[List[str]] = []
+        without_metadata_suggestions_without_data_race: List[List[str]] = []
 
         with open(benchmark_name_and_paths[benchmark_name][False], "r") as f:
             suggestion_results = json.load(f)
             for suggestion_dict in suggestion_results:
                 if suggestion_dict["TSAN_CODE"]:
-                    without_metadata_suggestions_without_data_race += 1
+                    without_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
                 else:
-                    without_metadata_suggestions_with_data_race += 1
+                    if "VALIDATION" in suggestion_dict and suggestion_dict["VALIDATION"]:
+                        without_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
+                        print("FIX2")
+                    else:
+                        without_metadata_suggestions_with_data_race.append(suggestion_dict["applied_pattern_tags"])
                         
         # store data
         data_race_data[benchmark_name] = dict()

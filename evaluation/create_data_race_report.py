@@ -44,8 +44,8 @@ def add_data_race_plot(benchmark_name: str, ax):
         return
 
     values = {
-    "wo/ race": np.array([data_race_information[name]["without_metadata"]["without_race"], data_race_information[name]["with_metadata"]["without_race"], 0]),
-    "w/ race": np.array([data_race_information[name]["without_metadata"]["with_race"], data_race_information[name]["with_metadata"]["with_race"], 0]),
+    "wo/ race": np.array([len(data_race_information[name]["without_metadata"]["without_race"]), len(data_race_information[name]["with_metadata"]["without_race"]), 0]),
+    "w/ race": np.array([len(data_race_information[name]["without_metadata"]["with_race"]), len(data_race_information[name]["with_metadata"]["with_race"]), 0]),
     }
 
     bottom = np.zeros(3)
@@ -84,8 +84,8 @@ def show_data_race_report() -> None:
 
     for idx, ax in enumerate(fig.axes):
         values = {
-        "without race": np.array([data_race_information[benchmark_names[idx]]["without_metadata"]["without_race"], data_race_information[benchmark_names[idx]]["with_metadata"]["without_race"]]),
-        "with race": np.array([data_race_information[benchmark_names[idx]]["without_metadata"]["with_race"], data_race_information[benchmark_names[idx]]["with_metadata"]["with_race"]]),
+        "without race": np.array([len(data_race_information[benchmark_names[idx]]["without_metadata"]["without_race"]), len(data_race_information[benchmark_names[idx]]["with_metadata"]["without_race"])]),
+        "with race": np.array([len(data_race_information[benchmark_names[idx]]["without_metadata"]["with_race"]), len(data_race_information[benchmark_names[idx]]["with_metadata"]["with_race"])]),
         }
 
         bottom = np.zeros(2)

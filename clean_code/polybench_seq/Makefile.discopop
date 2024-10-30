@@ -1,6 +1,6 @@
 compile_atax:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base -DLARGE_DATASET
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_dump_arrays -DPOLYBENCH_DUMP_ARRAYS -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_dump_arrays -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_atax:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_sanitize -DSMALL_DATASET
@@ -50,7 +50,7 @@ instrument_cholesky:
 
 compile_doitgen:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base -DLARGE_DATASET
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_dump_arrays -DLARGE_DATASET -DPOLYBENCH_DUMP_ARRAYS
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_dump_arrays -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_doitgen:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_sanitize -DSMALL_DATASET
@@ -175,7 +175,7 @@ instrument_gramschmidt:
 
 compile_lu:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base -DEXTRALARGE_DATASET
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_dump_arrays -DEXTRALARGE_DATASET -DPOLYBENCH_DUMP_ARRAYS
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_dump_arrays  -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_lu:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_sanitize -DSMALL_DATASET

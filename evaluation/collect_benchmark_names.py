@@ -17,6 +17,9 @@ def get_benchmark_names() -> List[str]:
             for key in values:
                 benchmark_names.append(key)
 
+    # remove true duplicates
+    benchmark_names = list(set(benchmark_names))
+
     # remove "duplicates" due to path extensions (e.g. build, bin)
     to_be_removed: Set[str] = set()
     for elem1 in benchmark_names:
@@ -25,11 +28,10 @@ def get_benchmark_names() -> List[str]:
                 # elem1 is prefix of elem2
                 # remove elem2
                 to_be_removed.add(elem2)
-    
-    for elem in to_be_removed:
-        if elem in benchmark_names:
-            benchmark_names.remove(elem)
 
+    for elem in to_be_removed:
+        while elem in benchmark_names:
+            benchmark_names.remove(elem)
 
     return sorted(list(set(benchmark_names)))
     

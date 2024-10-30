@@ -68,24 +68,53 @@ def add_slowdown_report(benchmark_name_arg: str, ax) -> None:
                 raw_tuple.append(round((float(elem) / float(values["VANILLA"][idx])), 2))
             values[dp_v] = tuple(raw_tuple)
         values["VANILLA"] = tuple([1.0 if e != 0 else 0.0 for e in values["VANILLA"]])
-
-        x = np.arange(len(benchmark_names))  # the label locations
-        width = 0.25  # the width of the bars
-        multiplier = 0
-
-
-        for attribute, measurement in values.items():
-            offset = width * multiplier
-            rects = ax.bar(x + offset, measurement, width, label=attribute)
-            ax.bar_label(rects, padding=3)
-            multiplier += 1
-
-        # Add some text for labels, title and custom x-axis tick labels, etc.
-        ax.set_ylabel('Slowdown')
+    
         
-        ax.set_xticks(x + width, benchmark_names)
-        ax.legend(loc='upper left', ncols=3)
-        #ax.set_ylim(0, 250)
+
+        species = (
+            "CSPF_CUT",
+            "VANILLA"
+        )
+
+        # cleanup
+        for s in species:
+            if s not in values:
+                values[s] = tuple(0.0)
+
+        plot_values = {
+            "slowdown": np.array([values["CSPF_CUT"][0], values["VANILLA"][0]]),
+        }
+
+        width = 0.5
+
+        bottom = np.zeros(len(species))
+        for boolean, value in plot_values.items():
+            p = ax.bar(species, value, width, label=boolean, bottom=bottom)
+            bottom += value
+
+        # ax.legend(loc="upper right")
+        ax.set_ylabel("Slowdown")
+        ax.set_title("Profiling slowdown")
+        ax.plot()
+
+
+
+#        x = np.arange(len(benchmark_names))  # the label locations
+#        width = 0.25  # the width of the bars
+#        multiplier = 0
+
+#        for attribute, measurement in values.items():
+#            offset = width * multiplier
+#            rects = ax.bar(x + offset, measurement, width, label=attribute)
+#            ax.bar_label(rects, padding=3)
+#            multiplier += 1
+#
+#        # Add some text for labels, title and custom x-axis tick labels, etc.
+#        ax.set_ylabel('Slowdown')
+#        
+#        ax.set_xticks(x + width, benchmark_names)
+#        ax.legend(loc='upper left', ncols=3)
+#        #ax.set_ylim(0, 250)
 
     except KeyError:
         return

@@ -36,4 +36,4 @@ def show_benchmark_report(benchmark_name: str) -> None:
     plt.show()
 
 if __name__ == "__main__":
-    show_benchmark_report("polybench/doitgen/orig")
+    show_benchmark_report("burkardt/md/md_orig")

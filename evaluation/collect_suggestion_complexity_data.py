@@ -46,6 +46,8 @@ def collect_data() -> None:
         else:
             benchmark_name_and_paths[benchmark_name][False] = path
 
+    logger.info("Benchmarks:\n" + str([n for n in benchmark_name_and_paths.keys()]))
+
     # collect complexity data 
     complexity_data: Dict[str, Dict[str, Dict[str, int]]] = dict()
     for benchmark_name in benchmark_name_and_paths:

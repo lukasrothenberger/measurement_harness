@@ -28,11 +28,11 @@ def add_data_race_plot(benchmark_name: str, ax):
 
     species = (
         "wo/ md",
-        "",
         "w/ md",
+        "",
     )
 
-    width = 0.5
+    width = 0.4
 
     # get benchmark name
     name = None
@@ -44,8 +44,8 @@ def add_data_race_plot(benchmark_name: str, ax):
         return
 
     values = {
-    "without race": np.array([data_race_information[name]["without_metadata"]["without_race"], 0, data_race_information[name]["with_metadata"]["without_race"]]),
-    "with race": np.array([data_race_information[name]["without_metadata"]["with_race"], 0, data_race_information[name]["with_metadata"]["with_race"]]),
+    "wo/ race": np.array([data_race_information[name]["without_metadata"]["without_race"], data_race_information[name]["with_metadata"]["without_race"], 0]),
+    "w/ race": np.array([data_race_information[name]["without_metadata"]["with_race"], data_race_information[name]["with_metadata"]["with_race"], 0]),
     }
 
     bottom = np.zeros(3)
@@ -57,10 +57,6 @@ def add_data_race_plot(benchmark_name: str, ax):
     ax.set_ylabel("# suggestions")
     
     ax.plot()
-
-    # plt.savefig("report_data_races.pdf")
-
-    # plt.show()
 
 
 def show_data_race_report() -> None:

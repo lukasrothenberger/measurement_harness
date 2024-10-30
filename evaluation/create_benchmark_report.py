@@ -12,6 +12,9 @@ import logging
 import sys
 
 from create_data_race_report import add_data_race_plot
+from create_profiling_slowdown_report import add_slowdown_report
+from create_suggestion_complexity_report import add_suggestion_complexity_report
+from create_suggestion_overlap_report import add_suggestion_overlap_report
 
 def show_benchmark_report(benchmark_name: str) -> None:
 
@@ -24,17 +27,10 @@ def show_benchmark_report(benchmark_name: str) -> None:
 
     # collect plots for benchmark
     add_data_race_plot(benchmark_name, axs[0, 0])
-
-    # plot
-    #axs[0, 0] = ax_data_races
-    #axs[0, 0].set_title("data races")
-    axs[1, 0].plot(x, y**2)
-    axs[1, 0].set_title("shares x with main")
-    axs[1, 0].sharex(axs[0, 0])
-    axs[0, 1].plot(x + 1, y + 1)
-    axs[0, 1].set_title("unrelated")
-    axs[1, 1].plot(x + 2, y + 2)
-    axs[1, 1].set_title("also unrelated")
+    add_suggestion_overlap_report(benchmark_name, axs[1,0])
+    add_suggestion_complexity_report(benchmark_name, axs[0,1])
+    add_slowdown_report(benchmark_name, axs[1,1])
+    
     fig.tight_layout()
 
     plt.show()

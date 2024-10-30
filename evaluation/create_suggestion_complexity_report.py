@@ -10,6 +10,55 @@ from discopop_library.GlobalLogger.setup import setup_logger
 from discopop_library.ArgumentClasses.GeneralArguments import GeneralArguments
 import logging
 
+def add_suggestion_complexity_report(benchmark_name: str, ax) -> None:
+
+    # load complexity information
+    complexity_information: Dict[str, Dict[str, Dict[str, int]]] = dict()
+    with open("data/suggestion_complexity/suggestion_complexity.json", "r") as f:
+        complexity_information = json.load(f)
+
+    # print("CI: ", complexity_information)
+
+    # collect benchmark names and profiling times
+    benchmark_names: List[str] = list(complexity_information.keys())
+
+    # collect profiling times
+    values = dict()
+
+    species = (
+        "wo/ md",
+        "w/ md",
+    )
+
+    width = 0.5
+
+    ax.set_title("Suggestion complexity")
+
+    # get benchmark name
+    name = None
+    for bmn in benchmark_names:
+        if benchmark_name in bmn:
+            name = bmn
+    if name is None:    
+        # no data available:
+        return
+
+    values = {
+    "without calls": np.array([complexity_information[name]["without_metadata"]["without_calls"], complexity_information[name]["with_metadata"]["without_calls"]]),
+    "with calls": np.array([complexity_information[name]["without_metadata"]["with_calls"], complexity_information[name]["with_metadata"]["with_calls"]]),
+    }
+
+    bottom = np.zeros(2)
+    for boolean, value in values.items():
+        p = ax.bar(species, value, width, label=boolean, bottom=bottom)
+        bottom += value
+
+    ax.legend(loc="upper left")
+    ax.set_ylabel("# valid suggestions")
+    
+    ax.plot()
+
+
 def show_suggestion_complexity_report() -> None:
 
     # load complexity information

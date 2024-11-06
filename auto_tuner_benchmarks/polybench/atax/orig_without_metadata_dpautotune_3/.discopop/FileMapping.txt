@@ -1,2 +1,0 @@
-1	/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_without_metadata_dpautotune_3/utilities/polybench.c
-2	/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/polybench/atax/orig_without_metadata_dpautotune_3/linear-algebra/kernels/atax/atax.c

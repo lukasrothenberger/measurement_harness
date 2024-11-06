@@ -27,8 +27,8 @@ def add_data_race_plot(benchmark_name: str, ax):
     ax.set_title("Data races")
 
     species = (
-        "wo/ md",
-        "w/ md",
+        "vanilla",
+        "extended",
         "",
     )
 

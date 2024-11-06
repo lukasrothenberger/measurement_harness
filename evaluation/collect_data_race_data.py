@@ -54,13 +54,11 @@ def collect_data() -> None:
         with open(benchmark_name_and_paths[benchmark_name][True], "r") as f:
             suggestion_results = json.load(f)
             for suggestion_dict in suggestion_results:
-                print("SUGGESTIONS_DICT: ", suggestion_dict)
                 if suggestion_dict["TSAN_CODE"]:
                     with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
                 else:
                     if "VALIDATION" in suggestion_dict and suggestion_dict["VALIDATION"]:
                         with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
-                        print("FIX1")
                     else:
                         with_metadata_suggestions_with_data_race.append(suggestion_dict["applied_pattern_tags"])
 
@@ -77,7 +75,6 @@ def collect_data() -> None:
                 else:
                     if "VALIDATION" in suggestion_dict and suggestion_dict["VALIDATION"]:
                         without_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
-                        print("FIX2")
                     else:
                         without_metadata_suggestions_with_data_race.append(suggestion_dict["applied_pattern_tags"])
                         

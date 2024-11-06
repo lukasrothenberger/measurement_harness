@@ -1,1 +1,0 @@
-/home/lukas/.local/bin/discopop_cxx -fopenmp -O3 CMakeFiles/prog.dir/md.cpp.o -o prog 

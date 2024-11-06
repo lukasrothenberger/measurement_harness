@@ -26,8 +26,8 @@ def add_suggestion_complexity_report(benchmark_name: str, ax) -> None:
     values = dict()
 
     species = (
-        "wo/ md",
-        "w/ md",
+        "vanilla",
+        "extended",
     )
 
     width = 0.5

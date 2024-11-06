@@ -139,7 +139,9 @@ def add_suggestion_correctness_overlap_report(benchmark_name: str, ax) -> None:
     plt.gca().add_artist(level_0_legend)
     #plt.gca().add_artist(level_1_legend)
 
-    ax.set(aspect="equal", title=benchmark_name)
+    ax.set(aspect="equal", title="Distribution")
+
+    
 
 
 
@@ -177,16 +179,11 @@ def show_suggestion_correctness_overlap_report() -> None:
 #        }
 
         benchmark_name = benchmark_names[idx]
-        print("Benchmark_name: ", benchmark_name)
 
         size = 0.25
 
         # get total list of suggestions
         total: List[str] = overlap_information[benchmark_name]["without_metadata"] + overlap_information[benchmark_name]["with_metadata"] + overlap_information[benchmark_name]["overlap"]
-
-        print("total: ", len(total))
-        for t in total:
-            print("\t", t)
 
         # calculate correctness and overlap values
         valid: List[str] = []
@@ -265,7 +262,7 @@ def show_suggestion_correctness_overlap_report() -> None:
         plt.gca().add_artist(level_0_legend)
         #plt.gca().add_artist(level_1_legend)
 
-        ax.set(aspect="equal", title=benchmark_names[idx])
+        ax.set(aspect="equal", title="Distribution")
 
     fig.tight_layout()
     plt.show()

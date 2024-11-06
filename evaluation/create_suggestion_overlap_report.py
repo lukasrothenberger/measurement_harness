@@ -41,9 +41,9 @@ def add_suggestion_overlap_report(benchmark_name: str, ax) -> None:
         return
 
     values = {
-    "wo/ md": np.array([len(complexity_information[name]["without_metadata"]), 0]),
+    "vanilla": np.array([len(complexity_information[name]["without_metadata"]), 0]),
     "overlap": np.array([len(complexity_information[name]["overlap"]), 0]),
-    "w/ md": np.array([len(complexity_information[name]["with_metadata"]), 0]),
+    "extended": np.array([len(complexity_information[name]["with_metadata"]), 0]),
     }
 
     bottom = np.zeros(2)

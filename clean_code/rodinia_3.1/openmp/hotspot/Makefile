@@ -2,7 +2,7 @@
 # CC = g++
 #ICC = icc
 ICC = $(CXX)
-CC_FLAGS = -g -fopenmp -O2
+#CC_FLAGS = -g -fopenmp -O2
 OFFLOAD_CC_FLAGS = -offload-option,mic,compiler,"-no-opt-prefetch"
 
 all: hotspot hotspot_offload 

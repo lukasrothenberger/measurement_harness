@@ -1,3 +1,3 @@
 cd openmp/kmeans
 make clean
-make OPENMP/kmeans
+make CC_FLAGS="-g -fopenmp -O2 " OPENMP/kmeans

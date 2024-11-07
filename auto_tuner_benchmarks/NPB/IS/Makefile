@@ -1,6 +1,6 @@
 all: cpu
 
-cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis create_code_version_with_metadata create_code_version_without_metadata execute_pattern_analysis_with_metadata execute_pattern_analysis_without_metadata execute_auto_tuner_with_metadata execute_auto_tuner_without_metadata execute_parallel_reference
+cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis create_code_version_with_metadata create_code_version_without_metadata execute_pattern_analysis_with_metadata execute_pattern_analysis_without_metadata execute_auto_tuner_with_metadata execute_auto_tuner_without_metadata execute_parallel_reference execute_sanity_checker_with_metadata execute_sanity_checker_without_metadata
 
 clean: 
 	rm -rvf IS_*
@@ -51,6 +51,24 @@ execute_auto_tuner_without_metadata:
 	cd IS_orig_without_metadata && mv DP_EXECUTE_IS.sh DP_EXECUTE.sh
 	cd IS_orig_without_metadata && echo "$$(pwd)"
 	cd IS_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+
+execute_sanity_checker_with_metadata:
+	cd IS_orig_with_metadata && mv DP_COMPILE_IS.sh DP_COMPILE.sh
+	cd IS_orig_with_metadata && mv DP_EXECUTE_IS.sh DP_EXECUTE.sh
+	cd IS_orig_with_metadata && mv DP_COMPILE_SANITIZE_IS.sh DP_COMPILE_SANITIZE.sh
+	cd IS_orig_with_metadata && mv DP_EXECUTE_SANITIZE_IS.sh DP_EXECUTE_SANITIZE.sh
+	cd IS_orig_with_metadata && mv DP_VALIDATE_IS.sh DP_VALIDATE.sh
+	cd IS_orig_with_metadata && echo "$$(pwd)"
+	cd IS_orig_with_metadata && discopop_sanity_checker --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+
+execute_sanity_checker_without_metadata:
+	cd IS_orig_without_metadata && mv DP_COMPILE_IS.sh DP_COMPILE.sh
+	cd IS_orig_without_metadata && mv DP_EXECUTE_IS.sh DP_EXECUTE.sh
+	cd IS_orig_without_metadata && mv DP_COMPILE_SANITIZE_IS.sh DP_COMPILE_SANITIZE.sh
+	cd IS_orig_without_metadata && mv DP_EXECUTE_SANITIZE_IS.sh DP_EXECUTE_SANITIZE.sh
+	cd IS_orig_without_metadata && mv DP_VALIDATE_IS.sh DP_VALIDATE.sh
+	cd IS_orig_without_metadata && echo "$$(pwd)"
+	cd IS_orig_without_metadata && discopop_sanity_checker --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
 
 execute_parallel_reference:
 	cp -r ../../../clean_code/NPB-OMP IS_OMP

@@ -3,7 +3,7 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 
 all: cpu
 
-cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis create_code_version_with_metadata create_code_version_without_metadata execute_pattern_analysis_with_metadata execute_pattern_analysis_without_metadata execute_auto_tuner_with_metadata execute_auto_tuner_without_metadata execute_parallel_reference
+cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis create_code_version_with_metadata create_code_version_without_metadata execute_pattern_analysis_with_metadata execute_pattern_analysis_without_metadata execute_auto_tuner_with_metadata execute_auto_tuner_without_metadata execute_parallel_reference execute_sanity_checker_with_metadata execute_sanity_checker_without_metadata
 
 clean: 
 	rm -rvf ${current_dir}_*
@@ -41,13 +41,11 @@ create_code_version_without_metadata:
 	sed -i 's/\/${current_dir}_orig\//\/${current_dir}_orig_without_metadata\//g' ${current_dir}_orig_without_metadata/.discopop/FileMapping.txt
 
 execute_pattern_analysis_with_metadata:
-	cd ${current_dir}_orig_with_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd ${current_dir}_orig_with_metadata/.discopop && discopop_patch_generator --log info
+	cd ${current_dir}_orig_with_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_pattern_analysis_without_metadata:
 	cd ${current_dir}_orig_without_metadata/.discopop && rm -f profiler/dependency_metadata.txt
-	cd ${current_dir}_orig_without_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd ${current_dir}_orig_without_metadata/.discopop && discopop_patch_generator --log info
+	cd ${current_dir}_orig_without_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_auto_tuner_with_metadata:
 	cd ${current_dir}_orig_with_metadata && cp DP_COMPILE_${current_dir}.sh DP_COMPILE.sh
@@ -60,6 +58,18 @@ execute_auto_tuner_without_metadata:
 	cd ${current_dir}_orig_without_metadata && cp DP_EXECUTE_${current_dir}.sh DP_EXECUTE.sh
 	cd ${current_dir}_orig_without_metadata && echo "$$(pwd)"
 	cd ${current_dir}_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/.discopop
+
+execute_sanity_checker_with_metadata:
+	cd ${current_dir}_orig_with_metadata && cp DP_COMPILE_SANITIZE_${current_dir}.sh DP_COMPILE_SANITIZE.sh
+	cd ${current_dir}_orig_with_metadata && cp DP_EXECUTE_${current_dir}_DP.sh DP_EXECUTE_SANITIZE.sh
+	cd ${current_dir}_orig_with_metadata && echo "$$(pwd)"
+	cd ${current_dir}_orig_with_metadata && discopop_sanity_checker --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/.discopop
+
+execute_sanity_checker_without_metadata:
+	cd ${current_dir}_orig_without_metadata && cp DP_COMPILE_SANITIZE_${current_dir}.sh DP_COMPILE_SANITIZE.sh
+	cd ${current_dir}_orig_without_metadata && cp DP_EXECUTE_${current_dir}_DP.sh DP_EXECUTE_SANITIZE.sh
+	cd ${current_dir}_orig_without_metadata && echo "$$(pwd)"
+	cd ${current_dir}_orig_without_metadata && discopop_sanity_checker --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/.discopop
 
 execute_parallel_reference:
 	cp -r ../../../clean_code/rodinia_3.1-OMP ${current_dir}_OMP

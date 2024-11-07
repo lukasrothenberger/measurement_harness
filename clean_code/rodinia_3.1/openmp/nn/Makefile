@@ -1,7 +1,7 @@
 #LOCAL_CC = gcc -g -O3 -Wall
 LOCAL_CC = $(CC)
 # CC = gcc
-CFLAGS = -lm -fopenmp -Wall
+# CFLAGS = -lm -fopenmp -Wall
 
 
 all : nn

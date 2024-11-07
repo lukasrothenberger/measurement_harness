@@ -1,4 +1,4 @@
 cd openmp/nn
 
 make clean
-make 
+CFLAGS="-lm -fopenmp -Wall" make 

@@ -1,4 +1,7 @@
+make clean 
+CC=clang++ make ft CLASS=A
+
 cd bin
-./mg.A > dp_execute_out.txt
+./ft.A > dp_execute_out.txt
 grep "Verification    =               SUCCESSFUL" dp_execute_out.txt
 return $?

@@ -1,2 +1,2 @@
 make clean 
-CC=clang++ make ft CLASS=C
+CC=clang++ make ft CLASS=A

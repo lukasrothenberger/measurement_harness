@@ -1,3 +1,3 @@
 cd src
-./miniFE.x --nx 25 --ny 25 --nz 25
+timeout 300 ./miniFE.x --nx 10 --ny 10 --nz 10
 return $?

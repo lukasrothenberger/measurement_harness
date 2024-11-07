@@ -1,61 +1,78 @@
+BENCHMARK_NAME=$$(basename ${CURDIR})
+BENCHMARK_NAME_LOWERCASE=$$(echo ${BENCHMARK_NAME} | tr '[:upper:]' '[:lower:]')
+
 all: cpu
 
-cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis create_code_version_with_metadata create_code_version_without_metadata execute_pattern_analysis_with_metadata execute_pattern_analysis_without_metadata execute_auto_tuner_with_metadata execute_auto_tuner_without_metadata execute_parallel_reference
+cpu: clean copy_code execute_hotspot_detection execute_dynamic_analysis create_code_version_with_metadata create_code_version_without_metadata execute_pattern_analysis_with_metadata execute_pattern_analysis_without_metadata execute_sanity_checker_with_metadata execute_sanity_checker_without_metadata execute_auto_tuner_with_metadata execute_auto_tuner_without_metadata execute_parallel_reference
 
 clean: 
-	rm -rvf LU_*
+	rm -rvf ${BENCHMARK_NAME}_*
 
 copy_code:
-	cp -r ../../../clean_code/NPB-SER LU_orig
+	cp -r ../../../clean_code/NPB-SER ${BENCHMARK_NAME}_orig
 
 execute_hotspot_detection:
-	cd LU_orig && make clean
-	cd LU_orig && DOT_DISCOPOP=$$(pwd)/bin/.discopop CXX=discopop_hotspot_cxx CC=discopop_hotspot_cc make lu CLASS=S
-	cd LU_orig && DOT_DISCOPOP=$$(pwd)/bin/.discopop CXX=discopop_hotspot_cxx CC=discopop_hotspot_cc make lu CLASS=A
-	cd LU_orig/bin && ./lu.S
-	cd LU_orig/bin && ./lu.A
-	cd LU_orig/bin/.discopop && hotspot_analyzer
+	cd ${BENCHMARK_NAME}_orig && make clean
+	cd ${BENCHMARK_NAME}_orig && DOT_DISCOPOP=$$(pwd)/bin/.discopop CXX=discopop_hotspot_cxx CC=discopop_hotspot_cc make ${BENCHMARK_NAME_LOWERCASE} CLASS=S
+	cd ${BENCHMARK_NAME}_orig && DOT_DISCOPOP=$$(pwd)/bin/.discopop CXX=discopop_hotspot_cxx CC=discopop_hotspot_cc make ${BENCHMARK_NAME_LOWERCASE} CLASS=A
+	cd ${BENCHMARK_NAME}_orig/bin && ./${BENCHMARK_NAME_LOWERCASE}.S
+	cd ${BENCHMARK_NAME}_orig/bin && ./${BENCHMARK_NAME_LOWERCASE}.A
+	cd ${BENCHMARK_NAME}_orig/bin/.discopop && hotspot_analyzer
 
 execute_dynamic_analysis:
-	cd LU_orig && make clean
-	cd LU_orig && DOT_DISCOPOP=$$(pwd)/bin/.discopop CXX=discopop_cxx CC=discopop_cc make lu CLASS=S
-	cd LU_orig/bin && ./lu.S
+	cd ${BENCHMARK_NAME}_orig && make clean
+	cd ${BENCHMARK_NAME}_orig && DOT_DISCOPOP=$$(pwd)/bin/.discopop CXX=discopop_cxx CC=discopop_cc make ${BENCHMARK_NAME_LOWERCASE} CLASS=S
+	cd ${BENCHMARK_NAME}_orig/bin && ./${BENCHMARK_NAME_LOWERCASE}.S
 
 create_code_version_with_metadata:
-	cp -r LU_orig LU_orig_with_metadata
+	cp -r ${BENCHMARK_NAME}_orig ${BENCHMARK_NAME}_orig_with_metadata
 # correct the copied FileMapping.txt
-	sed -i 's/\/LU_orig\//\/LU_orig_with_metadata\//g' LU_orig_with_metadata/bin/.discopop/FileMapping.txt
+	sed -i "s/\/${BENCHMARK_NAME}_orig\//\/${BENCHMARK_NAME}_orig_with_metadata\//g" ${BENCHMARK_NAME}_orig_with_metadata/bin/.discopop/FileMapping.txt
 
 create_code_version_without_metadata:
-	cp -r LU_orig LU_orig_without_metadata
+	cp -r ${BENCHMARK_NAME}_orig ${BENCHMARK_NAME}_orig_without_metadata
 # correct the copied FileMapping.txt
-	sed -i 's/\/LU_orig\//\/LU_orig_without_metadata\//g' LU_orig_without_metadata/bin/.discopop/FileMapping.txt
+	sed -i "s/\/${BENCHMARK_NAME}_orig\//\/${BENCHMARK_NAME}_orig_without_metadata\//g" ${BENCHMARK_NAME}_orig_without_metadata/bin/.discopop/FileMapping.txt
 
 execute_pattern_analysis_with_metadata:
-	cd LU_orig_with_metadata/bin/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd LU_orig_with_metadata/bin/.discopop && discopop_patch_generator --log info
+	cd ${BENCHMARK_NAME}_orig_with_metadata/bin/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_pattern_analysis_without_metadata:
-	cd LU_orig_without_metadata/bin/.discopop && rm -f profiler/dependency_metadata.txt
-	cd LU_orig_without_metadata/bin/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd LU_orig_without_metadata/bin/.discopop && discopop_patch_generator --log info
+	cd ${BENCHMARK_NAME}_orig_without_metadata/bin/.discopop && rm -f profiler/dependency_metadata.txt
+	cd ${BENCHMARK_NAME}_orig_without_metadata/bin/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_auto_tuner_with_metadata:
-	cd LU_orig_with_metadata && mv DP_COMPILE_LU.sh DP_COMPILE.sh
-	cd LU_orig_with_metadata && mv DP_EXECUTE_LU.sh DP_EXECUTE.sh
-	cd LU_orig_with_metadata && echo "$$(pwd)"
-	cd LU_orig_with_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_COMPILE_${BENCHMARK_NAME}.sh DP_COMPILE.sh
+	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_EXECUTE_${BENCHMARK_NAME}.sh DP_EXECUTE.sh
+	cd ${BENCHMARK_NAME}_orig_with_metadata && echo "$$(pwd)"
+	cd ${BENCHMARK_NAME}_orig_with_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
 
 execute_auto_tuner_without_metadata:
-	cd LU_orig_without_metadata && mv DP_COMPILE_LU.sh DP_COMPILE.sh
-	cd LU_orig_without_metadata && mv DP_EXECUTE_LU.sh DP_EXECUTE.sh
-	cd LU_orig_without_metadata && echo "$$(pwd)"
-	cd LU_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_COMPILE_${BENCHMARK_NAME}.sh DP_COMPILE.sh
+	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_EXECUTE_${BENCHMARK_NAME}.sh DP_EXECUTE.sh
+	cd ${BENCHMARK_NAME}_orig_without_metadata && echo "$$(pwd)"
+	cd ${BENCHMARK_NAME}_orig_without_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+
+execute_sanity_checker_with_metadata:
+	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_COMPILE_${BENCHMARK_NAME}.sh DP_COMPILE.sh
+	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_EXECUTE_${BENCHMARK_NAME}.sh DP_EXECUTE.sh
+	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_COMPILE_SANITIZE_${BENCHMARK_NAME}.sh DP_COMPILE_SANITIZE.sh
+	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_EXECUTE_SANITIZE_${BENCHMARK_NAME}.sh DP_EXECUTE_SANITIZE.sh
+	cd ${BENCHMARK_NAME}_orig_with_metadata && echo "$$(pwd)"
+	cd ${BENCHMARK_NAME}_orig_with_metadata && discopop_sanity_checker --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+
+execute_sanity_checker_without_metadata:
+	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_COMPILE_${BENCHMARK_NAME}.sh DP_COMPILE.sh
+	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_EXECUTE_${BENCHMARK_NAME}.sh DP_EXECUTE.sh
+	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_COMPILE_SANITIZE_${BENCHMARK_NAME}.sh DP_COMPILE_SANITIZE.sh
+	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_EXECUTE_SANITIZE_${BENCHMARK_NAME}.sh DP_EXECUTE_SANITIZE.sh
+	cd ${BENCHMARK_NAME}_orig_without_metadata && echo "$$(pwd)"
+	cd ${BENCHMARK_NAME}_orig_without_metadata && discopop_sanity_checker --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
 
 execute_parallel_reference:
-	cp -r ../../../clean_code/NPB-OMP LU_OMP
-	cd LU_OMP && ./DP_COMPILE_LU.sh
-	- cd LU_OMP && /usr/bin/time --append --format="REF; %e; %x;" -o ../LU_orig_with_metadata/measurements.csv ./DP_EXECUTE_LU.sh
-	- cd LU_OMP && /usr/bin/time --append --format="REF; %e; %x;" -o ../LU_orig_without_metadata/measurements.csv ./DP_EXECUTE_LU.sh
+	cp -r ../../../clean_code/NPB-OMP ${BENCHMARK_NAME}_OMP
+	cd ${BENCHMARK_NAME}_OMP && ./DP_COMPILE_${BENCHMARK_NAME}.sh
+	- cd ${BENCHMARK_NAME}_OMP && /usr/bin/time --append --format="REF; %e; %x;" -o ../${BENCHMARK_NAME}_orig_with_metadata/measurements.csv ./DP_EXECUTE_${BENCHMARK_NAME}.sh
+	- cd ${BENCHMARK_NAME}_OMP && /usr/bin/time --append --format="REF; %e; %x;" -o ../${BENCHMARK_NAME}_orig_without_metadata/measurements.csv ./DP_EXECUTE_${BENCHMARK_NAME}.sh
 
 	

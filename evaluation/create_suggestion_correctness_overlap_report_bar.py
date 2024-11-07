@@ -122,10 +122,10 @@ def add_suggestion_correctness_overlap_report_bar(benchmark_name: str, ax) -> No
 #    # END DEBUG
 
     a = [-len(invalid_both),-len(invalid_both)]
-    b = [-len(invalid_extended),-len(invalid_vanilla)]
+    b = [-len(invalid_vanilla),-len(invalid_extended)]
     
     c = [len(valid_both),len(valid_both)]
-    d = [len(valid_extended),len(valid_vanilla)]
+    d = [len(valid_vanilla),len(valid_extended)]
     data = np.array([a, b, c, d])
 
     data_shape = np.shape(data)
@@ -148,7 +148,7 @@ def add_suggestion_correctness_overlap_report_bar(benchmark_name: str, ax) -> No
 
     cols = ["grey", "darksalmon", "grey", "darkseagreen"]
 
-    labels = ("extended", "vanilla")
+    labels = ("vanilla", "extended")
 
     width = 0.5
 

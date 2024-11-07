@@ -1,2 +1,2 @@
 make clean 
-CC="clang++ -fsanitize=thread" make is CLASS=A
+CC="clang++ -fsanitize=thread" make is CLASS=S

@@ -221,7 +221,7 @@ int main(int argc, char **argv){
 			 * tally counts in concentric square annuli. this loop is not
 			 * vectorizable.
 			 */
-			if(timers_enabled && thread_id==0){timer_start(1);}
+			if(timers_enabled && thread_id==0){timer_start(1);}	
 			for(i=0; i<NK; i++){
 				x1 = 2.0 * x[2*i] - 1.0;
 				x2 = 2.0 * x[2*i+1] - 1.0;

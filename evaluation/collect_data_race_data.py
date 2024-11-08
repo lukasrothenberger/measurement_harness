@@ -55,7 +55,15 @@ def collect_data() -> None:
             suggestion_results = json.load(f)
             for suggestion_dict in suggestion_results:
                 if suggestion_dict["TSAN_CODE"]:
-                    with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
+                    if "RETURN_CODE" in suggestion_dict:
+                        if suggestion_dict["RETURN_CODE"] == 0:
+                            with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])    
+                        elif suggestion_dict["RETURN_CODE"] == 66:
+                            with_metadata_suggestions_with_data_race.append(suggestion_dict["applied_pattern_tags"])    
+                        else:
+                            with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
+                    else:
+                        with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])
                 else:
                     if "VALIDATION" in suggestion_dict and suggestion_dict["VALIDATION"]:
                         with_metadata_suggestions_without_data_race.append(suggestion_dict["applied_pattern_tags"])

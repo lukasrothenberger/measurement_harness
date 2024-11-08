@@ -51,13 +51,14 @@ execute_auto_tuner_without_metadata:
 	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_COMPILE_${BENCHMARK_NAME}.sh DP_COMPILE.sh
 	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_EXECUTE_${BENCHMARK_NAME}.sh DP_EXECUTE.sh
 	cd ${BENCHMARK_NAME}_orig_without_metadata && echo "$$(pwd)"
-	cd ${BENCHMARK_NAME}_orig_without_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
+	cd ${BENCHMARK_NAME}_orig_without_metadata && discopop_auto_tuner  --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
 
 execute_sanity_checker_with_metadata:
 	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_COMPILE_${BENCHMARK_NAME}.sh DP_COMPILE.sh
 	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_EXECUTE_${BENCHMARK_NAME}.sh DP_EXECUTE.sh
 	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_COMPILE_SANITIZE_${BENCHMARK_NAME}.sh DP_COMPILE_SANITIZE.sh
 	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_EXECUTE_SANITIZE_${BENCHMARK_NAME}.sh DP_EXECUTE_SANITIZE.sh
+	cd ${BENCHMARK_NAME}_orig_with_metadata && cp DP_VALIDATE_${BENCHMARK_NAME}.sh DP_VALIDATE.sh
 	cd ${BENCHMARK_NAME}_orig_with_metadata && echo "$$(pwd)"
 	cd ${BENCHMARK_NAME}_orig_with_metadata && discopop_sanity_checker --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
 
@@ -66,6 +67,7 @@ execute_sanity_checker_without_metadata:
 	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_EXECUTE_${BENCHMARK_NAME}.sh DP_EXECUTE.sh
 	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_COMPILE_SANITIZE_${BENCHMARK_NAME}.sh DP_COMPILE_SANITIZE.sh
 	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_EXECUTE_SANITIZE_${BENCHMARK_NAME}.sh DP_EXECUTE_SANITIZE.sh
+	cd ${BENCHMARK_NAME}_orig_without_metadata && cp DP_VALIDATE_${BENCHMARK_NAME}.sh DP_VALIDATE.sh
 	cd ${BENCHMARK_NAME}_orig_without_metadata && echo "$$(pwd)"
 	cd ${BENCHMARK_NAME}_orig_without_metadata && discopop_sanity_checker --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/bin/.discopop
 

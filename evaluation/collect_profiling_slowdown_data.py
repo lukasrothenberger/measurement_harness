@@ -1,7 +1,7 @@
 from enum import IntEnum
 import os
 import logging
-from typing import Dict
+from typing import Dict, List
 from discopop_library.GlobalLogger.setup import setup_logger
 from discopop_library.ArgumentClasses.GeneralArguments import GeneralArguments
 from pathlib import Path
@@ -37,9 +37,17 @@ if not os.path.exists("data/profiling_slowdown/"+dp_version.name):
     os.mkdir("data/profiling_slowdown/"+dp_version.name)
 
 
-# collect profiling times
-logger.info("Profiling times:")
+# load old profiling times
 profiling_times: Dict[str, int] = dict()
+if os.path.exists("data/profiling_slowdown/" + dp_version.name + "/profiling_times.json"):
+    with open("data/profiling_slowdown/" + dp_version.name +  "/profiling_times.json", "r") as f:
+        profiling_times = json.load(f)
+print("OLD PROFILING TIMES")
+print(profiling_times)
+
+# collect new profiling times
+logger.info("Profiling times:")
+to_be_removed: List[str] = []
 for path in Path('../profiler_only').rglob('*/.discopop/profiler/statistics/profiling_time.txt'):
     clean_path = str(path)[len('../profiler_only')+1 : str(path).index("/.discopop/")]
     with open(path, "r") as f:
@@ -47,8 +55,19 @@ for path in Path('../profiler_only').rglob('*/.discopop/profiler/statistics/prof
         time = line[0:line.index(" ")]
         profiling_times[clean_path] = time
         logger.info("\t" + clean_path + " -> " + str(time) + " ms")
+    
+    # remove profiling time to prevent overwriting issues when executing collection multiple times
+    to_be_removed.append(path)
+
+print("NEW PROFILING TIMES")
+print(profiling_times)
 with open("data/profiling_slowdown/" + dp_version.name +  "/profiling_times.json", "w+") as f:
     json.dump(profiling_times, f)
+
+for path in to_be_removed:
+    if os.path.exists(path):
+        os.remove(path)
+        logger.info("deleted saved profiling times: " + str(path))
 
 
 

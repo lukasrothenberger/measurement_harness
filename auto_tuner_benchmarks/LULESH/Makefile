@@ -37,13 +37,11 @@ create_code_version_without_metadata:
 	sed -i 's/\/lulesh_orig\//\/lulesh_orig_without_metadata\//g' lulesh_orig_without_metadata/build/.discopop/FileMapping.txt
 
 execute_pattern_analysis_with_metadata:
-	cd lulesh_orig_with_metadata/build/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd lulesh_orig_with_metadata/build/.discopop && discopop_patch_generator  --log info
+	cd lulesh_orig_with_metadata/build/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_pattern_analysis_without_metadata:
 	cd lulesh_orig_without_metadata/build/.discopop && rm -f profiler/dependency_metadata.txt
-	cd lulesh_orig_without_metadata/build/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd lulesh_orig_without_metadata/build/.discopop && discopop_patch_generator
+	cd lulesh_orig_without_metadata/build/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_auto_tuner_with_metadata:
 	cd lulesh_orig_with_metadata && echo "$$(pwd)"
@@ -52,7 +50,7 @@ execute_auto_tuner_with_metadata:
 execute_auto_tuner_without_metadata:
 	cd lulesh_orig_without_metadata && echo "$$(pwd)"
 	cd lulesh_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
-
+	
 execute_parallel_reference:
 	cp -r ../../clean_code/LULESH_PAR lulesh_PAR
 	cd lulesh_PAR && ./DP_COMPILE.sh

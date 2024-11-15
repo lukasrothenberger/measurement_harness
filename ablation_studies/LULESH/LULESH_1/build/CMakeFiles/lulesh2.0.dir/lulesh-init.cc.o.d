@@ -1,5 +1,5 @@
 CMakeFiles/lulesh2.0.dir/lulesh-init.cc.o: \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh-init.cc \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh-init.cc \
  /usr/include/stdc-predef.h /usr/include/c++/13/math.h \
  /usr/include/c++/13/cmath /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
@@ -105,7 +105,7 @@ CMakeFiles/lulesh2.0.dir/lulesh-init.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh.h \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \

@@ -1,5 +1,5 @@
 CMakeFiles/lulesh2.0.dir/lulesh-util.cc.o: \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh-util.cc \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh-util.cc \
  /usr/include/stdc-predef.h /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -161,7 +161,7 @@ CMakeFiles/lulesh2.0.dir/lulesh-util.cc.o: \
  /usr/include/c++/13/bits/locale_conv.h \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/sstream \
  /usr/include/c++/13/bits/sstream.tcc \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh.h \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh.h \
  /usr/include/c++/13/math.h /usr/include/c++/13/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \

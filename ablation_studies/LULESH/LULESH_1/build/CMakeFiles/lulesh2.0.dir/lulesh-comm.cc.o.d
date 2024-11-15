@@ -1,7 +1,7 @@
 CMakeFiles/lulesh2.0.dir/lulesh-comm.cc.o: \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh-comm.cc \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh-comm.cc \
  /usr/include/stdc-predef.h \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh.h \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh.h \
  /usr/include/c++/13/math.h /usr/include/c++/13/cmath \
  /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \

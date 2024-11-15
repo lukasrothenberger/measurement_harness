@@ -1,5 +1,5 @@
 CMakeFiles/lulesh2.0.dir/lulesh-viz.cc.o: \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh-viz.cc \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh-viz.cc \
  /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -96,7 +96,7 @@ CMakeFiles/lulesh2.0.dir/lulesh-viz.cc.o: \
  /usr/include/c++/13/tr1/poly_hermite.tcc \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
  /usr/include/c++/13/tr1/riemann_zeta.tcc \
- /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_SEQ/lulesh.h \
+ /home/lukas/git/benchmark_harness/ablation_studies/LULESH/LULESH_1/lulesh.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \

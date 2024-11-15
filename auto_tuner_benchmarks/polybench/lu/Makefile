@@ -61,12 +61,10 @@ create_code_version_without_metadata:
 	cd $$(discopop_config_provider -s)/discopop_library/Compatibility/LegacyDiscoPoP && python -m GEPDependencyRemover --log info --dyndep-file-path ${CURDIR}/orig_without_metadata/.discopop/profiler/dynamic_dependencies.txt
 
 execute_pattern_analysis_with_metadata:
-	cd orig_with_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd orig_with_metadata/.discopop && discopop_patch_generator --log info
+	cd orig_with_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_pattern_analysis_without_metadata:
-	cd orig_without_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction
-	cd orig_without_metadata/.discopop && discopop_patch_generator --log info
+	cd orig_without_metadata/.discopop && discopop_explorer --enable-patterns doall,reduction --enable-statistics
 
 execute_auto_tuner_with_metadata:
 	cd orig_with_metadata && echo "$$(pwd)"

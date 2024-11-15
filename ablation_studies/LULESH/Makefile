@@ -1,4 +1,4 @@
-LULESH_PROBLEM_SIZE=20  # default 30
+LULESH_PROBLEM_SIZE=25  # default 30
 
 all: clean prepare seq par codes
 
@@ -20,6 +20,7 @@ par:
 
 clean:
 	rm -f measurements.csv
+	rm -rf $$(find -type d -name build)
 
 codes: 1 2 3 4 5 6 7 8 9 10 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 34 35 40 41 43
 

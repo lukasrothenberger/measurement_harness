@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.478161520 +0100
+@@ -1973,6 +1973,7 @@
+ 
+       /* Don't allow excessive artificial viscosity */
+       Index_t idx = -1; 
++      #pragma omp parallel for shared(domain,numElem) 
+       for (Index_t i=0; i<numElem; ++i) {
+          if ( domain.q(i) > domain.qstop() ) {
+             idx = i ;

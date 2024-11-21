@@ -1,0 +1,10 @@
+ FileID : 1 Loop Line Number : 290 Reduction Line Number : 291 Variable Name : nodeElemCount Operation Name : +
+ FileID : 1 Loop Line Number : 288 Reduction Line Number : 291 Variable Name : nodeElemCount Operation Name : +
+ FileID : 14 Loop Line Number : 202 Reduction Line Number : 204 Variable Name : TotalAbsDiff Operation Name : +
+ FileID : 14 Loop Line Number : 201 Reduction Line Number : 204 Variable Name : TotalAbsDiff Operation Name : +
+ FileID : 18 Loop Line Number : 570 Reduction Line Number : 573 Variable Name : fy_tmp Operation Name : +
+ FileID : 18 Loop Line Number : 570 Reduction Line Number : 572 Variable Name : fx_tmp Operation Name : +
+ FileID : 18 Loop Line Number : 570 Reduction Line Number : 574 Variable Name : fz_tmp Operation Name : +
+ FileID : 18 Loop Line Number : 972 Reduction Line Number : 974 Variable Name : fx_tmp Operation Name : +
+ FileID : 18 Loop Line Number : 972 Reduction Line Number : 975 Variable Name : fy_tmp Operation Name : +
+ FileID : 18 Loop Line Number : 972 Reduction Line Number : 976 Variable Name : fz_tmp Operation Name : +

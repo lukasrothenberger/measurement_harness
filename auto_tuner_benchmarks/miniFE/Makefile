@@ -40,11 +40,11 @@ execute_pattern_analysis_without_metadata:
 
 execute_auto_tuner_with_metadata:
 	cd miniFE_orig_with_metadata && echo "$$(pwd)"
-	cd miniFE_orig_with_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/src/.discopop --sanitize
+	cd miniFE_orig_with_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/src/.discopop
 
 execute_auto_tuner_without_metadata:
 	cd miniFE_orig_without_metadata && echo "$$(pwd)"
-	cd miniFE_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/src/.discopop --sanitize
+	cd miniFE_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/src/.discopop
 
 execute_sanity_checker_with_metadata:
 	cd miniFE_orig_with_metadata && echo "$$(pwd)"

@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.681161432 +0100
+@@ -571,6 +571,7 @@
+   Index_t ghostIdx[6] ;  // offsets to ghost locations
+ 
+   // set up boundary condition information
++  #pragma omp parallel for 
+   for (Index_t i=0; i<numElem(); ++i) {
+      elemBC(i) = Int_t(0) ;
+   }

@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:42.016161286 +0100
+@@ -1598,6 +1598,7 @@
+ {
+    Index_t numElem = domain.numElem();
+ 
++   #pragma omp parallel for shared(domain,numElem) 
+    for (Index_t i = 0 ; i < numElem ; ++i ) {
+       const Real_t ptiny = Real_t(1.e-36) ;
+       Real_t ax,ay,az ;

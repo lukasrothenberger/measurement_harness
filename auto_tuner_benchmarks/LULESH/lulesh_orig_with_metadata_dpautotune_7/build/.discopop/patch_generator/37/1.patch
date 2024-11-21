@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.292161601 +0100
+@@ -222,6 +222,7 @@
+   // initialize nodal coordinates 
+   Index_t nidx = 0 ;
+   Real_t tz = Real_t(1.125)*Real_t(m_planeLoc*nx)/Real_t(meshEdgeElems) ;
++  #pragma omp parallel for private(nidx,tz) shared(edgeNodes,meshEdgeElems,nx) 
+   for (Index_t plane=0; plane<edgeNodes; ++plane) {
+     Real_t ty = Real_t(1.125)*Real_t(m_rowLoc*nx)/Real_t(meshEdgeElems) ;
+     for (Index_t row=0; row<edgeNodes; ++row) {

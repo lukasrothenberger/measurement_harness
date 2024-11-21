@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.109161681 +0100
+@@ -2158,6 +2158,7 @@
+                             Real_t *bvc, Real_t ss4o3,
+                             Index_t len, Index_t *regElemList)
+ {
++   #pragma omp parallel for shared(bvc,domain,enewc,len,pbvc,pnewc,regElemList,rho0,vnewc) 
+    for (Index_t i = 0; i < len ; ++i) {
+       Index_t ielem = regElemList[i];
+       Real_t ssTmp = (pbvc[i] * enewc[i] + vnewc[ielem] * vnewc[ielem] *

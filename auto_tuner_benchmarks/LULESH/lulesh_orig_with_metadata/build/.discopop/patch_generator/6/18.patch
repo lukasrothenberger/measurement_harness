@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:40.484161956 +0100
+@@ -1531,6 +1531,7 @@
+     }
+ 
+     Real_t dt2 = Real_t(0.5) * deltaTime;
++    #pragma omp parallel for private(x_local,y_local,z_local) shared(dt2,xd_local,yd_local,zd_local) 
+     for ( Index_t j=0 ; j<8 ; ++j )
+     {
+        x_local[j] -= dt2 * xd_local[j];

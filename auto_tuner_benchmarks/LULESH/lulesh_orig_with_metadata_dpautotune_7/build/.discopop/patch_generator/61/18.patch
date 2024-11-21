@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.908161333 +0100
+@@ -2430,6 +2430,7 @@
+       Index_t thread_num = 0;
+ #endif      
+ 
++      #pragma omp parallel for lastprivate(courant_elem,dtcourant_tmp) shared(domain,length,qqc2,regElemlist) 
+       for (Index_t i = 0 ; i < length ; ++i) {
+          Index_t indx = regElemlist[i] ;
+          Real_t dtf = domain.ss(indx) * domain.ss(indx) ;

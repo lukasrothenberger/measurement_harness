@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:40.678161870 +0100
+@@ -539,6 +539,7 @@
+ Domain::SetupElementConnectivities(Int_t edgeElems)
+ {
+    lxim(0) = 0 ;
++   #pragma omp parallel for 
+    for (Index_t i=1; i<numElem(); ++i) {
+       lxim(i)   = i-1 ;
+       lxip(i-1) = i ;

@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.169161655 +0100
+@@ -554,6 +554,7 @@
+       letap(i-edgeElems) = i ;
+    }
+ 
++   #pragma omp parallel for shared(edgeElems) 
+    for (Index_t i=0; i<edgeElems*edgeElems; ++i) {
+       lzetam(i) = i ;
+       lzetap(numElem()-edgeElems*edgeElems+i) = numElem()-edgeElems*edgeElems+i ;

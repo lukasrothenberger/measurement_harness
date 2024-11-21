@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:40.618161897 +0100
+@@ -1011,6 +1011,7 @@
+       CalcElemVolumeDerivative(pfx, pfy, pfz, x1, y1, z1);
+ 
+       /* load into temporary storage for FB Hour Glass control */
++      #pragma omp parallel for private(pfx,pfy,pfz,x1,y1,z1) shared(dvdx,dvdy,dvdz,i,x8n,y8n,z8n) 
+       for(Index_t ii=0;ii<8;++ii){
+          Index_t jj=8*i+ii;
+ 

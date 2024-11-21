@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.882161344 +0100
+@@ -1565,6 +1565,7 @@
+       CalcKinematicsForElems(domain, deltatime, numElem) ;
+ 
+       // element loop to do some stuff not included in the elemlib function.
++      #pragma omp parallel for shared(domain,numElem) 
+       for ( Index_t k=0 ; k<numElem ; ++k )
+       {
+          // calc strain rate and apply as constraint (only done in FB element)

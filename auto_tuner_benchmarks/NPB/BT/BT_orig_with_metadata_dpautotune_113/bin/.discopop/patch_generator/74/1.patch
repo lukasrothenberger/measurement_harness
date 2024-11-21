@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_with_metadata/BT/bt.cpp	2024-11-20 17:04:54.616763932 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_with_metadata/BT/bt.cpp.discopop_patch_generator.temp	2024-11-20 17:12:39.589513541 +0100
+@@ -1501,6 +1501,7 @@
+ 	 */
+ 	i=grid_points[0]-1;
+ 	xi=1.0;
++	#pragma omp parallel for private(eta,j,k,zeta) shared(i,temp,xi) 
+ 	for(k=0; k<=grid_points[2]-1; k++){
+ 		zeta=(double)(k)*dnzm1;
+ 		for(j=0; j<=grid_points[1]-1; j++){

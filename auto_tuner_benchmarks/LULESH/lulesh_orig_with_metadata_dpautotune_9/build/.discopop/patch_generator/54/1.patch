@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.723161414 +0100
+@@ -449,6 +449,7 @@
+          //the highest representation
+ 	 regionNum = ((i + myRank) % numReg()) + 1;
+ 	 // make sure we don't pick the same region twice in a row
++         #pragma omp parallel for private(i,regionVar) shared(costDenominator,lastReg,myRank,regBinEnd,regionNum) 
+          while(regionNum == lastReg) {
+ 	    regionVar = rand() % costDenominator;
+ 	    i = 0;

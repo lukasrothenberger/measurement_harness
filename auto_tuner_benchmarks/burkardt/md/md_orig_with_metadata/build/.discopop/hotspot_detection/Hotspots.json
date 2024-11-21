@@ -1,0 +1,522 @@
+{"code_regions": [{
+    "csid": 1,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 281,
+    "name": "",
+    "runtimes": [
+        0.030139,
+        2.783392
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 1.4067655000000001,
+    "sum": 2.8135310000000002,
+    "minVal": 0.030139,
+    "maxVal": 2.783392,
+    "delta": 2.753253,
+    "ratio": 0.9892878379516701,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 2,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 286,
+    "name": "",
+    "runtimes": [
+        0.000104,
+        0.001037
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.0005704999999999999,
+    "sum": 0.0011409999999999999,
+    "minVal": 0.000104,
+    "maxVal": 0.001037,
+    "delta": 0.0009329999999999999,
+    "ratio": 0.908851884312007,
+    "topRatio": true
+},
+{
+    "csid": 3,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 291,
+    "name": "",
+    "runtimes": [
+        0.02971,
+        2.778352
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 1.404031,
+    "sum": 2.808062,
+    "minVal": 0.02971,
+    "maxVal": 2.778352,
+    "delta": 2.748642,
+    "ratio": 0.9894197492790402,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 4,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 310,
+    "name": "",
+    "runtimes": [
+        0.006353,
+        0.576592
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.2914725,
+    "sum": 0.582945,
+    "minVal": 0.006353,
+    "maxVal": 0.576592,
+    "delta": 0.5702389999999999,
+    "ratio": 0.9891018878281828,
+    "topRatio": true
+},
+{
+    "csid": 5,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 319,
+    "name": "",
+    "runtimes": [
+        9.9e-05,
+        0.001137
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.000618,
+    "sum": 0.001236,
+    "minVal": 9.9e-05,
+    "maxVal": 0.001137,
+    "delta": 0.001038,
+    "ratio": 0.9199029126213593,
+    "topRatio": true
+},
+{
+    "csid": 6,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 261,
+    "name": "_Z7computeiiPdS_dS_S_S_",
+    "runtimes": [
+        0.030146,
+        2.783401
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 1.4067735,
+    "sum": 2.813547,
+    "minVal": 0.030146,
+    "maxVal": 2.783401,
+    "delta": 2.7532550000000002,
+    "ratio": 0.9892854109065886,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 7,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 370,
+    "name": "",
+    "runtimes": [
+        0.003159,
+        0.304612
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.1538855,
+    "sum": 0.307771,
+    "minVal": 0.003159,
+    "maxVal": 0.304612,
+    "delta": 0.30145299999999997,
+    "ratio": 0.9897358750499561,
+    "topRatio": true
+},
+{
+    "csid": 8,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 365,
+    "name": "_Z4distiPdS_S_",
+    "runtimes": [
+        0.009104,
+        0.885059
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 0.4470815,
+    "sum": 0.894163,
+    "minVal": 0.009104,
+    "maxVal": 0.885059,
+    "delta": 0.875955,
+    "ratio": 0.989818411184538,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 9,
+    "typ": "FUNCTION",
+    "fid": 2,
+    "lineNum": 1071,
+    "name": "_ZSt3powIdiEN9__gnu_cxx11__promote_2IT_T0_NS0_9__promoteIS2_Xsr3std12__is_integerIS2_EE7__valueEE6__typeENS4_IS3_Xsr3std12__is_integerIS3_EE7__valueEE6__typeEE6__typeES2_S3_",
+    "runtimes": [
+        0.003688,
+        0.336445
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.1700665,
+    "sum": 0.340133,
+    "minVal": 0.003688,
+    "maxVal": 0.336445,
+    "delta": 0.33275699999999997,
+    "ratio": 0.9891571826315001,
+    "topRatio": true
+},
+{
+    "csid": 10,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 426,
+    "name": "",
+    "runtimes": [
+        2.4e-05,
+        0.000207
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 0.00011549999999999999,
+    "sum": 0.00023099999999999998,
+    "minVal": 2.4e-05,
+    "maxVal": 0.000207,
+    "delta": 0.000183,
+    "ratio": 0.8961038961038961
+},
+{
+    "csid": 11,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 428,
+    "name": "",
+    "runtimes": [
+        2.4e-05,
+        0.000207
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 0.00011549999999999999,
+    "sum": 0.00023099999999999998,
+    "minVal": 2.4e-05,
+    "maxVal": 0.000207,
+    "delta": 0.000183,
+    "ratio": 0.8961038961038961
+},
+{
+    "csid": 12,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 434,
+    "name": "",
+    "runtimes": [
+        8e-06,
+        6.3e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 3.55e-05,
+    "sum": 7.1e-05,
+    "minVal": 8e-06,
+    "maxVal": 6.3e-05,
+    "delta": 5.5e-05,
+    "ratio": 0.8873239436619719
+},
+{
+    "csid": 13,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 436,
+    "name": "",
+    "runtimes": [
+        4e-06,
+        3.4e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 1.9e-05,
+    "sum": 3.8e-05,
+    "minVal": 4e-06,
+    "maxVal": 3.4e-05,
+    "delta": 3e-05,
+    "ratio": 0.8947368421052632
+},
+{
+    "csid": 14,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 441,
+    "name": "",
+    "runtimes": [
+        8e-06,
+        6.2e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 3.5000000000000004e-05,
+    "sum": 7.000000000000001e-05,
+    "minVal": 8e-06,
+    "maxVal": 6.2e-05,
+    "delta": 5.4000000000000005e-05,
+    "ratio": 0.8857142857142858
+},
+{
+    "csid": 15,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 443,
+    "name": "",
+    "runtimes": [
+        4e-06,
+        3.3e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 1.8500000000000002e-05,
+    "sum": 3.7000000000000005e-05,
+    "minVal": 4e-06,
+    "maxVal": 3.3e-05,
+    "delta": 2.9000000000000004e-05,
+    "ratio": 0.891891891891892
+},
+{
+    "csid": 16,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 420,
+    "name": "_Z10initializeiiPdPiS_S_S_",
+    "runtimes": [
+        4e-05,
+        0.000334
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 0.000187,
+    "sum": 0.000374,
+    "minVal": 4e-05,
+    "maxVal": 0.000334,
+    "delta": 0.000294,
+    "ratio": 0.8930481283422459
+},
+{
+    "csid": 17,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 503,
+    "name": "_Z13r8_uniform_01Pi",
+    "runtimes": [
+        1.2e-05,
+        8.2e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 4.7000000000000004e-05,
+    "sum": 9.400000000000001e-05,
+    "minVal": 1.2e-05,
+    "maxVal": 8.2e-05,
+    "delta": 7e-05,
+    "ratio": 0.8723404255319149
+},
+{
+    "csid": 18,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 550,
+    "name": "_Z9timestampv",
+    "runtimes": [
+        4.5e-05,
+        8.8e-05
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 6.65e-05,
+    "sum": 0.000133,
+    "minVal": 4.5e-05,
+    "maxVal": 8.8e-05,
+    "delta": 4.2999999999999995e-05,
+    "ratio": 0.6616541353383458
+},
+{
+    "csid": 19,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 632,
+    "name": "",
+    "runtimes": [
+        0.000195,
+        0.00259
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.0013924999999999999,
+    "sum": 0.0027849999999999997,
+    "minVal": 0.000195,
+    "maxVal": 0.00259,
+    "delta": 0.002395,
+    "ratio": 0.9299820466786356,
+    "topRatio": true
+},
+{
+    "csid": 20,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 634,
+    "name": "",
+    "runtimes": [
+        0.000122,
+        0.001584
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.0008529999999999999,
+    "sum": 0.0017059999999999998,
+    "minVal": 0.000122,
+    "maxVal": 0.001584,
+    "delta": 0.001462,
+    "ratio": 0.9284876905041032,
+    "topRatio": true
+},
+{
+    "csid": 21,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 619,
+    "name": "_Z6updateiiPdS_S_S_dd",
+    "runtimes": [
+        0.000197,
+        0.002603
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "MAYBE",
+    "avr": 0.0014,
+    "sum": 0.0028,
+    "minVal": 0.000197,
+    "maxVal": 0.002603,
+    "delta": 0.0024059999999999997,
+    "ratio": 0.929642857142857,
+    "topRatio": true
+},
+{
+    "csid": 22,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 118,
+    "name": "",
+    "runtimes": [
+        0.0,
+        1e-06
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 5e-07,
+    "sum": 1e-06,
+    "minVal": 1e-06,
+    "maxVal": 1e-06,
+    "delta": 0.0,
+    "ratio": 0.5
+},
+{
+    "csid": 23,
+    "typ": "LOOP",
+    "fid": 1,
+    "lineNum": 167,
+    "name": "",
+    "runtimes": [
+        0.028854,
+        2.757432
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 1.393143,
+    "sum": 2.786286,
+    "minVal": 0.028854,
+    "maxVal": 2.757432,
+    "delta": 2.728578,
+    "ratio": 0.9896442791587079,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 24,
+    "typ": "FUNCTION",
+    "fid": 1,
+    "lineNum": 58,
+    "name": "main",
+    "runtimes": [
+        0.034429,
+        2.790075
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "YES",
+    "avr": 1.4122519999999998,
+    "sum": 2.8245039999999997,
+    "minVal": 0.034429,
+    "maxVal": 2.790075,
+    "delta": 2.755646,
+    "ratio": 0.9878106032067933,
+    "topAvr": true,
+    "topRatio": true
+},
+{
+    "csid": 25,
+    "typ": "FUNCTION",
+    "fid": 3,
+    "lineNum": 228,
+    "name": "_ZSt4setwi",
+    "runtimes": [
+        1e-06,
+        2e-06
+    ],
+    "level": 0,
+    "hot": true,
+    "hotness": "NO",
+    "avr": 1.5e-06,
+    "sum": 3e-06,
+    "minVal": 1e-06,
+    "maxVal": 2e-06,
+    "delta": 1e-06,
+    "ratio": 0.6666666666666666
+}
+]
+}

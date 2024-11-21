@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:42.095161252 +0100
+@@ -1492,6 +1492,7 @@
+ {
+ 
+   // loop over all elements
++  #pragma omp parallel for shared(deltaTime,domain,numElem) 
+   for( Index_t k=0 ; k<numElem ; ++k )
+   {
+     Real_t B[3][8] ; /** shape function derivatives */

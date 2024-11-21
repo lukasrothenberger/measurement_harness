@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.605161465 +0100
+@@ -480,6 +480,7 @@
+ 	    elements = rand() % 1537 + 512;
+ 	 runto = elements + nextIndex;
+ 	 //Store the elements.  If we hit the end before we run out of elements then just stop.
++         #pragma omp parallel for 
+          while (nextIndex < runto && nextIndex < numElem()) {
+ 	    this->regNumList(nextIndex) = regionNum;
+ 	    nextIndex++;

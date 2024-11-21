@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_with_metadata/BT/bt.cpp	2024-11-20 17:04:54.616763932 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_with_metadata/BT/bt.cpp.discopop_patch_generator.temp	2024-11-20 17:12:38.690511929 +0100
+@@ -1458,6 +1458,7 @@
+ 				for(ix=0; ix<2; ix++){
+ 					exact_solution((double)ix, eta, zeta, &Pface[ix][0][0]);
+ 				}
++				#pragma omp parallel for private(iy) shared(xi,zeta) 
+ 				for(iy=0; iy<2; iy++){
+ 					exact_solution(xi, (double)iy , zeta, &Pface[iy][1][0]);
+ 				}

@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_without_metadata/BT/bt.cpp	2024-11-20 17:04:54.645763972 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_without_metadata/BT/bt.cpp.discopop_patch_generator.temp	2024-11-20 17:13:04.486558364 +0100
+@@ -1604,6 +1604,7 @@
+ 	 * next, set all diagonal values to 1. This is overkill, but convenient
+ 	 * ---------------------------------------------------------------------
+ 	 */
++	#pragma omp parallel for private(m) shared(i,lhs) 
+ 	for(m=0; m<5; m++){
+ 		lhs[0][1][m][m]=1.0;
+ 		lhs[i][1][m][m]=1.0;

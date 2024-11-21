@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_with_metadata/BT/bt.cpp	2024-11-20 17:04:54.616763932 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_with_metadata/BT/bt.cpp.discopop_patch_generator.temp	2024-11-20 17:12:40.579515317 +0100
+@@ -802,6 +802,7 @@
+ 		 * add fourth order xi-direction dissipation               
+ 		 * ---------------------------------------------------------------------
+ 		 */
++		#pragma omp parallel for private(i,j,m) shared(k) 
+ 		for(j=1; j<=grid_points[1]-2; j++){
+ 			i=1;
+ 			for(m=0; m<5; m++){

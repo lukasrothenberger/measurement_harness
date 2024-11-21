@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.134161670 +0100
+@@ -2211,6 +2211,7 @@
+    for(Int_t j = 0; j < rep; j++) {
+       /* compress data, minimal set */
+       {
++         #pragma omp parallel for shared(delvc,domain,e_old,numElemReg,p_old,q_old,ql_old,qq_old,regElemList) 
+          for (Index_t i=0; i<numElemReg; ++i) {
+             Index_t ielem = regElemList[i];
+             e_old[i] = domain.e(ielem) ;

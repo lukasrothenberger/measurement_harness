@@ -1,0 +1,358 @@
+Is this code region a hotspot? 
+1  at 1:90 is MAYBE
+2  at 1:98 is MAYBE
+3  at 1:102 is MAYBE
+4  at 1:108 is MAYBE
+5  at 1:114 is MAYBE
+6  at 1:159 is NO
+7  at 1:162 is NO
+8  at 1:174 is NO
+9 _ZN6DomainC2Eiiiiiiiii at 1:53 is MAYBE
+10 _ZNSt6vectorIdSaIdEEC2Ev at 2:531 is NO
+11 _ZNSt6vectorIiSaIiEEC2Ev at 2:531 is NO
+12 _ZN6Domain4costEv at 3:424 is NO
+13 _ZN6Domain7numElemEv at 3:425 is MAYBE
+14 _ZN6Domain22AllocateElemPersistentEi at 3:186 is NO
+15 _ZN6Domain22AllocateNodePersistentEi at 3:165 is NO
+16 _ZN6Domain7numNodeEv at 3:426 is MAYBE
+17 _ZN6Domain16SetupCommBuffersEi at 1:343 is NO
+18 _ZN6Domain1eEi at 3:337 is MAYBE
+19 _ZN6Domain1pEi at 3:340 is MAYBE
+20 _ZN6Domain1qEi at 3:343 is MAYBE
+21 _ZN6Domain2ssEi at 3:364 is MAYBE
+22 _ZN6Domain1vEi at 3:351 is MAYBE
+23 _ZN6Domain2xdEi at 3:271 is YES
+24 _ZN6Domain2ydEi at 3:272 is YES
+25 _ZN6Domain2zdEi at 3:273 is YES
+26 _ZN6Domain3xddEi at 3:276 is MAYBE
+27 _ZN6Domain3yddEi at 3:277 is MAYBE
+28 _ZN6Domain3zddEi at 3:278 is MAYBE
+29 _ZN6Domain9nodalMassEi at 3:286 is MAYBE
+30  at 1:225 is MAYBE
+31  at 1:227 is MAYBE
+32  at 1:229 is MAYBE
+33  at 1:248 is MAYBE
+34  at 1:249 is MAYBE
+35  at 1:250 is MAYBE
+36 _ZN6Domain9BuildMeshEiii at 1:219 is MAYBE
+38  at 1:436 is NO
+39  at 1:442 is MAYBE
+40  at 1:446 is NO
+41  at 1:452 is MAYBE
+43  at 1:483 is MAYBE
+44  at 1:494 is MAYBE
+45  at 1:499 is NO
+46  at 1:504 is MAYBE
+47 _ZN6Domain21CreateRegionIndexSetsEii at 1:402 is MAYBE
+48  at 1:517 is NO
+49  at 1:520 is NO
+50 _ZN6Domain19SetupSymmetryPlanesEi at 1:515 is NO
+51  at 1:542 is MAYBE
+52  at 1:548 is NO
+53  at 1:552 is MAYBE
+54  at 1:557 is MAYBE
+55  at 1:561 is MAYBE
+56 _ZN6Domain26SetupElementConnectivitiesEi at 1:540 is MAYBE
+57  at 1:574 is MAYBE
+59  at 1:613 is MAYBE
+60  at 1:616 is MAYBE
+61 _ZN6Domain23SetupBoundaryConditionsEi at 1:570 is MAYBE
+62 _ZN6Domain7dtfixedEv at 3:410 is NO
+63 _ZN6Domain8stoptimeEv at 3:406 is NO
+64 _ZN6Domain15deltatimemultlbEv at 3:404 is NO
+65 _ZN6Domain15deltatimemultubEv at 3:405 is NO
+66 _ZN6Domain9dtcourantEv at 3:407 is NO
+67 _ZN6Domain7dthydroEv at 3:408 is MAYBE
+68 _ZN6Domain5dtmaxEv at 3:409 is MAYBE
+69 _ZN6Domain4timeEv at 3:402 is NO
+70 _ZN6Domain5cycleEv at 3:412 is NO
+71 _ZN6Domain8nodelistEi at 3:305 is MAYBE
+72 _ZN6Domain1xEi at 3:266 is YES
+73 _ZN6Domain1yEi at 3:267 is YES
+74 _ZN6Domain1zEi at 3:268 is YES
+75 _ZN6Domain4voloEi at 3:355 is MAYBE
+76 _ZN6Domain8elemMassEi at 3:367 is MAYBE
+77 _ZN6Domain9deltatimeEv at 3:403 is NO
+78 _ZNSt6vectorIdSaIdEED2Ev at 2:734 is NO
+79 _ZNSt6vectorIiSaIiEED2Ev at 2:734 is NO
+80  at 1:204 is NO
+81 _ZN6DomainD2Ev at 1:199 is NO
+82 _ZN6Domain6numRegEv at 3:423 is NO
+92 _ZN6Domain5sizeXEv at 3:420 is MAYBE
+93 _ZN6Domain5sizeYEv at 3:421 is NO
+94 _ZN6Domain5sizeZEv at 3:422 is NO
+95 _ZNSt6vectorIiSaIiEE6resizeEm at 2:1014 is NO
+96 _ZN6Domain10regNumListEi at 3:300 is MAYBE
+97 _ZN6Domain11regElemSizeEi at 3:299 is MAYBE
+98 _ZSt3powIiiEN9__gnu_cxx11__promote_2IT_T0_NS0_9__promoteIS2_Xsr3std12__is_integerIS2_EE7__valueEE6__typeENS4_IS3_Xsr3std12__is_integerIS3_EE7__valueEE6__typeEE6__typeES2_S3_ at 4:1071 is NO
+99 _ZN6Domain11regElemlistEii at 3:303 is MAYBE
+100 _ZNSt6vectorIiSaIiEEixEm at 2:1127 is MAYBE
+101 _ZN6Domain4lximEi at 3:308 is MAYBE
+102 _ZN6Domain4lxipEi at 3:309 is MAYBE
+103 _ZN6Domain5letamEi at 3:310 is MAYBE
+104 _ZN6Domain5letapEi at 3:311 is MAYBE
+105 _ZN6Domain6lzetamEi at 3:312 is MAYBE
+106 _ZN6Domain6lzetapEi at 3:313 is MAYBE
+107 _ZN6Domain6elemBCEi at 3:316 is MAYBE
+108 _Z14InitMeshDecompiiPiS_S_S_ at 1:678 is NO
+109 _ZNSt12_Vector_baseIdSaIdEEC2Ev at 2:315 is NO
+110 _ZNSt12_Vector_baseIdSaIdEE12_Vector_implC2Ev at 2:143 is NO
+111 _ZNSaIdEC2Ev at 5:163 is NO
+112 _ZNSt12_Vector_baseIdSaIdEE17_Vector_impl_dataC2Ev at 2:101 is NO
+113 _ZNSt15__new_allocatorIdEC2Ev at 6:88 is NO
+114 _ZNSt12_Vector_baseIiSaIiEEC2Ev at 2:315 is NO
+115 _ZNSt12_Vector_baseIiSaIiEE12_Vector_implC2Ev at 2:143 is NO
+116 _ZNSaIiEC2Ev at 5:163 is NO
+117 _ZNSt12_Vector_baseIiSaIiEE17_Vector_impl_dataC2Ev at 2:101 is NO
+118 _ZNSt15__new_allocatorIiEC2Ev at 6:88 is NO
+119 _ZNSt6vectorIdSaIdEE6resizeEm at 2:1014 is NO
+120 _ZNKSt6vectorIdSaIdEE4sizeEv at 2:993 is NO
+121 _ZNSt6vectorIdSaIdEE17_M_default_appendEm at 7:636 is NO
+123 _ZNKSt6vectorIdSaIdEE8max_sizeEv at 2:999 is NO
+124 _ZSt27__uninitialized_default_n_aIPdmdET_S1_T0_RSaIT1_E at 8:779 is MAYBE
+125 _ZNSt12_Vector_baseIdSaIdEE19_M_get_Tp_allocatorEv at 2:302 is NO
+126 _ZNKSt6vectorIdSaIdEE12_M_check_lenEmPKc at 2:1897 is NO
+127 _ZNSt12_Vector_baseIdSaIdEE11_M_allocateEm at 2:379 is NO
+128 _ZNSt12_Vector_baseIdSaIdEE13_M_deallocateEPdm at 2:387 is NO
+129 _ZNSt6vectorIdSaIdEE11_S_relocateEPdS2_S2_RS0_ at 2:506 is NO
+130 _ZNSt6vectorIdSaIdEE11_S_max_sizeERKS0_ at 2:1917 is NO
+131 _ZNKSt12_Vector_baseIdSaIdEE19_M_get_Tp_allocatorEv at 2:307 is MAYBE
+132 _ZNSt16allocator_traitsISaIdEE8max_sizeERKS0_ at 9:572 is NO
+133 _ZSt3minImERKT_S2_S2_ at 10:234 is NO
+134 _ZNKSt15__new_allocatorIdE8max_sizeEv at 6:183 is NO
+135 _ZNKSt15__new_allocatorIdE11_M_max_sizeEv at 6:231 is NO
+136 _ZSt25__uninitialized_default_nIPdmET_S1_T0_ at 8:697 is MAYBE
+137 _ZNSt27__uninitialized_default_n_1ILb1EE18__uninit_default_nIPdmEET_S3_T0_ at 8:661 is MAYBE
+138 _ZSt11__addressofIdEPT_RS0_ at 11:52 is NO
+139 _ZSt10_ConstructIdJEEvPT_DpOT0_ at 12:110 is MAYBE
+140 _ZSt6fill_nIPdmdET_S1_T0_RKT1_ at 10:1153 is MAYBE
+141 _ZSt10__fill_n_aIPdmdET_S1_T0_RKT1_St26random_access_iterator_tag at 10:1119 is MAYBE
+142 _ZSt17__size_to_integerm at 10:1018 is NO
+143 _ZSt19__iterator_categoryIPdENSt15iterator_traitsIT_E17iterator_categoryERKS2_ at 13:240 is NO
+144 _ZSt8__fill_aIPddEvT_S1_RKT0_ at 10:977 is MAYBE
+145  at 10:930 is MAYBE
+146 _ZSt9__fill_a1IPddEN9__gnu_cxx11__enable_ifIXsr11__is_scalarIT0_EE7__valueEvE6__typeET_S6_RKS3_ at 10:928 is MAYBE
+147 _ZSt3maxImERKT_S2_S2_ at 10:258 is NO
+148 _ZNSt16allocator_traitsISaIdEE8allocateERS0_m at 9:482 is NO
+149 _ZNSt15__new_allocatorIdE8allocateEmPKv at 6:127 is NO
+150 _ZNSt16allocator_traitsISaIdEE10deallocateERS0_Pdm at 9:517 is NO
+151 _ZNSt15__new_allocatorIdE10deallocateEPdm at 6:157 is NO
+152 _ZNSt6vectorIdSaIdEE14_S_do_relocateEPdS2_S2_RS0_St17integral_constantIbLb1EE at 2:494 is NO
+153 _ZSt12__relocate_aIPdS0_SaIdEET0_T_S3_S2_RT1_ at 8:1146 is NO
+154 _ZSt14__relocate_a_1IddENSt9enable_ifIXsr3std24__is_bitwise_relocatableIT_EE5valueEPS1_E4typeES2_S2_S2_RSaIT0_E at 8:1117 is NO
+155 _ZSt12__niter_baseIPdET_S1_ at 10:318 is NO
+156 _ZSt8_DestroyIPddEvT_S1_RSaIT0_E at 9:947 is NO
+157 _ZSt8_DestroyIPdEvT_S1_ at 12:183 is NO
+158 _ZNSt12_Destroy_auxILb1EE9__destroyIPdEEvT_S3_ at 12:172 is NO
+159 _ZNSt6vectorIdSaIdEEixEm at 2:1127 is YES
+160 _ZNKSt6vectorIiSaIiEE4sizeEv at 2:993 is NO
+161 _ZNSt6vectorIiSaIiEE17_M_default_appendEm at 7:636 is NO
+163 _ZNKSt6vectorIiSaIiEE8max_sizeEv at 2:999 is NO
+164 _ZSt27__uninitialized_default_n_aIPimiET_S1_T0_RSaIT1_E at 8:779 is NO
+165 _ZNSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv at 2:302 is NO
+166 _ZNKSt6vectorIiSaIiEE12_M_check_lenEmPKc at 2:1897 is NO
+167 _ZNSt12_Vector_baseIiSaIiEE11_M_allocateEm at 2:379 is NO
+168 _ZNSt12_Vector_baseIiSaIiEE13_M_deallocateEPim at 2:387 is NO
+169 _ZNSt6vectorIiSaIiEE11_S_relocateEPiS2_S2_RS0_ at 2:506 is NO
+170 _ZNSt6vectorIiSaIiEE11_S_max_sizeERKS0_ at 2:1917 is NO
+171 _ZNKSt12_Vector_baseIiSaIiEE19_M_get_Tp_allocatorEv at 2:307 is NO
+172 _ZNSt16allocator_traitsISaIiEE8max_sizeERKS0_ at 9:572 is MAYBE
+173 _ZNKSt15__new_allocatorIiE8max_sizeEv at 6:183 is MAYBE
+174 _ZNKSt15__new_allocatorIiE11_M_max_sizeEv at 6:231 is MAYBE
+175 _ZSt25__uninitialized_default_nIPimET_S1_T0_ at 8:697 is NO
+176 _ZNSt27__uninitialized_default_n_1ILb1EE18__uninit_default_nIPimEET_S3_T0_ at 8:661 is NO
+177 _ZSt11__addressofIiEPT_RS0_ at 11:52 is NO
+178 _ZSt10_ConstructIiJEEvPT_DpOT0_ at 12:110 is NO
+179 _ZSt6fill_nIPimiET_S1_T0_RKT1_ at 10:1153 is NO
+180 _ZSt10__fill_n_aIPimiET_S1_T0_RKT1_St26random_access_iterator_tag at 10:1119 is MAYBE
+182 _ZSt8__fill_aIPiiEvT_S1_RKT0_ at 10:977 is MAYBE
+183  at 10:930 is MAYBE
+184 _ZSt9__fill_a1IPiiEN9__gnu_cxx11__enable_ifIXsr11__is_scalarIT0_EE7__valueEvE6__typeET_S6_RKS3_ at 10:928 is MAYBE
+185 _ZNSt16allocator_traitsISaIiEE8allocateERS0_m at 9:482 is NO
+186 _ZNSt15__new_allocatorIiE8allocateEmPKv at 6:127 is NO
+187 _ZNSt16allocator_traitsISaIiEE10deallocateERS0_Pim at 9:517 is NO
+188 _ZNSt15__new_allocatorIiE10deallocateEPim at 6:157 is NO
+189 _ZNSt6vectorIiSaIiEE14_S_do_relocateEPiS2_S2_RS0_St17integral_constantIbLb1EE at 2:494 is NO
+190 _ZSt12__relocate_aIPiS0_SaIiEET0_T_S3_S2_RT1_ at 8:1146 is NO
+191 _ZSt14__relocate_a_1IiiENSt9enable_ifIXsr3std24__is_bitwise_relocatableIT_EE5valueEPS1_E4typeES2_S2_S2_RSaIT0_E at 8:1117 is NO
+192 _ZSt12__niter_baseIPiET_S1_ at 10:318 is NO
+193 _ZSt8_DestroyIPiiEvT_S1_RSaIT0_E at 9:947 is NO
+194 _ZSt8_DestroyIPiEvT_S1_ at 12:183 is NO
+196 _ZNSt12_Vector_baseIdSaIdEED2Ev at 2:368 is NO
+197 _ZNSt12_Vector_baseIdSaIdEE12_Vector_implD2Ev at 2:133 is NO
+198 _ZNSaIdED2Ev at 5:184 is NO
+200 _ZNSt12_Vector_baseIiSaIiEED2Ev at 2:368 is NO
+201 _ZNSt12_Vector_baseIiSaIiEE12_Vector_implD2Ev at 2:133 is NO
+202 _ZNSaIiED2Ev at 5:184 is NO
+204  at 14:69 is NO
+205 _Z23ParseCommandLineOptionsiPPciP11cmdLineOpts at 14:65 is NO
+207 _Z8StrToIntIiEiPKcPT_ at 14:15 is NO
+209  at 14:201 is NO
+210  at 14:202 is NO
+211 _Z25VerifyAndWriteFinalOutputdR6Domainii at 14:179 is NO
+217 _Z4FABSd at 3:53 is MAYBE
+218 _ZNSt8ios_base6unsetfESt13_Ios_Fmtflags at 15:722 is NO
+220 _ZStaNRSt13_Ios_FmtflagsS_ at 15:104 is NO
+227 _Z14CalcElemVolumePKdS0_S0_ at 18:1347 is MAYBE
+228 _ZL14CalcElemVolumedddddddddddddddddddddddd at 18:1271 is MAYBE
+229  at 18:1495 is YES
+230  at 18:1525 is YES
+231  at 18:1534 is MAYBE
+232 _Z22CalcKinematicsForElemsR6Domaindi at 18:1492 is YES
+234 _ZL29CollectDomainNodesToElemNodesR6DomainPKiPdS3_S3_ at 18:232 is YES
+236 _ZN6Domain4vnewEi at 3:324 is MAYBE
+238 _ZN6Domain4delvEi at 3:352 is MAYBE
+239 _ZL28CalcElemCharacteristicLengthPKdS0_S0_d at 18:1384 is MAYBE
+240 _ZN6Domain6arealgEi at 3:361 is MAYBE
+244 _ZL32CalcElemShapeFunctionDerivativesPKdS0_S0_PA8_dPd at 18:295 is MAYBE
+245 _ZL24CalcElemVelocityGradientPKdS0_S0_PA8_S_dPd at 18:1431 is MAYBE
+246 _ZN6Domain3dxxEi at 3:319 is MAYBE
+247 _ZN6Domain3dyyEi at 3:320 is MAYBE
+248 _ZN6Domain3dzzEi at 3:321 is MAYBE
+249  at 18:2701 is YES
+250 main at 18:2607 is YES
+254 _ZL13TimeIncrementR6Domain at 18:168 is NO
+255 _ZL16LagrangeLeapFrogR6Domain at 18:2558 is YES
+264 _ZL8AreaFacedddddddddddd at 18:1362 is MAYBE
+265 _ZSt3maxIdERKT_S2_S2_ at 10:258 is MAYBE
+266 _Z4SQRTd at 3:45 is MAYBE
+273 _ZL13LagrangeNodalR6Domain at 18:1210 is YES
+274 _ZL16LagrangeElementsR6Domaini at 18:2393 is YES
+276  at 18:2539 is MAYBE
+277 _ZL27CalcTimeConstraintsForElemsR6Domain at 18:2533 is MAYBE
+278 _ZNK6Domain5u_cutEv at 3:378 is MAYBE
+279  at 18:1107 is MAYBE
+280 _ZL17CalcForceForNodesR6Domain at 18:1098 is YES
+281  at 18:1135 is YES
+282 _ZL24CalcAccelerationForNodesR6Domaini at 18:1133 is YES
+284  at 18:1152 is MAYBE
+285  at 18:1157 is MAYBE
+286  at 18:1162 is MAYBE
+287 _ZL43ApplyAccelerationBoundaryConditionsForNodesR6Domain at 18:1146 is MAYBE
+288  at 18:1175 is YES
+289 _ZL20CalcVelocityForNodesR6Domainddi at 18:1173 is YES
+290  at 18:1198 is MAYBE
+291 _ZL20CalcPositionForNodesR6Domaindi at 18:1197 is MAYBE
+292 _ZN6Domain2fxEi at 3:281 is YES
+293 _ZN6Domain2fyEi at 3:282 is YES
+294 _ZN6Domain2fzEi at 3:283 is YES
+295  at 18:1076 is MAYBE
+296 _ZL23CalcVolumeForceForElemsR6Domain at 18:1057 is YES
+297 _ZNK6Domain6hgcoefEv at 3:385 is NO
+298 _Z8AllocateIdEPT_m at 3:112 is MAYBE
+299  at 18:282 is MAYBE
+300 _ZL23InitStressTermsForElemsR6DomainPdS1_S1_i at 18:277 is MAYBE
+301  at 18:520 is YES
+305 _ZL23IntegrateStressForElemsR6DomainPdS1_S1_S1_ii at 18:497 is YES
+306  at 18:1004 is YES
+307  at 18:1014 is MAYBE
+308 _ZL28CalcHourglassControlForElemsR6DomainPdd at 18:993 is YES
+309 _Z7ReleaseIdEvPPT_ at 3:118 is MAYBE
+312  at 18:426 is MAYBE
+313 _ZL19CalcElemNodeNormalsPdS_S_PKdS1_S1_ at 18:425 is MAYBE
+314  at 18:484 is MAYBE
+315 _ZL27SumElemStressesToNodeForcesPA8_KddddPdS2_S2_ at 18:483 is MAYBE
+318 _ZL17SumElemFaceNormalPdS_S_S_S_S_S_S_S_S_S_S_dddddddddddd at 18:389 is MAYBE
+319 _ZL24CalcElemVolumeDerivativePdS_S_PKdS1_S1_ at 18:627 is MAYBE
+320  at 18:779 is YES
+321  at 18:792 is MAYBE
+324 _ZL28CalcFBHourglassForceForElemsR6DomainPdS1_S1_S1_S1_S1_S1_dii at 18:714 is YES
+325 _ZL7VoluDerddddddddddddddddddPdS_S_ at 18:596 is MAYBE
+328 _Z4CBRTd at 3:49 is MAYBE
+329  at 18:670 is MAYBE
+330  at 18:676 is MAYBE
+331  at 18:681 is MAYBE
+332  at 18:687 is MAYBE
+333  at 18:692 is MAYBE
+334  at 18:698 is MAYBE
+335 _ZL24CalcElemFBHourglassForcePdS_S_PA4_ddS_S_S_ at 18:668 is MAYBE
+341 _ZN6Domain10symmXemptyEv at 3:292 is NO
+342 _ZN6Domain5symmXEi at 3:289 is MAYBE
+343 _ZN6Domain10symmYemptyEv at 3:293 is NO
+344 _ZN6Domain5symmYEi at 3:290 is MAYBE
+345 _ZN6Domain10symmZemptyEv at 3:294 is NO
+346 _ZN6Domain5symmZEi at 3:291 is MAYBE
+347 _ZNKSt6vectorIiSaIiEE5emptyEv at 2:1089 is NO
+348 _ZN9__gnu_cxxeqIPKiSt6vectorIiSaIiEEEEbRKNS_17__normal_iteratorIT_T0_EESB_ at 19:1228 is NO
+349 _ZNKSt6vectorIiSaIiEE5beginEv at 2:884 is NO
+350 _ZNKSt6vectorIiSaIiEE3endEv at 2:904 is NO
+351 _ZNK9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEE4baseEv at 19:1163 is NO
+352 _ZN9__gnu_cxx17__normal_iteratorIPKiSt6vectorIiSaIiEEEC2ERKS2_ at 19:1077 is NO
+354  at 18:1568 is MAYBE
+355 _ZL20CalcLagrangeElementsR6Domain at 18:1558 is YES
+356  at 18:1976 is MAYBE
+357 _ZL13CalcQForElemsR6Domain at 18:1928 is YES
+358  at 18:2306 is MAYBE
+359  at 18:2312 is MAYBE
+360  at 18:2319 is MAYBE
+361  at 18:2328 is MAYBE
+362  at 18:2348 is YES
+363 _ZL31ApplyMaterialPropertiesForElemsR6Domain at 18:2296 is YES
+364  at 18:2376 is MAYBE
+365 _ZL21UpdateVolumesForElemsR6Domaindi at 18:2374 is MAYBE
+366 _ZNK6Domain5v_cutEv at 3:382 is NO
+367 _ZN6Domain15AllocateStrainsEi at 3:246 is MAYBE
+368 _ZN6Domain4vdovEi at 3:358 is MAYBE
+369 _ZN6Domain17DeallocateStrainsEv at 3:253 is NO
+372 _ZN6Domain17AllocateGradientsEii at 3:222 is NO
+373  at 18:1601 is YES
+374 _ZL31CalcMonotonicQGradientsForElemsR6Domain at 18:1598 is YES
+375  at 18:1917 is YES
+376 _ZL22CalcMonotonicQForElemsR6Domain at 18:1908 is YES
+377 _ZN6Domain19DeallocateGradientsEv at 3:235 is MAYBE
+378 _ZNK6Domain5qstopEv at 3:386 is MAYBE
+379 _ZN6Domain9delx_zetaEi at 3:334 is MAYBE
+380 _ZN6Domain9delv_zetaEi at 3:329 is MAYBE
+381 _ZN6Domain7delx_xiEi at 3:332 is MAYBE
+382 _ZN6Domain7delv_xiEi at 3:327 is MAYBE
+383 _ZN6Domain8delx_etaEi at 3:333 is MAYBE
+384 _ZN6Domain8delv_etaEi at 3:328 is MAYBE
+387  at 18:1752 is YES
+388 _ZL28CalcMonotonicQRegionForElemsR6Domainid at 18:1746 is YES
+389 _ZNK6Domain18monoq_limiter_multEv at 3:388 is NO
+390 _ZNK6Domain15monoq_max_slopeEv at 3:387 is NO
+391 _ZNK6Domain9qlc_monoqEv at 3:390 is NO
+392 _ZNK6Domain9qqc_monoqEv at 3:391 is NO
+401 _ZN6Domain2qqEi at 3:348 is MAYBE
+402 _ZN6Domain2qlEi at 3:346 is MAYBE
+403 _ZNK6Domain7eosvminEv at 3:395 is NO
+404 _ZNK6Domain7eosvmaxEv at 3:394 is NO
+405 _ZN6Domain11regElemlistEi at 3:302 is NO
+407  at 18:2211 is YES
+408  at 18:2214 is YES
+409  at 18:2224 is MAYBE
+410  at 18:2234 is MAYBE
+411  at 18:2242 is MAYBE
+412  at 18:2252 is MAYBE
+413  at 18:2264 is MAYBE
+414 _ZL15EvalEOSForElemsR6DomainPdiPii at 18:2180 is YES
+415 _ZNK6Domain5e_cutEv at 3:379 is NO
+416 _ZNK6Domain5p_cutEv at 3:380 is NO
+417 _ZNK6Domain5ss4o3Ev at 3:389 is NO
+418 _ZNK6Domain5q_cutEv at 3:381 is NO
+419 _ZNK6Domain4pminEv at 3:396 is NO
+420 _ZNK6Domain4eminEv at 3:397 is NO
+421 _ZNK6Domain7refdensEv at 3:399 is NO
+423  at 18:2041 is MAYBE
+424  at 18:2053 is MAYBE
+425  at 18:2077 is MAYBE
+426  at 18:2092 is MAYBE
+427  at 18:2128 is MAYBE
+428 _ZL18CalcEnergyForElemsPdS_S_S_S_S_S_S_S_S_S_S_S_dddddS_S_ddiPi at 18:2038 is YES
+429  at 18:2161 is MAYBE
+430 _ZL22CalcSoundSpeedForElemsR6DomainPddS1_S1_S1_S1_diPi at 18:2160 is MAYBE
+431  at 18:2003 is MAYBE
+432  at 18:2009 is MAYBE
+433 _ZL20CalcPressureForElemsPdS_S_S_S_S_dddiPi at 18:2002 is MAYBE
+434  at 18:2433 is MAYBE
+435  at 18:2458 is NO
+436 _ZL29CalcCourantConstraintForElemsR6DomainiPidRd at 18:2411 is MAYBE
+437 _ZNK6Domain3qqcEv at 3:392 is NO
+438  at 18:2499 is MAYBE
+439  at 18:2516 is NO
+440 _ZL27CalcHydroConstraintForElemsR6DomainiPidRd at 18:2478 is MAYBE
+441 _ZNK6Domain7dvovmaxEv at 3:398 is NO
+Number of YES code regions: 45 
+Number of MAYBE code regions: 163 
+Number of NO code regions: 145 
+Number of Non-zero code regions: 353 

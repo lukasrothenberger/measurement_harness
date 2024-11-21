@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.919161328 +0100
+@@ -87,6 +87,7 @@
+    SetupCommBuffers(edgeNodes);
+ 
+    // Basic Field Initialization 
++   #pragma omp parallel for 
+    for (Index_t i=0; i<numElem(); ++i) {
+       e(i) =  Real_t(0.0) ;
+       p(i) =  Real_t(0.0) ;

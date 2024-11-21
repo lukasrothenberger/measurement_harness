@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_without_metadata/lulesh.cc	2024-11-21 08:06:44.323261753 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_without_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:09:20.881149392 +0100
+@@ -2316,6 +2316,7 @@
+        }
+ 
+        if (eosvmax != Real_t(0.)) {
++          #pragma omp parallel for shared(eosvmax,numElem,vnewc) 
+           for(Index_t i=0 ; i<numElem ; ++i) {
+              if (vnewc[i] > eosvmax)
+                 vnewc[i] = eosvmax ;

@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:40.328162025 +0100
+@@ -481,6 +481,7 @@
+                                   const Real_t stress_zz,
+                                   Real_t fx[], Real_t fy[], Real_t fz[] )
+ {
++   #pragma omp parallel for shared(B,fx,fy,fz,stress_xx,stress_yy,stress_zz) 
+    for(Index_t i = 0; i < 8; i++) {
+       fx[i] = -( stress_xx * B[0][i] );
+       fy[i] = -( stress_yy * B[1][i]  );

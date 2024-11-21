@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc	2024-11-21 08:06:44.299261785 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh-init.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.614161461 +0100
+@@ -246,6 +246,7 @@
+   Index_t zidx = 0 ;
+   nidx = 0 ;
+   for (Index_t plane=0; plane<edgeElems; ++plane) {
++    #pragma omp parallel for private(nidx,zidx) shared(edgeElems,edgeNodes) 
+     for (Index_t row=0; row<edgeElems; ++row) {
+       for (Index_t col=0; col<edgeElems; ++col) {
+ 	Index_t *localNode = nodelist(zidx) ;

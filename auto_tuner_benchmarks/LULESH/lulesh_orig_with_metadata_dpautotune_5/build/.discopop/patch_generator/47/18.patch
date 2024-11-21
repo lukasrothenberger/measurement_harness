@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.595161469 +0100
+@@ -2496,6 +2496,7 @@
+       Index_t thread_num = 0;
+ #endif      
+ 
++      #pragma omp parallel for lastprivate(dthydro_tmp,hydro_elem) shared(domain,dvovmax,length,regElemlist) 
+       for (Index_t i = 0 ; i < length ; ++i) {
+          Index_t indx = regElemlist[i] ;
+ 

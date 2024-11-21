@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.226161630 +0100
+@@ -1522,6 +1522,7 @@
+                                              volume);
+ 
+     // get nodal velocities from global array and copy into local arrays.
++    #pragma omp parallel for private(xd_local,yd_local,zd_local) shared(domain,elemToNode) 
+     for( Index_t lnode=0 ; lnode<8 ; ++lnode )
+     {
+       Index_t gnode = elemToNode[lnode];

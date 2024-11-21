@@ -1,0 +1,10 @@
+--- /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc	2024-11-21 08:06:44.300261783 +0100
++++ /home/lukas/git/benchmark_harness/auto_tuner_benchmarks/LULESH/lulesh_orig_with_metadata/lulesh.cc.discopop_patch_generator.temp	2024-11-21 08:08:41.561161484 +0100
+@@ -2325,6 +2325,7 @@
+        // This check may not make perfect sense in LULESH, but
+        // it's representative of something in the full code -
+        // just leave it in, please
++       #pragma omp parallel for shared(domain,eosvmax,eosvmin,numElem) 
+        for (Index_t i=0; i<numElem; ++i) {
+           Real_t vc = domain.v(i) ;
+           if (eosvmin != Real_t(0.)) {

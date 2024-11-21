@@ -13,6 +13,12 @@ seq:
 	cd LULESH_SEQ/build && cmake .. -DWITH_MPI=Off -DWITH_OPENMP=Off && make -j
 	cd LULESH_SEQ/build && /usr/bin/time --append --output=../../measurements.csv --format="SEQ;%e;%x;" timeout 10 ./lulesh2.0 -s ${LULESH_PROBLEM_SIZE}
 
+seq_no_omp:
+	cd LULESH_SEQ_no_omp && rm -rf build
+	cd LULESH_SEQ_no_omp && mkdir build
+	cd LULESH_SEQ_no_omp/build && cmake .. -DWITH_MPI=Off -DWITH_OPENMP=Off && make -j
+	cd LULESH_SEQ_no_omp/build && /usr/bin/time --append --output=../../measurements.csv --format="SEQ_no_omp;%e;%x;" timeout 10 ./lulesh2.0 -s ${LULESH_PROBLEM_SIZE}
+
 par:
 	cd LULESH_PAR && rm -rf build
 	cd LULESH_PAR && mkdir build

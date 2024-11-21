@@ -1,4 +1,13 @@
+Laptop:
 _10:
     original: 10,220
     _1 (default reference sharing clause): 10,275
-    
+    _2 (no omp rtlib): 10,875
+    _2 (schedule dynamic): 10,437
+
+
+SERVER:
+seq:
+    original: 35,325
+_10:
+    original: 

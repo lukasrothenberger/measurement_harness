@@ -1,4 +1,0 @@
-1	/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_without_metadata_dpautotune_12/BT/bt.cpp
-2	/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_without_metadata_dpautotune_12/common/c_print_results.cpp
-3	/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_without_metadata_dpautotune_12/common/c_timers.cpp
-4	/home/lukas/git/benchmark_harness/auto_tuner_benchmarks/NPB/BT/BT_orig_without_metadata_dpautotune_12/common/wtime.cpp

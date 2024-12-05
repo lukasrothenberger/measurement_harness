@@ -14,6 +14,7 @@ execute_hotspot_detection:
 	cd md_orig/build && make 
 	cd md_orig/build && ./prog 3 40 40
 	cd md_orig/build && ./prog 3 300 100
+	cd md_orig/build && ./prog 3 600 100
 	cd md_orig/build/.discopop && hotspot_analyzer
 
 execute_dynamic_analysis:

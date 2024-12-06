@@ -45,11 +45,11 @@ execute_pattern_analysis_without_metadata:
 
 execute_auto_tuner_with_metadata:
 	cd lulesh_orig_with_metadata && echo "$$(pwd)"
-	cd lulesh_orig_with_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
+	cd lulesh_orig_with_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop --skip-cleanup
 
 execute_auto_tuner_without_metadata:
 	cd lulesh_orig_without_metadata && echo "$$(pwd)"
-	cd lulesh_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
+	cd lulesh_orig_without_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
 	
 execute_parallel_reference:
 	cp -r ../../clean_code/LULESH_PAR lulesh_PAR

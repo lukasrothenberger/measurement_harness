@@ -14,6 +14,7 @@ execute_hotspot_detection:
 	cd md_orig/build && make 
 	cd md_orig/build && ./prog 3 40 40
 	cd md_orig/build && ./prog 3 300 100
+	cd md_orig/build && ./prog 3 600 100
 	cd md_orig/build/.discopop && hotspot_analyzer
 
 execute_dynamic_analysis:
@@ -41,11 +42,11 @@ execute_pattern_analysis_without_metadata:
 
 execute_auto_tuner_with_metadata:
 	cd md_orig_with_metadata && echo "$$(pwd)"
-	cd md_orig_with_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
+	cd md_orig_with_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
 
 execute_auto_tuner_without_metadata:
 	cd md_orig_without_metadata && echo "$$(pwd)"
-	cd md_orig_without_metadata && discopop_auto_tuner --log info --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
+	cd md_orig_without_metadata && discopop_auto_tuner --log debug --project-path $$(pwd) --dot-dp-path $$(pwd)/build/.discopop
 
 execute_sanity_checker_with_metadata:
 	cd md_orig_with_metadata && echo "$$(pwd)"

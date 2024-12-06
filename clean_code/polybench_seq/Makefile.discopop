@@ -25,7 +25,10 @@ instrument_3mm:
 
 compile_2mm:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/2mm utilities/polybench.c linear-algebra/kernels/2mm/2mm.c -o 2mm_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/2mm utilities/polybench.c linear-algebra/kernels/2mm/2mm.c -o 2mm_base_mini -DMINI_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/2mm utilities/polybench.c linear-algebra/kernels/2mm/2mm.c -o 2mm_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/2mm utilities/polybench.c linear-algebra/kernels/2mm/2mm.c -o 2mm_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/2mm utilities/polybench.c linear-algebra/kernels/2mm/2mm.c -o 2mm_base_large -DLARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/2mm utilities/polybench.c linear-algebra/kernels/2mm/2mm.c -o 2mm_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_2mm:

@@ -1,6 +1,10 @@
 compile_atax:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_mini -DMINI_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/atax utilities/polybench.c linear-algebra/kernels/atax/atax.c -o atax_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_atax:
@@ -149,11 +153,6 @@ compile_sanitize_trmm:
 
 instrument_trmm:
 	discopop_cc -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base -DSMALL_DATASET
-
-compile_durbin:
-	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/durbin utilities/polybench.c linear-compile_adi:
-	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base -lm
-	discopop_cc -I utilities -I linear-algebra/solvers/durbin utilities/polybench.c linear-algebra/solvers/durbin/durbin.c -o durbin_base -DSMALL_DATASET
 
 compile_dynprog:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base

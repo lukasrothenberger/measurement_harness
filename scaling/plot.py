@@ -77,5 +77,5 @@ plt.ylabel("Execution time (s)")
 plt.xlabel("Input size")
 plt.legend()
 plt.savefig(os.path.join(experiment_path, "performance.png"))
-plt.show()
+# plt.show()
 

@@ -15,6 +15,11 @@ instrument_atax:
 
 compile_3mm:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c -o 3mm_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c -o 3mm_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c -o 3mm_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c -o 3mm_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c -o 3mm_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c -o 3mm_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/3mm utilities/polybench.c linear-algebra/kernels/3mm/3mm.c -o 3mm_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_3mm:
@@ -39,6 +44,11 @@ instrument_2mm:
 
 compile_bicg:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/bicg utilities/polybench.c linear-algebra/kernels/bicg/bicg.c -o bicg_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/bicg utilities/polybench.c linear-algebra/kernels/bicg/bicg.c -o bicg_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/bicg utilities/polybench.c linear-algebra/kernels/bicg/bicg.c -o bicg_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/bicg utilities/polybench.c linear-algebra/kernels/bicg/bicg.c -o bicg_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/bicg utilities/polybench.c linear-algebra/kernels/bicg/bicg.c -o bicg_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/bicg utilities/polybench.c linear-algebra/kernels/bicg/bicg.c -o bicg_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/bicg utilities/polybench.c linear-algebra/kernels/bicg/bicg.c -o bicg_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_bicg:
@@ -49,6 +59,11 @@ instrument_bicg:
 
 compile_cholesky:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/cholesky utilities/polybench.c linear-algebra/kernels/cholesky/cholesky.c -o cholesky_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_cholesky:
@@ -59,6 +74,11 @@ instrument_cholesky:
 
 compile_doitgen:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/doitgen utilities/polybench.c linear-algebra/kernels/doitgen/doitgen.c -o doitgen_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_doitgen:
@@ -69,6 +89,11 @@ instrument_doitgen:
 
 compile_gemm:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemm utilities/polybench.c linear-algebra/kernels/gemm/gemm.c -o gemm_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemm utilities/polybench.c linear-algebra/kernels/gemm/gemm.c -o gemm_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemm utilities/polybench.c linear-algebra/kernels/gemm/gemm.c -o gemm_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemm utilities/polybench.c linear-algebra/kernels/gemm/gemm.c -o gemm_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemm utilities/polybench.c linear-algebra/kernels/gemm/gemm.c -o gemm_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemm utilities/polybench.c linear-algebra/kernels/gemm/gemm.c -o gemm_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemm utilities/polybench.c linear-algebra/kernels/gemm/gemm.c -o gemm_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_gemm:
@@ -79,6 +104,11 @@ instrument_gemm:
 
 compile_gemver:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemver utilities/polybench.c linear-algebra/kernels/gemver/gemver.c -o gemver_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemver utilities/polybench.c linear-algebra/kernels/gemver/gemver.c -o gemver_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemver utilities/polybench.c linear-algebra/kernels/gemver/gemver.c -o gemver_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemver utilities/polybench.c linear-algebra/kernels/gemver/gemver.c -o gemver_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemver utilities/polybench.c linear-algebra/kernels/gemver/gemver.c -o gemver_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemver utilities/polybench.c linear-algebra/kernels/gemver/gemver.c -o gemver_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gemver utilities/polybench.c linear-algebra/kernels/gemver/gemver.c -o gemver_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_gemver:
@@ -89,6 +119,11 @@ instrument_gemver:
 
 compile_gesummv:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gesummv utilities/polybench.c linear-algebra/kernels/gesummv/gesummv.c -o gesummv_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gesummv utilities/polybench.c linear-algebra/kernels/gesummv/gesummv.c -o gesummv_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gesummv utilities/polybench.c linear-algebra/kernels/gesummv/gesummv.c -o gesummv_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gesummv utilities/polybench.c linear-algebra/kernels/gesummv/gesummv.c -o gesummv_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gesummv utilities/polybench.c linear-algebra/kernels/gesummv/gesummv.c -o gesummv_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gesummv utilities/polybench.c linear-algebra/kernels/gesummv/gesummv.c -o gesummv_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/gesummv utilities/polybench.c linear-algebra/kernels/gesummv/gesummv.c -o gesummv_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_gesummv:
@@ -99,6 +134,11 @@ instrument_gesummv:
 
 compile_mvt:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/mvt utilities/polybench.c linear-algebra/kernels/mvt/mvt.c -o mvt_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/mvt utilities/polybench.c linear-algebra/kernels/mvt/mvt.c -o mvt_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/mvt utilities/polybench.c linear-algebra/kernels/mvt/mvt.c -o mvt_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/mvt utilities/polybench.c linear-algebra/kernels/mvt/mvt.c -o mvt_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/mvt utilities/polybench.c linear-algebra/kernels/mvt/mvt.c -o mvt_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/mvt utilities/polybench.c linear-algebra/kernels/mvt/mvt.c -o mvt_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/mvt utilities/polybench.c linear-algebra/kernels/mvt/mvt.c -o mvt_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_mvt:
@@ -109,6 +149,11 @@ instrument_mvt:
 
 compile_symm:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/symm utilities/polybench.c linear-algebra/kernels/symm/symm.c -o symm_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/symm utilities/polybench.c linear-algebra/kernels/symm/symm.c -o symm_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/symm utilities/polybench.c linear-algebra/kernels/symm/symm.c -o symm_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/symm utilities/polybench.c linear-algebra/kernels/symm/symm.c -o symm_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/symm utilities/polybench.c linear-algebra/kernels/symm/symm.c -o symm_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/symm utilities/polybench.c linear-algebra/kernels/symm/symm.c -o symm_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/symm utilities/polybench.c linear-algebra/kernels/symm/symm.c -o symm_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_symm:
@@ -119,6 +164,11 @@ instrument_symm:
 
 compile_syr2k:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syr2k utilities/polybench.c linear-algebra/kernels/syr2k/syr2k.c -o syr2k_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syr2k utilities/polybench.c linear-algebra/kernels/syr2k/syr2k.c -o syr2k_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syr2k utilities/polybench.c linear-algebra/kernels/syr2k/syr2k.c -o syr2k_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syr2k utilities/polybench.c linear-algebra/kernels/syr2k/syr2k.c -o syr2k_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syr2k utilities/polybench.c linear-algebra/kernels/syr2k/syr2k.c -o syr2k_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syr2k utilities/polybench.c linear-algebra/kernels/syr2k/syr2k.c -o syr2k_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syr2k utilities/polybench.c linear-algebra/kernels/syr2k/syr2k.c -o syr2k_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_syr2k:
@@ -129,6 +179,11 @@ instrument_syr2k:
 
 compile_syrk:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syrk utilities/polybench.c linear-algebra/kernels/syrk/syrk.c -o syrk_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syrk utilities/polybench.c linear-algebra/kernels/syrk/syrk.c -o syrk_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syrk utilities/polybench.c linear-algebra/kernels/syrk/syrk.c -o syrk_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syrk utilities/polybench.c linear-algebra/kernels/syrk/syrk.c -o syrk_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syrk utilities/polybench.c linear-algebra/kernels/syrk/syrk.c -o syrk_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syrk utilities/polybench.c linear-algebra/kernels/syrk/syrk.c -o syrk_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/syrk utilities/polybench.c linear-algebra/kernels/syrk/syrk.c -o syrk_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_syrk:
@@ -139,6 +194,11 @@ instrument_syrk:
 
 compile_trisolv:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trisolv utilities/polybench.c linear-algebra/kernels/trisolv/trisolv.c -o trisolv_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trisolv utilities/polybench.c linear-algebra/kernels/trisolv/trisolv.c -o trisolv_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trisolv utilities/polybench.c linear-algebra/kernels/trisolv/trisolv.c -o trisolv_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trisolv utilities/polybench.c linear-algebra/kernels/trisolv/trisolv.c -o trisolv_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trisolv utilities/polybench.c linear-algebra/kernels/trisolv/trisolv.c -o trisolv_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trisolv utilities/polybench.c linear-algebra/kernels/trisolv/trisolv.c -o trisolv_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trisolv utilities/polybench.c linear-algebra/kernels/trisolv/trisolv.c -o trisolv_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_trisolv:
@@ -149,6 +209,11 @@ instrument_trisolv:
 
 compile_trmm:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/kernels/trmm utilities/polybench.c linear-algebra/kernels/trmm/trmm.c -o trmm_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_trmm:
@@ -159,6 +224,11 @@ instrument_trmm:
 
 compile_dynprog:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/dynprog utilities/polybench.c linear-algebra/solvers/dynprog/dynprog.c -o dynprog_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_dynprog:
@@ -169,6 +239,11 @@ instrument_dynprog:
 
 compile_gramschmidt:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base -lm
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base_mini -DMINI_DATASET -lm 
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base_small -DSMALL_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base_standard -DSTANDARD_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base_large -DLARGE_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base_extralarge -DEXTRALARGE_DATASET -lm
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/gramschmidt utilities/polybench.c linear-algebra/solvers/gramschmidt/gramschmidt.c -o gramschmidt_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS -lm
 
 compile_sanitize_gramschmidt:
@@ -179,6 +254,11 @@ instrument_gramschmidt:
 
 compile_lu:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base -DEXTRALARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/lu utilities/polybench.c linear-algebra/solvers/lu/lu.c -o lu_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_lu:
@@ -189,6 +269,11 @@ instrument_lu:
 
 compile_ludcmp:
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base_mini -DMINI_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base_small -DSMALL_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base_standard -DSTANDARD_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base_large -DLARGE_DATASET
+	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base_extralarge -DEXTRALARGE_DATASET
 	${CC} ${CFLAGS} -I utilities -I linear-algebra/solvers/ludcmp utilities/polybench.c linear-algebra/solvers/ludcmp/ludcmp.c -o ludcmp_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS
 
 compile_sanitize_ludcmp:
@@ -199,6 +284,11 @@ instrument_ludcmp:
 
 compile_correlation:
 	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base_mini -DMINI_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base_small -DSMALL_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base_standard -DSTANDARD_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base_large -DLARGE_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base_extralarge -DEXTRALARGE_DATASET -lm
 	${CC} ${CFLAGS} -I utilities -I datamining/correlation utilities/polybench.c datamining/correlation/correlation.c -o correlation_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS -lm
 
 compile_sanitize_correlation:
@@ -209,6 +299,11 @@ instrument_correlation:
 
 compile_covariance:
 	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base_mini -DMINI_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base_small -DSMALL_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base_standard -DSTANDARD_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base_large -DLARGE_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base_extralarge -DEXTRALARGE_DATASET -lm
 	${CC} ${CFLAGS} -I utilities -I datamining/covariance utilities/polybench.c datamining/covariance/covariance.c -o covariance_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS -lm
 
 compile_sanitize_covariance:
@@ -219,6 +314,11 @@ instrument_covariance:
 
 compile_jacobi-2d:
 	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base_mini -DMINI_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base_small -DSMALL_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base_standard -DSTANDARD_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base_large -DLARGE_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base_extralarge -DEXTRALARGE_DATASET -lm
 	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-2d-imper utilities/polybench.c stencils/jacobi-2d-imper/jacobi-2d-imper.c -o jacobi-2d_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS -lm
 
 compile_sanitize_jacobi-2d:
@@ -229,6 +329,11 @@ instrument_jacobi-2d:
 
 compile_jacobi-1d:
 	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base_mini -DMINI_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base_small -DSMALL_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base_standard -DSTANDARD_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base_large -DLARGE_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base_extralarge -DEXTRALARGE_DATASET -lm
 	${CC} ${CFLAGS} -I utilities -I stencils/jacobi-1d-imper utilities/polybench.c stencils/jacobi-1d-imper/jacobi-1d-imper.c -o jacobi-1d_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS -lm
 
 compile_sanitize_jacobi-1d:
@@ -239,6 +344,11 @@ instrument_jacobi-1d:
 
 compile_fdtd-2d:
 	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base_mini -DMINI_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base_small -DSMALL_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base_standard -DSTANDARD_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base_large -DLARGE_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base_extralarge -DEXTRALARGE_DATASET -lm
 	${CC} ${CFLAGS} -I utilities -I stencils/fdtd-2d utilities/polybench.c stencils/fdtd-2d/fdtd-2d.c -o fdtd-2d_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS -lm
 
 compile_sanitize_fdtd-2d:
@@ -249,6 +359,11 @@ instrument_fdtd-2d:
 
 compile_adi:
 	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base_mini -DMINI_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base_small -DSMALL_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base_standard -DSTANDARD_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base_large -DLARGE_DATASET -lm
+	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base_extralarge -DEXTRALARGE_DATASET -lm
 	${CC} ${CFLAGS} -I utilities -I stencils/adi utilities/polybench.c stencils/adi/adi.c -o adi_base_dump_arrays -DSMALL_DATASET -DPOLYBENCH_DUMP_ARRAYS -lm
 
 compile_sanitize_adi:

@@ -1,4 +1,5 @@
 make clean 
+rm -rf bin/*
 CC=clang++ make is CLASS=A
 
 cd bin

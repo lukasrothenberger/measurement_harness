@@ -1,8 +1,8 @@
 make clean 
 rm -rf bin/*
-CC=clang++ make lu CLASS=A
+CC=clang++ make lu CLASS=S
 
 cd bin
-./lu.A > dp_execute_out.txt
+./lu.S > dp_execute_out.txt
 grep "Verification    =               SUCCESSFUL" dp_execute_out.txt
 return $?

@@ -1,2 +1,2 @@
 make clean 
-CC=clang++ make lu CLASS=A
+CC=clang++ make lu CLASS=S

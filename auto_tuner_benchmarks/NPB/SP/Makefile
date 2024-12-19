@@ -23,6 +23,7 @@ execute_dynamic_analysis:
 	cd ${BENCHMARK_NAME}_orig && make clean
 	cd ${BENCHMARK_NAME}_orig && DOT_DISCOPOP=$$(pwd)/bin/.discopop CXX=discopop_cxx CC=discopop_cc make ${BENCHMARK_NAME_LOWERCASE} CLASS=S
 	cd ${BENCHMARK_NAME}_orig/bin && ./${BENCHMARK_NAME_LOWERCASE}.S
+	${BENCHMARK_NAME}_orig/bin/.discopop && discopop_preprocessor --log info
 
 create_code_version_with_metadata:
 	cp -r ${BENCHMARK_NAME}_orig ${BENCHMARK_NAME}_orig_with_metadata
